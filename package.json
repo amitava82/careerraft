@@ -1,0 +1,23 @@
+{
+  "name": "careerraft",
+  "version": "0.0.1",
+  "description": "Educational pit-stop - Choose Better, Learn Better",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://amitava82@bitbucket.org/careerraft/careerraft.git"
+  },
+  "author": "Amitava Saha <amitava82@gmail.com> (https://github.com/amitava82)",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/careerraft/careerraft#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.3.7"
+  },
+  "devDependencies": {
+    "react": "^0.14.6"
+  }
+}
