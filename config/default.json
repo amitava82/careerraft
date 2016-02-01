@@ -1,0 +1,17 @@
+{
+    "mongo": {
+        "host": "localhost",
+        "port": "",
+        "db": "raft"
+    },
+
+    "session": {
+
+    },
+
+    "ui": {
+        "host": "localhost",
+        "port": "3000",
+        "protocol": "http"
+    }
+}

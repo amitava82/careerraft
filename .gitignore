@@ -6,3 +6,4 @@ w.js
 .sass-cache
 
 build/public
+bower_components

@@ -1,0 +1,16 @@
+{
+    "middleware": ["log"],
+    "routes": [
+        {
+            "path": "/api/orgs",
+            "method": "get",
+            "handler": "list",
+            "middleware": []
+        },
+        {
+            "path": "/api/orgs",
+            "method": "post",
+            "handler": "create"
+        }
+    ]
+}
