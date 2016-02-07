@@ -1,4 +1,25 @@
 {
-    "middleware": [],
-    "routes": []
+    "middleware": ["log"],
+    "routes": [
+        {
+            "path": "/api/courses",
+            "method": "post",
+            "handler": "create"
+        },
+        {
+            "path": "/api/courses",
+            "method": "get",
+            "handler": "list"
+        },
+        {
+            "path": "/api/courses/:id",
+            "method": "post",
+            "handler": "get"
+        },
+        {
+            "path": "/api/courses/:id",
+            "method": "put",
+            "handler": "update"
+        }
+    ]
 }

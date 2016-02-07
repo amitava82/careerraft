@@ -1,0 +1,42 @@
+header {
+    height: 60px;
+    padding: 0 20px;
+    background-color: #191919;
+
+    .brand {
+        width: 150px;
+        text-align: center;
+        padding-top: 10px;
+
+        img{
+            width: 100px;
+        }
+    }
+
+    .search {
+        input {
+            margin-bottom: 0;
+        }
+
+        .loc {
+            width: 250px;
+        }
+
+        .query {
+            width: 300px;
+        }
+    }
+
+    nav{
+        a{
+            margin: 0 10px;
+            color: white;
+        }
+        > div {
+            margin-left: 20px;
+            a {
+                margin: 0 5px;
+            }
+        }
+    }
+}

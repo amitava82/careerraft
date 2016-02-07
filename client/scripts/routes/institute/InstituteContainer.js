@@ -7,7 +7,10 @@ export default class SearchContainer extends React.Component {
 
     render (){
         return (
-            <h1>Im institute</h1>
+            <div>
+                <h1>Im institute</h1>
+                {this.props.children}
+            </div>
         )
     }
 }

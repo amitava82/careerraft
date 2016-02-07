@@ -1,0 +1,23 @@
+{
+  "name": "careerraft",
+  "description": "Educational pit-stop - Choose Better, Learn Better",
+  "main": "app.js",
+  "authors": [
+    "Amitava Saha <amitava82@gmail.com> (https://github.com/amitava82)"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "font-awesome": "~4.5.0",
+    "normalize-scss": "normalize.scss#~4.0.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

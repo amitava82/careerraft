@@ -1,4 +1,25 @@
 {
-    "middleware": [],
-    "routes": []
+    "middleware": ["log"],
+    "routes": [
+        {
+            "path": "/api/categories",
+            "method": "post",
+            "handler": "create"
+        },
+        {
+            "path": "/api/categories",
+            "method": "get",
+            "handler": "list"
+        },
+        {
+            "path": "/api/categories/:id",
+            "method": "post",
+            "handler": "get"
+        },
+        {
+            "path": "/api/categories/:id",
+            "method": "put",
+            "handler": "update"
+        }
+    ]
 }

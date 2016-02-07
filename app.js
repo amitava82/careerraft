@@ -5,6 +5,9 @@ var _  = require('lodash');
 
 require("babel-register");
 
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+
 var deps = {
     basedir: __dirname,
     config: config,

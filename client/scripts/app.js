@@ -2,49 +2,48 @@
  * Created by amitava on 30/01/16.
  */
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import {Route, Link} from 'react-router';
+import { connect } from 'react-redux'
+import autobind from 'autobind-decorator';
 
-import {
-    SearchContainer
-} from './routes/search';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-import {
-    InstituteContainer
-} from './routes/institute'
+import { SET_LOCATION, LOAD_SEARCH_SUGGESTION } from './actions/search';
 
-class App extends React.Component {
+import getUserLocation from './utils/location';
 
+@connect(state => state)
+export default class App extends React.Component {
+
+    componentWillMount(){
+        getUserLocation(loc => {
+            this.props.dispatch(SET_LOCATION(loc));
+        });
+    }
+
+    @autobind
+    onSearch(query){
+        this.props.dispatch(LOAD_SEARCH_SUGGESTION(query, this.props.search.location));
+    }
+
+    @autobind
+    onPlaceChange(location){
+        this.props.dispatch(SET_LOCATION(location))
+;    }
 
     render(){
         return (
             <main>
-                <header>
-                    <Link to="/search">Search</Link>
-                    <Link to="/institute">Me</Link>
-                </header>
-                {this.props.children}
+                <Header onPlaceChange={this.onPlaceChange}
+                        onSearch={this.onSearch}
+                        location={this.props.search.location}
+                        search={this.props.search.query}
+                />
+                <div id="main">
+                    {this.props.children}
+                </div>
+                <Footer />
             </main>
         )
     }
 }
-
-export default (
-    <Route component={App}>
-        <Route path="/">
-
-        </Route>
-        <Route path="/search" component={SearchContainer}>
-
-        </Route>
-        <Route path="/institute" conponent={InstituteContainer}>
-
-        </Route>
-        <Route path="/admin">
-
-        </Route>
-        <Route path="/manage">
-
-        </Route>
-    </Route>
-)

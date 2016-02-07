@@ -8,8 +8,9 @@ import { createHistory } from 'history';
 import { Provider } from 'react-redux';
 
 
-import app from './app';
+import routes from './routes';
 import createStore from './createStore';
+import apiClient from './helpers/api';
 
 const history = createHistory();
 const store = createStore(window.__INITIAL_STATE__, history);
@@ -21,7 +22,7 @@ class Client extends React.Component {
         return (
             <Provider store={store}>
                 <Router history={history}>
-                    {app}
+                    {routes}
                 </Router>
             </Provider>
         )

@@ -1,0 +1,43 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+
+    &.row{
+        flex-direction: row;
+    }
+    &.column{
+        flex-direction: column;
+    }
+    &.center{
+        align-items: center;
+    }
+    &.justify-center {
+        align-content: center;
+    }
+
+    &.gutter{
+        margin: 0 -1em 0 -1em;
+        > .cell {
+            padding: 1em 0 0 1em;
+        }
+    }
+}
+
+.cell {
+    flex: 1
+}
+
+.cell-2 {
+    flex: 2;
+}
+
+.cell-3 {
+    flex: 3;
+}
+
+.cell-4 {
+    flex: 4;
+}
+
+

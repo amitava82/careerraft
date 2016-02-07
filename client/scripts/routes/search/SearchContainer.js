@@ -5,7 +5,7 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 
-import { LOAD_ORGS } from '../../actions/actions';
+import { institute } from '../../actions';
 
 import map from 'lodash/map';
 
@@ -23,7 +23,7 @@ export default class SearchContainer extends React.Component {
     }
     @autobind
     loadOrgs(){
-        this.props.dispatch(LOAD_ORGS(1)).then(
+        this.props.dispatch(institute.LOAD_INSTITUTES()).then(
             r => console.log(r),
             e => console.log(e)
         )
@@ -45,6 +45,7 @@ export default class SearchContainer extends React.Component {
             <div>
                 {this.state.loading? 'LOADING>....' : list}
                 <button onClick={this.loadOrgs}>Load Orgs</button>
+                {this.props.children}
             </div>
         )
     }

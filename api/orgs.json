@@ -11,6 +11,11 @@
             "path": "/api/orgs",
             "method": "post",
             "handler": "create"
+        },
+        {
+            "path": "/api/orgs/:id",
+            "method": "get",
+            "handler": "get"
         }
     ]
 }

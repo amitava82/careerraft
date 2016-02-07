@@ -1,0 +1,11 @@
+{
+    "middleware": ["log"],
+    "routes": [
+        {
+            "path": "/api/search/suggestion",
+            "method": "get",
+            "handler": "suggestion",
+            "middleware": []
+        }
+    ]
+}

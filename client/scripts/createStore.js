@@ -12,7 +12,7 @@ import orgs from './reducers/orgs';
 
 
 
-export default function (initialState = {}, history) {
+export default function (initialState = {}, history, apiClient) {
 
     const reduxRouterMiddleware = syncHistory(history);
     const createStoreWithMiddleware = applyMiddleware(thunk, promise, reduxRouterMiddleware)(createStore);

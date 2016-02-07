@@ -1,0 +1,63 @@
+.org-item {
+    background-color: #FFF;
+    border: 1px solid #cacaca;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    .logo{
+        display: flex;
+        width: 120px;
+        height: 120px;
+        border-right: 1px solid #cacaca;
+        align-self: center;
+        justify-content: center;
+        img{
+            width: 100px;
+            height: 100px;
+            flex: 1;
+            flex-grow: 0;
+            align-self: center;
+        }
+    }
+
+    .item-main{
+        height: 130px;
+        border-bottom: 1px solid #cacaca;
+
+        .header{
+            padding: 10px;
+            h3{
+                font-size: 150%;
+                font-weight:500;
+                margin: 0;
+            }
+
+            .basic{
+
+            }
+
+            .side{
+                text-align: right;
+            }
+        }
+    }
+
+    .item-sm {
+        height: 40px;
+        border-bottom: 1px solid #cacaca;
+        padding: 0 10px;
+    }
+
+    .item-md {
+        height: 50px;
+    }
+
+    .actions {
+        display: flex;
+        flex-grow: 1;
+        background-color: #f8f8f8;
+        font-weight: 500;
+        > div{
+        border-right: 1px solid #d8d8d8;
+    }
+    }
+}

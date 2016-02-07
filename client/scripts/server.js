@@ -6,12 +6,13 @@ import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
 import { createLocation, createMemoryHistory } from 'history'
 import { Provider } from 'react-redux';
+import { routeActions } from 'react-router-redux';
 
 import HTML from './html';
-import App from './app';
+import routes from './routes';
 import createStore from './createStore';
-
-import { LOAD_ORGS } from './actions/actions';
+import ApiClient from './helpers/api';
+import config from 'config';
 
 
 module.exports = function (deps, app, callback) {
@@ -20,37 +21,41 @@ module.exports = function (deps, app, callback) {
 };
 
 function handleRender(req, res){
+ const api = new ApiClient(req, config.get('api'));
  const history = createMemoryHistory();
- const store = createStore({}, history);
+ const store = createStore({}, history, api);
 
-    const location = createLocation(req.url);
-
-    match({routes: App, location}, function (err, redirect, props) {
-        if (err) {
-            console.error(err);
-            return res.status(500).end('Internal server error');
-        }
-
-        if (!props) return res.status(404).end('Not found.');
-
+    function hydrate(props){
         const InitialComponent = (
             <Provider store={store}>
                 <RoutingContext {...props} />
             </Provider>
         );
 
-        store.dispatch(LOAD_ORGS()).then(
-            r => {
-                const state = store.getState();
+        //TODO server side render
 
-                const renderedHtml = renderToString(InitialComponent);
+        const state = store.getState();
 
-                const markup = HTML(renderedHtml, state);
+        const renderedHtml = renderToString(InitialComponent);
 
-                res.send(markup);
-            },
-            e => console.log(e)
-        )
+        const markup = HTML(renderedHtml, state);
 
+        res.send(markup);
+    }
+    const location = createLocation(req.url);
+
+    match({routes: routes, location}, function (err, redirect, props) {
+        if (err) {
+            console.error(err);
+            res.status(500);
+            hydrate();
+        }else if(redirect){
+            res.redirect(redirect.pathname + redirect.search);
+        }else if(!props){
+            res.status(404);
+            hydrate();
+        }else{
+            hydrate(props);
+        }
     });
 }

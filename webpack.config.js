@@ -7,7 +7,9 @@ var resolveRoot = path.join(projectRoot, 'node_modules'); // project root/node_m
 
 var envPlugin = new webpack.DefinePlugin({
     __DEV__: JSON.stringify(JSON.parse(process.env.DEVELOP || 'true')),
-    __PROD__: JSON.stringify(JSON.parse(process.env.PRODUCTION || 'true'))
+    __PROD__: JSON.stringify(JSON.parse(process.env.PRODUCTION || 'true')),
+    __CLIENT__: true,
+    __SERVER__: false
 });
 
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js');
@@ -46,5 +48,5 @@ module.exports = {
     plugins: [commonsPlugin],
     modulesDirectories: [
         'node_modules'
-    ],
+    ]
 };

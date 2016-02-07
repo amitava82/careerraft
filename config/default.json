@@ -13,5 +13,13 @@
         "host": "localhost",
         "port": "3000",
         "protocol": "http"
+    },
+    "api": {
+        "host": "localhost",
+        "port": "3000",
+        "protocol": "http"
+    },
+    "google": {
+        "browser": "AIzaSyC5X3hZW_EBR7mHVxvUv3CPB6UAR-3hK94"
     }
 }
