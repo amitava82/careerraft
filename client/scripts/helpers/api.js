@@ -2,7 +2,7 @@
  * Created by amitava on 06/02/16.
  */
 import superagent from 'superagent-bluebird-promise';
-
+import { stringify } from 'qs'
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 class _ApiClient {
@@ -21,7 +21,7 @@ class _ApiClient {
                 const request = superagent[method](formatUrl(path));
 
                 if (params) {
-                    request.query(params);
+                    request.query(stringify(params, { arrayFormat: 'brackets' }));
                 }
 
                 if (typeof window === 'undefined' && req && req.get('cookie')) {

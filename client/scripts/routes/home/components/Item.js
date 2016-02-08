@@ -19,8 +19,8 @@ export default class Item extends React.Component {
                     <div className="header grid cell">
                         <div className="cell-2 basic">
                             <h3>{inst.name}</h3>
-                            <a href={inst.address} target="_blank">{inst.address}</a>
-                            <p>{inst.address}</p>
+                            <a href={inst.website} target="_blank">{inst.website}</a>
+                            <p>{formatAddress(inst.address)}</p>
                         </div>
                         <div className="cell side">
                             <div>Rating: 4/5</div>
@@ -52,4 +52,10 @@ export default class Item extends React.Component {
             </div>
         )
     }
+}
+
+function formatAddress(address){
+    return (
+        `${address.line1} ${address.line2} ${address.locality} ${address.city}`
+    )
 }
