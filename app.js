@@ -57,8 +57,8 @@ async.eachSeries([
         process.exit(1);
     }
 
-    deps.app.listen(config.get('ui.port'), function () {
-        console.log('app running on: ', config.get('ui.port'));
+    deps.app.listen(3000, function () {
+        console.log('app running on: ', 3000);
     });
 });
 
