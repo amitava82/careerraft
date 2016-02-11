@@ -1,6 +1,6 @@
 {
     "mongo": {
-        "host": "localhost",
+        "host": "127.0.0.1",
         "port": "",
         "db": "raft"
     },
@@ -16,18 +16,18 @@
     },
 
     "redis": {
-      "host": "localhost",
+      "host": "127.0.0.1",
       "port": ""
     },
 
     "ui": {
-        "host": "localhost",
+        "host": "dev.careerraft.com",
         "port": "3000",
         "protocol": "http"
     },
 
     "api": {
-        "host": "localhost",
+        "host": "dev.careerraft.com",
         "port": "3000",
         "protocol": "http"
     },
