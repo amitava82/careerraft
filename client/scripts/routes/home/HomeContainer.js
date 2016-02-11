@@ -3,9 +3,10 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import map from 'lodash/map';
 
-import { institute } from '../../actions'
+import { institute, category } from '../../actions'
 
 import Item from './components/Item';
 import FilterBar from './components/FilterBar';
@@ -14,7 +15,8 @@ import FilterBar from './components/FilterBar';
 export default class HomeContainer extends React.Component {
 
     componentDidMount(){
-            this.props.dispatch(institute.LOAD_INSTITUTES())
+            this.props.dispatch(institute.LOAD_INSTITUTES());
+            this.props.dispatch(category.LOAD_CATEGORIES());
     }
 
     render(){
@@ -22,17 +24,20 @@ export default class HomeContainer extends React.Component {
         const items = this.props.orgs.institutes.map(i => {
             return <Item inst={i} key={i._id} />
         });
+
+        const categories = this.props.category.categories.map(i => {
+           return <Link className="list-group-item" to={`/search?category=${i._id}`}>{i.name}</Link>
+        });
         return (
-            <div className="home grid row">
+            <div className="home-page grid row">
                 <aside>
-                    <FilterBar />
+                    <div className="list-group">
+                        {categories}
+                    </div>
                 </aside>
                 <div className="main grid column cell">
                     {items}
                 </div>
-                <aside>
-                    side bar
-                </aside>
             </div>
         )
     }

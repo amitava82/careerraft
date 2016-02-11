@@ -17,9 +17,10 @@ var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.j
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
-        vendors: ['react', 'react-router', 'superagent-bluebird-promise', 'redux-thunk', 'history',
-            'redux', 'redux-promise', 'redux-actions', 'react-router-redux', 'react-addons-update']
+        vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history',
+            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form']
     },
+    //devtool: 'source-map',
     output: {
         filename: 'bundle.js',
         path: './build/public'

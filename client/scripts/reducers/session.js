@@ -11,9 +11,16 @@ const initialState = {
 };
 
 export default handleActions({
-    STORE_SELF: (state, action) => {
-        return update(state, {
-            user: { $set: action.payload}
-        });
+    STORE_SESSION: {
+        next(state, action){
+            return update(state, {
+                user: { $set: action.payload},
+                isLoggedIn: {$set : !!action.payload._id}
+            });
+        },
+        throw(state, action){
+            console.log(action)
+            return state;
+        }
     }
 }, initialState);

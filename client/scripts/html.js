@@ -1,7 +1,6 @@
 /**
  * Created by amitava on 31/01/16.
  */
-
 var config = require('config');
 
 export default function html(markup, initialState){
@@ -16,16 +15,13 @@ export default function html(markup, initialState){
             <meta name="keywords" content="" />
             <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning." />
             <meta name="author" content="Careerraft" />
-            <meta name="copyright" content="(c) 2016 Careerraft, Inc." />
-
+            <meta name="copyright" content="(c) 2016 Careerraft Inc." />
             <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
             <link href='/static/css/client.css' rel='stylesheet' type='text/css'>
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places">
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
             </script>
-
+            <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places"></script>
         </head>
         <body>
             <div id="app-root">${markup}</div>

@@ -55,6 +55,7 @@ export default class Item extends React.Component {
 }
 
 function formatAddress(address){
+    if(!address) return '';
     return (
         `${address.line1} ${address.line2} ${address.locality} ${address.city}`
     )

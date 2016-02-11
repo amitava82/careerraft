@@ -1,0 +1,27 @@
+{
+    "middleware": ["log"],
+    "routes": [
+        {
+            "path": "/api/subjects",
+            "method": "post",
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/subjects",
+            "method": "get",
+            "handler": "list"
+        },
+        {
+            "path": "/api/subjects/:id",
+            "method": "get",
+            "handler": "get"
+        },
+        {
+            "path": "/api/subjects/:id",
+            "method": "put",
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"]
+        }
+    ]
+}

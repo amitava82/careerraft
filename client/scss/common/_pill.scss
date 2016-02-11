@@ -1,0 +1,22 @@
+.pill {
+    font-size: .85rem;
+    font-weight: 400;
+    padding: 2px 10px;
+    border: 1px solid #fff;
+}
+
+.pill-success {
+    @include pill($success);
+}
+
+.pill-error {
+    @include pill($error);
+}
+
+.pill-info {
+    @include pill($info);
+}
+
+.pill-warn {
+    @include pill($warn);
+}

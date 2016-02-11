@@ -4,7 +4,8 @@
         {
             "path": "/api/categories",
             "method": "post",
-            "handler": "create"
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"]
         },
         {
             "path": "/api/categories",
@@ -13,13 +14,20 @@
         },
         {
             "path": "/api/categories/:id",
-            "method": "post",
+            "method": "get",
             "handler": "get"
         },
         {
             "path": "/api/categories/:id",
             "method": "put",
-            "handler": "update"
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/categories/:id",
+            "method": "delete",
+            "handler": "delete",
+            "middleware": ["ensureLoggedIn"]
         }
     ]
 }

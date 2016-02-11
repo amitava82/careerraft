@@ -6,7 +6,18 @@
     },
 
     "session": {
+        "secret": "Hbk!bv46&4VNmbju7^07",
+        "ttl": 604800,
+        "cookie": {
+            "path": "/", "httpOnly": true, "secure": false, "maxAge": 604800000
+        },
+        "name": "sid"
 
+    },
+
+    "redis": {
+      "host": "localhost",
+      "port": ""
     },
 
     "ui": {
@@ -14,12 +25,21 @@
         "port": "3000",
         "protocol": "http"
     },
+
     "api": {
         "host": "localhost",
         "port": "3000",
         "protocol": "http"
     },
+
     "google": {
         "browser": "AIzaSyC5X3hZW_EBR7mHVxvUv3CPB6UAR-3hK94"
+    },
+
+    "auth": {
+        "fb": {
+            "clientId": "382582555193921",
+            "clientSecret": "85f16c3473fb0fac13e6da7e5215031c"
+        }
     }
 }

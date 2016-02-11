@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 import each from 'lodash/each';
 import reduce from 'lodash/reduce';
+import throttle from 'lodash/throttle';
 
 import { institute, search } from '../actions';
 
@@ -11,11 +12,13 @@ import getUserLocation from '../utils/location';
 
 import Dropdown from './Dropdown';
 
-@connect(state => ({search: state.search}))
+@connect(state => ({search: state.search, session: state.session}))
 export default class Nav extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
+
+        this._throttleeSearch = throttle(this.autoSearch, 300);
     }
 
     componentDidMount(){
@@ -52,6 +55,14 @@ export default class Nav extends React.Component {
         if(q) this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location));
     }
 
+    @autobind
+    autoSearch(e){
+        const q = this.refs.query.value;
+        if(q.length >=3){
+            this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location));
+        }
+    }
+
     render () {
 
         const results = this.props.search.results;
@@ -61,36 +72,55 @@ export default class Nav extends React.Component {
             reduce(val, (memo, i) => {
                 memo.push({
                     label: <div>{i.name} in <strong>{key}</strong></div>,
-                    model: key,
+                    link: `/${key}/${i._id}`,
                     id: i._id
                 });
                 return memo;
             }, items);
+            items.push({
+                label: <strong>Search {this.refs.query.value} in {key}</strong>,
+                link: `/search/${key}?q=${this.refs.query.value}`,
+                id: key
+            });
         });
+
+        const session = this.props.session;
+
+        let loginMenu = null;
+        if(session.isLoggedIn){
+            loginMenu = (
+                <div>
+                    {session.user.name}
+                    <a href="/admin"><i className="fa fa-cog" /></a>
+                </div>
+            )
+        }else {
+            loginMenu = (
+                <div>
+                    <a href="/auth/login">Login / Register</a>
+                </div>
+            )
+        }
 
         return (
             <header className="grid row center">
                 <div className="brand">
-                    <a href="http://careerraft.com">
-                        <img src="images/logo.png" alt="Logo" />
+                    <a href="/">
+                        <img src="/images/logo.png" />
                     </a>
                 </div>
                 <form onSubmit={this.onSubmit} className="search grid cell">
-                    <input className="loc" ref="location" onFocus={this.getGeoLocation} type="text" placeholder="Location" name="location" />
+                    <input className="loc form-control" ref="location" onFocus={this.getGeoLocation} type="text" placeholder="Location" name="location" />
                     <div>
-                        <input className="query" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                        <input className="query form-control" ref="query" type="text" onChange={this._throttleeSearch} placeholder="Search for a Course/Institute" />
                         <Dropdown items={items}  />
                     </div>
                     <button type="submit">Search</button>
                 </form>
                 <nav className="grid row">
                     <Link to="/courses">Courses</Link>
-                    <Link to="/Institutes">Institutes</Link>
-                    <Link to="/Deals">Deals</Link>
-                    <div>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
-                    </div>
+                    <Link to="/institutes">Institutes</Link>
+                    {loginMenu}
                 </nav>
             </header>
         )

@@ -1,12 +1,19 @@
 header {
     height: 60px;
     padding: 0 20px;
-    background-color: #191919;
-
+    background-color: $blue;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
     .brand {
         width: 150px;
-        text-align: center;
-        padding-top: 10px;
+        height: 60px;
+        a {
+            font-size: 23px;
+            font-weight: 100;
+            color: #0BD2CC;
+        }
 
         img{
             width: 100px;
@@ -20,6 +27,7 @@ header {
 
         .loc {
             width: 250px;
+            margin-right: -1px;
         }
 
         .query {
@@ -28,9 +36,10 @@ header {
     }
 
     nav{
+        color: white;
         a{
             margin: 0 10px;
-            color: white;
+            color: inherit;
         }
         > div {
             margin-left: 20px;

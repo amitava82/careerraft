@@ -4,7 +4,8 @@
         {
             "path": "/api/courses",
             "method": "post",
-            "handler": "create"
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"]
         },
         {
             "path": "/api/courses",
@@ -13,13 +14,19 @@
         },
         {
             "path": "/api/courses/:id",
-            "method": "post",
+            "method": "get",
             "handler": "get"
         },
         {
             "path": "/api/courses/:id",
             "method": "put",
-            "handler": "update"
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/courses/:id",
+            "method": "delete",
+            "handler": "delete"
         }
     ]
 }

@@ -9,3 +9,8 @@ export const LANGUAGES = [
     'Tamil',
     'Telegu'
 ];
+
+export const ALLOWED_ACCOUNTS = [
+    'amitava82@gmail.com',
+    'atultiwari89@gmail.com'
+];

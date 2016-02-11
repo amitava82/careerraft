@@ -13,6 +13,7 @@ import createStore from './createStore';
 import apiClient from './helpers/api';
 
 const history = createHistory();
+
 const store = createStore(window.__INITIAL_STATE__, history);
 
 class Client extends React.Component {

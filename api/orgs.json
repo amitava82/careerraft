@@ -10,7 +10,8 @@
         {
             "path": "/api/orgs",
             "method": "post",
-            "handler": "create"
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"]
         },
         {
             "path": "/api/orgs/:id",

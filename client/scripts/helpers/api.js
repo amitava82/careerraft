@@ -1,7 +1,7 @@
 /**
  * Created by amitava on 06/02/16.
  */
-import superagent from 'superagent-bluebird-promise';
+import superagent from 'superagent';
 import { stringify } from 'qs'
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -17,8 +17,13 @@ class _ApiClient {
             return '/api' + adjustedPath;
         }
         methods.forEach((method) =>
-            this[method] = (path, params, data) => {
+            this[method] = (path, params, data) => new Promise((resolve,reject) => {
                 const request = superagent[method](formatUrl(path));
+
+                if(method != 'get' && !data){
+                    data = params;
+                    params = null;
+                }
 
                 if (params) {
                     request.query(stringify(params, { arrayFormat: 'brackets' }));
@@ -31,8 +36,10 @@ class _ApiClient {
                 if (data) {
                     request.send(data);
                 }
-                return request.promise().get('body');
-            });
+                request.end((err, {body}) => {
+                    err ? reject(body || err) : resolve(body)
+                });
+            }));
     }
 }
 

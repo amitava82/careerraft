@@ -11,9 +11,9 @@ import classNames from 'classnames';
 @listensToClickOutside()
 export default class Dropdown extends React.Component{
 
-    static propTypes = {
-        items: React.PropTypes.array.required
-    };
+    //static propTypes = {
+    //    items: React.PropTypes.array.required
+    //};
 
     constructor(props){
         super(props);
@@ -34,19 +34,18 @@ export default class Dropdown extends React.Component{
         }
     }
 
-    handleClickOutside(){
-        console.log('hide')
+    handleClickOutside(e){
         this.setState({visible: false})
     }
 
     render(){
 
         if(!this.state.visible) return null;
-        
+
         const items = map(this.props.items, i => {
             return (
                 <div key={i.id} className="dd-item">
-                    <Link to={`/${i.model}/search/${i.id}`}>
+                    <Link to={i.link}>
                         {i.label}
                     </Link>
                 </div>

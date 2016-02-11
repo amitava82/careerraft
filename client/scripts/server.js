@@ -14,6 +14,9 @@ import createStore from './createStore';
 import ApiClient from './helpers/api';
 import config from 'config';
 
+import { STORE_SESSION } from './actions/session';
+import fetchComponentData from './helpers/fetchComponentData';
+
 
 module.exports = function (deps, app, callback) {
 
@@ -24,6 +27,10 @@ function handleRender(req, res){
  const api = new ApiClient(req, config.get('api'));
  const history = createMemoryHistory();
  const store = createStore({}, history, api);
+
+    if(req.isAuthenticated()){
+        store.dispatch(STORE_SESSION(req.user));
+    }
 
     function hydrate(props){
         const InitialComponent = (
@@ -42,6 +49,7 @@ function handleRender(req, res){
 
         res.send(markup);
     }
+
     const location = createLocation(req.url);
 
     match({routes: routes, location}, function (err, redirect, props) {
@@ -55,7 +63,10 @@ function handleRender(req, res){
             res.status(404);
             hydrate();
         }else{
-            hydrate(props);
+            fetchComponentData(store.dispatch, props.components, props.params).then(
+                () => hydrate(props),
+                e => res.status(500).send(e)
+            )
         }
     });
 }
