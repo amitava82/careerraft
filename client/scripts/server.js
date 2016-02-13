@@ -43,7 +43,12 @@ function handleRender(req, res){
 
         const state = store.getState();
 
-        const renderedHtml = renderToString(InitialComponent);
+        let renderedHtml = '';
+        try {
+            renderedHtml = renderToString(InitialComponent);
+        }catch(e){
+            throw e;
+        }
 
         const markup = HTML(renderedHtml, state);
 

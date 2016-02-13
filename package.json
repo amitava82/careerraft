@@ -49,8 +49,7 @@
     "redux-promise-middleware": "^2.3.3",
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0",
-    "superagent": "^1.7.2",
-    "superagent-bluebird-promise": "^3.0.0"
+    "superagent": "^1.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",

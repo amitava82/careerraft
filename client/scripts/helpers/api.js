@@ -26,6 +26,7 @@ class _ApiClient {
                 }
 
                 if (params) {
+                    params._ = new Date().getTime();
                     request.query(stringify(params, { arrayFormat: 'brackets' }));
                 }
 

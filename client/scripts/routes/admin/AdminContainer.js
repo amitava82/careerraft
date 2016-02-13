@@ -21,6 +21,8 @@ export default class HomeContainer extends React.Component {
             <div className="admin-page grid row">
                 <aside>
                     <div className="list-group">
+                        <Link to="/admin/institute/add" className="list-group-item">Create Institute</Link>
+                        <Link to="/admin/institute/manage" className="list-group-item">Manage Institute</Link>
                         <Link to="/admin/category/add" className="list-group-item">Add Category</Link>
                         <Link to="/admin/course/add" className="list-group-item">Add Course</Link>
                         <Link to="/admin/subject/add" className="list-group-item">Add Subject</Link>

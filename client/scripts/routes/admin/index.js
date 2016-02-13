@@ -6,11 +6,15 @@ import CreateCategory from './CreateCategory';
 import CreateSubject from './CreateSubject';
 import CreateCourse from './CreateCourse';
 import CreateInstitute from './CreateInstitute';
+import ManageInstitute from './ManageInstitute';
+import InstituteDetails from './InstituteDetails';
 
 export {
     AdminContainer,
     CreateCategory,
     CreateCourse,
     CreateInstitute,
-    CreateSubject
+    ManageInstitute,
+    CreateSubject,
+    InstituteDetails
 }

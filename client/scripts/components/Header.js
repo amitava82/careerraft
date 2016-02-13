@@ -12,12 +12,15 @@ import getUserLocation from '../utils/location';
 
 import Dropdown from './Dropdown';
 
-@connect(state => ({search: state.search, session: state.session}))
+@connect(state => ({search: state.search_store, session: state.session_store}))
 export default class Nav extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
 
+        this.state = {
+          suggestions: []
+        };
         this._throttleeSearch = throttle(this.autoSearch, 300);
     }
 
@@ -52,20 +55,24 @@ export default class Nav extends React.Component {
     onSubmit(e){
         e.preventDefault();
         const q = this.refs.query.value;
-        if(q) this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location));
+        if(q) this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location)).then(
+            r => this.setState({suggestions: r})
+        );
     }
 
     @autobind
     autoSearch(e){
         const q = this.refs.query.value;
         if(q.length >=3){
-            this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location));
+            this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location)).then(
+                r => this.setState({suggestions: r})
+            );
         }
     }
 
     render () {
 
-        const results = this.props.search.results;
+        const results = this.state.suggestions;
         let items = [];
 
         each(results, (val, key) => {

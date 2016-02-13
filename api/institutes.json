@@ -2,21 +2,26 @@
     "middleware": ["log"],
     "routes": [
         {
-            "path": "/api/orgs",
+            "path": "/api/institutes",
             "method": "get",
             "handler": "list",
             "middleware": []
         },
         {
-            "path": "/api/orgs",
+            "path": "/api/institutes",
             "method": "post",
             "handler": "create",
             "middleware": ["ensureLoggedIn"]
         },
         {
-            "path": "/api/orgs/:id",
+            "path": "/api/institutes/:id",
             "method": "get",
             "handler": "get"
+        },
+        {
+            "path": "/api/institutes/:id",
+            "method": "put",
+            "handler": "update"
         }
     ]
 }

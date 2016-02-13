@@ -18,4 +18,8 @@ export const LOAD_SEARCH_SUGGESTION = createAction('LOAD_SEARCH_SUGGESTION', (qu
 
 export const SET_LOCATION = createAction('SET_LOCATION', (location) => {
     return location;
-})
+});
+
+export const SEARCH = createAction('SEARCH', query => {
+    return api.get('search', query);
+}, meta);

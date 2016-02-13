@@ -2,6 +2,12 @@
     "middleware": ["log"],
     "routes": [
         {
+            "path": "/api/search",
+            "method": "get",
+            "handler": "search",
+            "middleware": []
+        },
+        {
             "path": "/api/search/suggestion",
             "method": "get",
             "handler": "suggestion",

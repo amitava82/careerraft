@@ -7,21 +7,31 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
 import { CREATE_COURSE, LOAD_COURSES, DELETE_COURSE } from '../../actions/course';
+import { LOAD_CATEGORIES } from '../../actions/category';
 
 
 
 @connect(state => {
     return {
-        course: state.course
+        course: state.course_store,
+        category: state.category_store
     }
 })
 @reduxForm({
     form: 'course',
-    fields: ['name', 'description']
+    fields: ['name', 'description', 'category']
 })
 export default class CreateCourse extends React.Component{
 
     static displayName = 'CreateCourseFrom';
+
+    constructor(props, ctx){
+        super(props, ctx);
+
+        this.state = {
+            categories: []
+        }
+    }
 
     @autobind
     onSubmit(data){
@@ -29,7 +39,7 @@ export default class CreateCourse extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch(LOAD_COURSES())
+        this.props.dispatch(LOAD_CATEGORIES())
     }
 
     @autobind
@@ -38,7 +48,7 @@ export default class CreateCourse extends React.Component{
     }
 
     render(){
-        const {fields: {name, description}, error, handleSubmit, submitting, course} = this.props;
+        const {fields: {name, description, category}, error, handleSubmit, submitting, course} = this.props;
 
         const courses = course.courses.map(c => {
             return (
@@ -53,6 +63,14 @@ export default class CreateCourse extends React.Component{
             <div className="grid row">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
                     <h4>Add Course</h4>
+                    <div>
+                        <label>Select Category</label>
+                        <select {...category} value={category.value}>
+                            {this.props.category.categories.map(i => {
+                                return (<option value={i._id} key={i._id}>{i.name}</option>)
+                            })}
+                        </select>
+                    </div>
                     <div>
                         <label>Name</label>
                         <input type="text" {...name}/>

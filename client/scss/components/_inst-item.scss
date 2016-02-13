@@ -1,0 +1,26 @@
+.inst-item {
+    margin-bottom: 20px;
+    > h5 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    .addr {
+        font-size: .9rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e1e1e1;
+        padding-bottom: 5px;
+        text-shadow: 1px 1px 1px #fff;
+    }
+
+    .desc {
+        margin-bottom: 10px;
+    }
+
+    .pills {
+        margin-bottom: 20px;
+        .pill {
+            margin-right: 5px;
+        }
+    }
+}

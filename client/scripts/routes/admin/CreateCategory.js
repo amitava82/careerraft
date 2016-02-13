@@ -12,12 +12,12 @@ import { CREATE_CATEGORY, LOAD_CATEGORIES, DELETE_CATEGORY } from '../../actions
 
 @connect(state => {
     return {
-        category: state.category
+        category: state.category_store
     }
 })
 @reduxForm({
     form: 'category',
-    fields: ['name', 'description']
+    fields: ['name', 'description', 'category']
 })
 export default class CreateCategory extends React.Component{
 
@@ -44,15 +44,14 @@ export default class CreateCategory extends React.Component{
             return (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
-                    <p>{c.description}</p>
-                    <button className="sm" onClick={() => this.delete(c._id)}>Delete</button>
+                    <button className="sm link" onClick={() => this.delete(c._id)}>Delete</button>
                 </li>
             )
         });
         return (
             <div className="grid row">
-                <h4>Add Category</h4>
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
+                    <h4>Add Category</h4>
                     <div>
                         <label>Name</label>
                         <input type="text" {...name}/>

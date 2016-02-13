@@ -15,9 +15,10 @@ h5,
 h6 {
     font-family: $heading-font-family;
     font-size: $base-font-size;
+    color: $blue;
     line-height: $heading-line-height;
     margin: 0 0 $small-spacing;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 h1, h2 { line-height: 1.1; }

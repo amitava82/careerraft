@@ -7,17 +7,21 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
 import { CREATE_SUBJECT, LOAD_SUBJECTS } from '../../actions/subject';
+import { LOAD_COURSES } from '../../actions/course';
+import { LOAD_CATEGORIES } from '../../actions/category';
 
 
 
 @connect(state => {
     return {
-        subject: state.subject
+        subject: state.subject_store,
+        course: state.course_store,
+        category: state.category_store
     }
 })
 @reduxForm({
     form: 'subject',
-    fields: ['name', 'description']
+    fields: ['name', 'description', 'category', 'course']
 })
 export default class CreateSubject extends React.Component{
 
@@ -29,7 +33,8 @@ export default class CreateSubject extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch(LOAD_SUBJECTS())
+        //this.props.dispatch(LOAD_COURSES());
+        this.props.dispatch(LOAD_CATEGORIES());
     }
 
     @autobind
@@ -38,7 +43,7 @@ export default class CreateSubject extends React.Component{
     }
 
     render(){
-        const {fields: {name, description}, error, handleSubmit, submitting, subject} = this.props;
+        const {fields: {name, description, category, course}, error, handleSubmit, submitting, subject} = this.props;
 
         const subjects = subject.subjects.map(c => {
             return (
@@ -51,8 +56,32 @@ export default class CreateSubject extends React.Component{
         });
         return (
             <div className="grid row">
-                <h4>Add Subject</h4>
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
+                    <h4>Add Subject</h4>
+                    <div>
+                        <label>Select Category</label>
+                        <select {...category} value={category.value}
+                                              onChange={e =>{
+                                                category.onChange(e);
+                                                this.props.dispatch(LOAD_COURSES(e.target.value))
+                                              }
+
+                        }>
+                            <option value="">Select</option>
+                            {this.props.category.categories.map(i => {
+                                return (<option value={i._id} key={i._id}>{i.name}</option>)
+                            })}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Select Course</label>
+                        <select {...course} value={course.value}>
+                            <option value="">Select</option>
+                            {this.props.course.courses.map(i => {
+                                return (<option value={i._id} key={i._id}>{i.name}</option>)
+                            })}
+                        </select>
+                    </div>
                     <div>
                         <label>Name</label>
                         <input type="text" {...name}/>

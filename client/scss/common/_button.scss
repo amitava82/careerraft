@@ -37,4 +37,16 @@ button {
         padding: .4em .8em;
         font-size: .9rem;
     }
+
+    &.link {
+        background-color:  transparent;
+        border: none;
+        color: $action-color;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: shade($action-color, 25%);
+        }
+    }
 }

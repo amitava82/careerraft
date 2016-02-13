@@ -14,17 +14,17 @@ const initialState = {
 
 export default handleActions({
 
-    LOAD_SEARCH_SUGGESTION: {
-        next(state, action){
-            console.log(action);
-            return update(state, {
-                results: {$set: action.payload}
-            });
-        },
-        throw(state, action){
-            console.log(action)
-        }
-    },
+    //LOAD_SEARCH_SUGGESTION: {
+    //    next(state, action){
+    //        console.log(action);
+    //        return update(state, {
+    //            results: {$set: action.payload}
+    //        });
+    //    },
+    //    throw(state, action){
+    //        console.log(action)
+    //    }
+    //},
 
     SET_LOCATION: {
         next(state, action) {
@@ -36,6 +36,14 @@ export default handleActions({
         },
         throw(state, action) {
             console.log(action)
+        }
+    },
+
+    SEARCH: {
+        next(state, action) {
+            return update(state, {
+                results: {$set: action.payload}
+            })
         }
     }
 

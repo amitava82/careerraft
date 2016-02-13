@@ -9,7 +9,7 @@ import promise from './utils/promise-middleware';
 
 import session from './reducers/session';
 import search from './reducers/search';
-import orgs from './reducers/orgs';
+import institute from './reducers/institutes';
 import category from './reducers/categories';
 import course from './reducers/courses';
 import subject from './reducers/subjects';
@@ -21,12 +21,12 @@ export default function (initialState = {}, history, apiClient) {
     const createStoreWithMiddleware = applyMiddleware(thunk, promise, reduxRouterMiddleware)(createStore);
 
     const reduers = combineReducers({
-        session,
-        search,
-        orgs,
-        category,
-        course,
-        subject,
+        session_store: session,
+        search_store: search,
+        institute_store: institute,
+        category_store: category,
+        course_store: course,
+        subject_store: subject,
         routing: routeReducer,
         form: formReducer
     });

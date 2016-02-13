@@ -16,7 +16,8 @@ export default function promiseMiddleware(_ref) {
             }
 
             return isPromise(action.payload) ? action.payload.then(function (result) {
-                return dispatch(Object.assign({}, action, { payload: result }));
+                dispatch(Object.assign({}, action, { payload: result }));
+                return Promise.resolve(result);
             }, function (error) {
                 dispatch(Object.assign({}, action, { payload: error, error: true }));
                 return Promise.reject(error);

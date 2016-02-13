@@ -9,8 +9,8 @@ import Api from '../helpers/api';
 
 const api = new Api();
 
-export const LOAD_COURSES = createAction('LOAD_COURSES', () => {
-    return api.get(`courses`);
+export const LOAD_COURSES = createAction('LOAD_COURSES', (category) => {
+    return api.get(`courses`, {category});
 }, meta);
 
 export const CREATE_COURSE = createAction('CREATE_COURSE', data => {

@@ -21,7 +21,9 @@ import {
     CreateCategory,
     CreateCourse,
     CreateInstitute,
-    CreateSubject
+    CreateSubject,
+    ManageInstitute,
+    InstituteDetails
 } from './routes/admin'
 
 import NotFound from './routes/misc/404';
@@ -39,6 +41,12 @@ export default (
         </Route>
         <Route path="admin" component={AdminContainer}>
                 <Route path="institute/add" component={CreateInstitute} />
+                <Route path="institute/add" component={CreateInstitute} />
+                <Route path="institute/manage" component={ManageInstitute}>
+                        <Route path=":id" component={InstituteDetails}>
+
+                        </Route>
+                </Route>
                 <Route path="category/add" component={CreateCategory} />
                 <Route path="course/add"  component={CreateCourse} />
                 <Route path="subject/add" component={CreateSubject} />
