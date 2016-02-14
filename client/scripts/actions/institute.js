@@ -19,3 +19,7 @@ export const LOAD_INSTITUTE = createAction('LOAD_INSTITUTE', id => {
 export const CREATE_INSTITUTE = createAction('CREATE_INSTITUTE', data => {
     return api.post(`institutes`, data);
 }, meta);
+
+export const ADD_SUBJECTS = createAction('ADD_SUBJECTS', (id, data) => {
+    return api.put(`institutes/${id}/subjects`, data);
+}, meta);

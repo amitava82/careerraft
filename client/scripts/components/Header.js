@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import { routeActions } from 'react-router-redux'
 import autobind from 'autobind-decorator';
 import each from 'lodash/each';
 import reduce from 'lodash/reduce';
@@ -29,7 +30,7 @@ export default class Nav extends React.Component {
         this.autocomplete.addListener('place_changed', () => this.placeChanged(this.autocomplete));
 
         getUserLocation(loc => {
-            this.props.dispatch(search.SET_LOCATION(loc));
+            this.props.dispatch(search.SET_LOCATION([loc.lng, loc.lat]));
         });
     }
 
@@ -37,7 +38,7 @@ export default class Nav extends React.Component {
         const p =auto.getPlace();
         const lat = p.geometry.location.lat();
         const lng = p.geometry.location.lng();
-        this.props.dispatch(search.SET_LOCATION({lng, lat}));
+        this.props.dispatch(search.SET_LOCATION([lng, lat]));
     }
 
     @autobind
@@ -55,9 +56,10 @@ export default class Nav extends React.Component {
     onSubmit(e){
         e.preventDefault();
         const q = this.refs.query.value;
-        if(q) this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location)).then(
-            r => this.setState({suggestions: r})
-        );
+        this.props.dispatch(routeActions.push(`/search?q=${q}`));
+        //if(q) this.props.dispatch(search.LOAD_SEARCH_SUGGESTION(q, this.props.search.location)).then(
+        //    r => this.setState({suggestions: r})
+        //);
     }
 
     @autobind
@@ -119,8 +121,7 @@ export default class Nav extends React.Component {
                 <form onSubmit={this.onSubmit} className="search grid cell">
                     <input className="loc form-control" ref="location" onFocus={this.getGeoLocation} type="text" placeholder="Location" name="location" />
                     <div>
-                        <input className="query form-control" ref="query" type="text" onChange={this._throttleeSearch} placeholder="Search for a Course/Institute" />
-                        <Dropdown items={items}  />
+                        <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
                     </div>
                     <button type="submit">Search</button>
                 </form>

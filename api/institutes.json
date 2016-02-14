@@ -22,6 +22,12 @@
             "path": "/api/institutes/:id",
             "method": "put",
             "handler": "update"
+        },
+        {
+            "path": "/api/institutes/:id/subjects",
+            "method": "put",
+            "handler": "addSubjects",
+            "middleware": ["ensureLoggedIn"]
         }
     ]
 }

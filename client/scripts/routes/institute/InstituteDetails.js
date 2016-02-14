@@ -2,41 +2,53 @@
  * Created by amitava on 10/02/16.
  */
 import React from 'react';
+import each from 'lodash/each';
+
+import formatAddress from '../../utils/format-address';
+
 
 export default class InstituteDetails extends React.Component {
 
     render(){
+
+        const inst = this.props.inst;
+
+        let courses = [], subjects = [], categories = [];
+
+        each(inst.subjects, i => {
+           courses.push(<span className="pill">{i.course}</span>);
+            subjects.push(<span className="pill">{i.name}</span>);
+            categories.push(<span className="pill">{i.category}</span>);
+        });
+
         return (
             <div className="inst grid column">
                 <div className="header grid row">
                     <div className="cell-2">
-                        <h3>Some center</h3>
+                        <h3>{inst.name}</h3>
                         <address>
                             <i className="fa fa-map-marker" />
-                            Some street, some area, some city, some locality
+                            {formatAddress(inst.address)}
                         </address>
                         <h5>Courses</h5>
                         <div className="pills">
-                            <span className="pill pill-success">IIT JEE</span>
-                            <span className="pill pill-success">AIEE</span>
-                            <span className="pill pill-success">XYZ</span>
+                            {courses}
                         </div>
-                        <h5>Board</h5>
+                        <h5>Categories</h5>
                         <div className="pills">
-                            <span className="pill">WBSC</span>
-                            <span className="pill">JSKG</span>
+                            {categories}
                         </div>
                     </div>
-                    <div className="cell-1 grid row">
+                    <div className="cell-1 grid column">
                         <div>
-                            123 ratings
+                            {inst.telephones.map(i => {
+                                return (
+                                    <p>{i.name}: {i.number}</p>
+                                )
+                            })}
                         </div>
                         <div>
-                            Visit us at:
-                            <a href="">Google.com</a>
-                        </div>
-                        <div>
-                            Social
+                            <a href={inst.website}>{inst.website}</a>
                         </div>
                     </div>
                 </div>
