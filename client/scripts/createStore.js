@@ -2,6 +2,7 @@
  * Created by amitava on 31/01/16.
  */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+//import { browserHistory } from 'react-router';
 import { routeReducer, syncHistory } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';

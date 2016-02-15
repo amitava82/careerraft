@@ -18,7 +18,7 @@ module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
         vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history',
-            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form']
+            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest']
     },
     //devtool: 'source-map',
     output: {

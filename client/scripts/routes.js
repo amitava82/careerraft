@@ -33,7 +33,7 @@ import App from './app';
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={HomeContainer}/>
+        <IndexRoute component={HomeContainer} isHome={true} />
         <Route path="search" component={SearchContainer}>
         </Route>
         <Route path="institute/:id" component={InstituteContainer}>

@@ -1,10 +1,74 @@
 .home-page {
-    padding: 10px 0;
     aside {
         width: 230px;
     }
 
     .main {
         margin: 0 40px;
+    }
+
+    .hero {
+        background-image: url(http://careerraft.com/wp-content/uploads/2015/11/banner1.jpg);
+        background-color: rgba(0,0,0,.2);
+        height: 300px;
+        background-size: 100%;
+        position: relative;
+        h3{
+            color: white;
+            font-weight: 100;
+            text-transform: uppercase;
+        }
+
+        .query {
+            width: 300px;
+        }
+
+        .content{
+            z-index: 1;
+        }
+    }
+
+    .overlay {
+        background-image: url(http://careerraft.com/wp-content/themes/brooklyn/images/overlay-pattern.png);
+        background-color: rgba(44,62,80 , 0.2 );
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: repeat;
+        position: absolute;
+    }
+
+    .teach-hint {
+        text-align: center;
+        font-weight: 400;
+        padding: 8px 0;
+    }
+
+    .features {
+        background-color: white;
+        border-top: 1px solid #ddd;
+        .cell {
+            text-align: center;
+            padding: 20px 10px;
+            .fa {
+                font-size: 3rem;
+                width: 90px;
+                background: $orange;
+                height: 90px;
+                border-radius: 50%;
+                color: #FFF;
+                line-height: 90px;
+                margin-bottom: 20px;
+            }
+            p {
+                font-size: .9rem;
+                color: #999;
+            }
+            p.lead {
+                font-size: 1rem;
+                color: #444;
+            }
+        }
     }
 }

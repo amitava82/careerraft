@@ -1,3 +1,5 @@
+var spawn = require('child_process').spawn;
+
 module.exports = function(grunt){
     require('load-grunt-tasks')(grunt);
 
@@ -9,7 +11,8 @@ module.exports = function(grunt){
                     "build/public/lib/support-for/sass",
                     "build/public/lib/font-awesome/scss"
                 ],
-                sourceMap: true
+                sourceMap: process.env.NODE_ENV !== 'production',
+                outputStyle: 'compressed'
             },
 
             dev: {
@@ -33,6 +36,11 @@ module.exports = function(grunt){
         }
     });
 
+    grunt.registerTask('webpack', 'Build webpack', function(){
+        spawn('webpack -p');
+    });
+
     grunt.registerTask('css', ['sass', 'postcss']);
+    grunt.registerTask('prod', ['css', 'webpack'])
 
 };

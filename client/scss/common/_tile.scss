@@ -1,0 +1,39 @@
+.tile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 10px;
+    .tile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 300px;
+        height: 140px;
+        border: 1px solid #eee;
+        margin: -1px;
+        background-color: $orange-lighter;
+        transition: background-color 300ms ease;
+        cursor: pointer;
+        &:hover {
+            background-color: darken($orange-lighter, 10%);
+        }
+
+        h4{
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin: 0;
+
+            a{
+                color: white;
+            }
+        }
+
+        i.fa {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #6B2E2E;
+        }
+
+    }
+}

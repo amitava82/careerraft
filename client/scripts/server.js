@@ -4,9 +4,8 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
-import { createLocation, createMemoryHistory } from 'history'
+import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
-import { routeActions } from 'react-router-redux';
 
 import HTML from './html';
 import routes from './routes';
@@ -24,9 +23,9 @@ module.exports = function (deps, app, callback) {
 };
 
 function handleRender(req, res){
- const api = new ApiClient(req, config.get('api'));
- const history = createMemoryHistory();
- const store = createStore({}, history, api);
+    const api = new ApiClient(req, config.get('api'));
+    const history = createHistory(req.originalUrl);
+    const store = createStore({}, history, api);
 
     if(req.isAuthenticated()){
         store.dispatch(STORE_SESSION(req.user));
@@ -55,9 +54,9 @@ function handleRender(req, res){
         res.send(markup);
     }
 
-    const location = createLocation(req.url);
+    //const location = createLocation(req.originalUrl);
 
-    match({routes: routes, location}, function (err, redirect, props) {
+    match({history, routes: routes, location: req.originalUrl}, function (err, redirect, props) {
         if (err) {
             console.error(err);
             res.status(500);
@@ -68,10 +67,11 @@ function handleRender(req, res){
             res.status(404);
             hydrate();
         }else{
-            fetchComponentData(store.dispatch, props.components, props.params).then(
-                () => hydrate(props),
-                e => res.status(500).send(e)
-            )
+            hydrate(props);
+            //fetchComponentData(store.dispatch, props.components, props.params).then(
+            //    () => hydrate(props),
+            //    e => res.status(500).send(e)
+            //)
         }
     });
 }

@@ -3,8 +3,7 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link } from 'react-router';
-import { createHistory } from 'history';
+import { Router, Route, Link, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
 
@@ -12,9 +11,7 @@ import routes from './routes';
 import createStore from './createStore';
 import apiClient from './helpers/api';
 
-const history = createHistory();
-
-const store = createStore(window.__INITIAL_STATE__, history);
+const store = createStore(window.__INITIAL_STATE__, browserHistory);
 
 class Client extends React.Component {
 
@@ -22,7 +19,7 @@ class Client extends React.Component {
 
         return (
             <Provider store={store}>
-                <Router history={history}>
+                <Router history={browserHistory}>
                     {routes}
                 </Router>
             </Provider>
