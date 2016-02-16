@@ -17,8 +17,8 @@ export default class HomeHero extends React.Component {
         super(props);
         this.geoOptions = {
             inputClassName: 'form-control',
-            placeholder: 'Search location',
-            initialValue: 'Bangalore',
+            placeholder: 'Select a Location',
+            fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
             types: ['geocode'],
             country: 'in',
@@ -83,7 +83,7 @@ export default class HomeHero extends React.Component {
                         <i className="fa fa-music" />
                         <h4>Hobby Classes</h4>
                     </Link>
-                    <Link to="" className="cell tile">
+                    <Link to="/categories" className="cell tile">
                         <i className="fa fa-ellipsis-h" />
                         <h4>VIEW ALL</h4>
                     </Link>

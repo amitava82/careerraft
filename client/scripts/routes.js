@@ -13,6 +13,14 @@ import {
 } from './routes/institute';
 
 import {
+    CategoryContainer
+} from './routes/categories';
+
+import {
+        CourseContainer
+} from './routes/course';
+
+import {
     SearchContainer
 } from './routes/search';
 
@@ -34,6 +42,8 @@ import App from './app';
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={HomeContainer} isHome={true} />
+        <Route path="categories" component={CategoryContainer} />
+        <Route path="courses" component={CourseContainer} />
         <Route path="search" component={SearchContainer}>
         </Route>
         <Route path="institute/:id" component={InstituteContainer}>

@@ -14,6 +14,7 @@ import institute from './reducers/institutes';
 import category from './reducers/categories';
 import course from './reducers/courses';
 import subject from './reducers/subjects';
+import toast from './reducers/toast';
 
 
 export default function (initialState = {}, history, apiClient) {
@@ -29,7 +30,8 @@ export default function (initialState = {}, history, apiClient) {
         course_store: course,
         subject_store: subject,
         routing: routeReducer,
-        form: formReducer
+        form: formReducer,
+        toast: toast
     });
 
     return createStoreWithMiddleware(reduers, initialState);

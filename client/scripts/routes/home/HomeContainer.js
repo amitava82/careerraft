@@ -8,7 +8,7 @@ import map from 'lodash/map';
 
 import formatAddress from '../../utils/format-address';
 
-import { institute, category, search } from '../../actions'
+import { institute, category, search, createToast } from '../../actions'
 
 //import Item from './components/Item';
 import FilterBar from './components/FilterBar';

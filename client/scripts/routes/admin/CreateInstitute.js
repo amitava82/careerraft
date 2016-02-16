@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import { institute, category, course, subject } from '../../actions';
+import { institute, category, course, subject, createToast } from '../../actions';
 
 
 @reduxForm({
@@ -52,10 +52,16 @@ export default class CreateInstitute extends React.Component{
 
     @autobind
     onSubmit(data){
-        institute.CREATE_INSTITUTE(data).then(
-            (d) => {
-                console.log(d);
+        this.props.dispatch(institute.CREATE_INSTITUTE(data)).then(
+            d => {
                 this.props.resetForm();
+                this.props.dispatch(createToast('Institute created.'));
+            },
+            e => {
+                this.props.dispatch(createToast({
+                    text: e._error,
+                    type: 'error'
+                }));
             }
         )
     }

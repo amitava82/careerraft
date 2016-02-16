@@ -26,8 +26,8 @@ export default class Nav extends React.Component {
 
         this.geoOptions = {
             inputClassName: 'form-control',
-            placeholder: 'Search location',
-            initialValue: 'Bangalore',
+            placeholder: 'Select a Location',
+            fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
             types: ['geocode'],
             country: 'in',
@@ -98,7 +98,7 @@ export default class Nav extends React.Component {
             loginMenu = (
                 <div>
                     {session.user.name}
-                    <a href="/admin"><i className="fa fa-cog" /></a>
+                    <Link to="/admin"><i className="fa fa-cog" /></Link>
                 </div>
             )
         }else {
@@ -112,9 +112,9 @@ export default class Nav extends React.Component {
         return (
             <header className="grid row center">
                 <div className="brand">
-                    <a href="/">
+                    <Link to="/">
                         <img src="/images/logo.png" />
-                    </a>
+                    </Link>
                 </div>
                 {this.props.routing.location.pathname != '/' ? (
                     <form onSubmit={this.onSubmit} className="search grid cell">
@@ -124,10 +124,15 @@ export default class Nav extends React.Component {
                         </div>
                         <button type="submit">Search</button>
                     </form>
-                ) : <div className="cell"></div> }
-                <nav className="grid row">
+                ) : <nav className="cell">
+                    <Link to="/categories">Categories</Link>
                     <Link to="/courses">Courses</Link>
                     <Link to="/institutes">Institutes</Link>
+                </nav> }
+                <nav className="grid row">
+                    <Link to="/about">ABOUT</Link>
+                    <Link to="/services">SERVICE</Link>
+                    <Link to="/contact">GET IN TOUCH</Link>
                     {loginMenu}
                 </nav>
             </header>

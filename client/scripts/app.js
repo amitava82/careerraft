@@ -7,6 +7,7 @@ import autobind from 'autobind-decorator';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Toastr from './utils/toastr';
 
 import { SET_LOCATION, LOAD_SEARCH_SUGGESTION } from './actions/search';
 
@@ -21,6 +22,7 @@ export default class App extends React.Component {
                     {this.props.children}
                 </div>
                 <Footer />
+                <Toastr />
             </main>
         )
     }
