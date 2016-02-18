@@ -22,9 +22,10 @@ $blue-light: #A7DBD8;
 $tan: #E0E4CC;
 $orange-lighter: #F38630;
 $orange: #FA6900;
+$darker-gray: #333;
 $dark-gray: #444;
-$grey: #666;
-$medium-gray: #999;
+$grey: #555;
+$medium-gray: #666;
 $light-gray: #ddd;
 
 $success: #1ac262;
@@ -35,7 +36,7 @@ $info: #3276b1;
 
 
 // Font Colors
-$base-font-color: $dark-gray;
+$base-font-color: $medium-gray;
 $action-color: $orange;
 
 // Border

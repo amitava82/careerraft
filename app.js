@@ -32,7 +32,8 @@ require('./lib')(deps);
 async.eachSeries([
     'log',
     'mongodb',
-    'app'
+    'app',
+    'nodemailer'
 ], function(item, done){
     var fn = require('./lib/core/'+item)(deps);
 

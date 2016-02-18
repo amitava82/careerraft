@@ -1,0 +1,28 @@
+.features {
+    background-color: white;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    .cell {
+        text-align: center;
+        padding: 30px 10px;
+        .fa {
+            font-size: 3rem;
+            width: 90px;
+            background: $orange;
+            height: 90px;
+            border-radius: 50%;
+            color: #FFF;
+            line-height: 90px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: .9rem;
+            color: #999;
+            text-align: center;
+        }
+        p.lead {
+            font-size: 1rem;
+            color: #444;
+        }
+    }
+}

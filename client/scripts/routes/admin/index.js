@@ -8,6 +8,7 @@ import CreateCourse from './CreateCourse';
 import CreateInstitute from './CreateInstitute';
 import ManageInstitute from './ManageInstitute';
 import InstituteDetails from './InstituteDetails';
+import EditCategory from './EditCategory';
 
 export {
     AdminContainer,
@@ -16,5 +17,6 @@ export {
     CreateInstitute,
     ManageInstitute,
     CreateSubject,
-    InstituteDetails
+    InstituteDetails,
+    EditCategory
 }

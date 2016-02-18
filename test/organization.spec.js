@@ -1,15 +1,23 @@
 /**
  * Created by amitava on 12/02/16.
  */
-//require("babel-register");
+require("babel-register");
 
-var Organization = require('../lib/models/Organization')();
 var Category = require('../lib/models/Category')();
 var Course = require('../lib/models/Course')();
 var Subject = require('../lib/models/Subject')();
 var config = require('config');
 var db = require('../lib/core/mongodb')({config: config});
 var ObjectId = require('mongoose').Types.ObjectId;
+
+
+var Organization = require('../lib/models/Organization')({
+    models: {
+        Category: Category,
+        Subject: Subject,
+        Course: Course
+    }
+});
 
 db(function(){
 
@@ -29,20 +37,51 @@ db(function(){
       ]
     };
 
+
+    //Organization.findOneAndUpdate({_id: ObjectId("56c3151e9b84cc0f5a5056c5")}, {
+    //    name: 'amitava inc',
+    //    categories: {
+    //
+    //    }
+    //}, {new: true}).exec(handle)
+
+
+    Organization.assignSubjects2("56c3151e9b84cc0f5a5056c5", {
+        category: ObjectId("56b33d6a52b2830e427954e0"),
+        subjects: [ObjectId("56be016e81390b1cc452e02e")],
+        course: ObjectId("56bdfffb81390b1cc452e029")
+    }).then(handle);
+
+
+    return;
+
     var o2 = {
-        name: 'something',
+        name: 'Arena Net Indiranagar',
+        description: 'arena net teaches animation, maya, 3d modeling and game development',
+        parent: '56bd8d100f56ff5cbab348b3',
+        address: {
+            line1: '12th main road',
+            locality: 'Indiranagar',
+            city: 'Bangalore',
+            State: 'KA',
+            pincode: 560076,
+            loc: [12.9947034,77.5345687]
+        },
+        email: 'amitav@something.com',
+        phone: [{name: 'main', number: 12121212121}],
+        website: 'google.com',
         categories: [
             {
-                id: 1,
+                _id: ObjectId("56b33d6a52b2830e427954e0"),
                 name: 'Hobby classes',
                 courses: [
                     {
-                        name: 'Dance',
-                        id: 'bv5',
+                        name: 'Cooking',
+                        _id: ObjectId("56bdfffb81390b1cc452e029"),
                         subjects: [
                             {
-                                name: 'disco',
-                                id: 'hu7'
+                                name: 'Baking',
+                                _id: ObjectId("56be017581390b1cc452e02f")
                             }
                         ]
                     }
@@ -50,6 +89,8 @@ db(function(){
             }
         ]
     };
+
+    new Organization(o2).save(handle)
 
     var o3 = {
         name: 'something',

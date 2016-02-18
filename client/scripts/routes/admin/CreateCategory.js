@@ -5,8 +5,11 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
+import {Link} from 'react-router';
+
 
 import { CREATE_CATEGORY, LOAD_CATEGORIES, DELETE_CATEGORY } from '../../actions/category';
+import {createToast} from '../../actions';
 
 
 
@@ -25,7 +28,13 @@ export default class CreateCategory extends React.Component{
 
     @autobind
     onSubmit(data){
-        return this.props.dispatch(CREATE_CATEGORY(data));
+        return this.props.dispatch(CREATE_CATEGORY(data)).then(
+            () => {
+                this.props.dispatch(createToast('Created'));
+                this.props.resetForm();
+            },
+            e => this.props.dispatch(createToast(e))
+        )
     }
 
     componentDidMount(){
@@ -43,8 +52,7 @@ export default class CreateCategory extends React.Component{
         const categories = category.categories.map(c => {
             return (
                 <li key={c._id}>
-                    <strong>{c.name}</strong>
-                    <button className="sm link" onClick={() => this.delete(c._id)}>Delete</button>
+                    <strong>{c.name}</strong> <Link to={`/admin/category/${c._id}/edit`}>Edit</Link>
                 </li>
             )
         });
@@ -59,7 +67,7 @@ export default class CreateCategory extends React.Component{
                     </div>
                     <div>
                         <label>Description</label>
-                        <input type="text" {...description}/>
+                        <textarea {...description} value={description.value || ''} />
                     </div>
                     <div>
                         <button disabled={submitting} type="submit">Save</button>

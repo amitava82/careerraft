@@ -19,12 +19,16 @@ export default handleActions({
     TOAST: {
         next(state, action){
             const data = action.payload;
-            const toast = {};
+            let toast = {};
             if (typeof data === 'string'){
-                toast.text = data;
-                extend(toast, toastDefaults);
-            }else {
-                extend(toast, toastDefaults, data);
+                extend(toast, toastDefaults, {text: data});
+            }else{
+                if(data._error || data.message){
+                    toast.text = data._error || data.message;
+                    toast.type = 'error';
+                    toast = extend({}, toastDefaults, toast);
+                }else
+                    toast = extend(toast, toastDefaults, data);
             }
             toast.id = id();
             return update(state, {

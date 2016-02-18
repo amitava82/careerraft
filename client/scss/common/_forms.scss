@@ -13,7 +13,7 @@ legend {
 
 label {
     display: block;
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: $small-spacing / 2;
 }
 
@@ -24,7 +24,7 @@ select {
     font-size: $base-font-size;
 }
 
-input,
+input, textarea,
 select[multiple] {
     background-color: $base-background-color;
     border: $base-border;
@@ -90,5 +90,8 @@ select {
 .input-group{
     @extend .grid;
     @extend .row;
+    margin-bottom: $small-spacing;
+}
+.control-group{
     margin-bottom: $small-spacing;
 }

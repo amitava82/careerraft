@@ -1,0 +1,88 @@
+/**
+ * Created by amitava on 18/02/16.
+ */
+import React from 'react';
+import Helmet from 'react-helmet';
+import {Link} from 'react-router';
+
+export default class Educator extends React.Component {
+    render(){
+        return (
+            <div className="educator-page">
+                <Helmet title="Learn how Careerraft can help you." />
+                <h2 className="text-center">Create your Careerraft profile and reach more students</h2>
+                <p className="lead">A modern Institute needs a modern online presence to reach maximum students. Move beyond your
+
+                    Facebook page or basic website to create your own customized institute profile on Careerraft,
+
+                    exclusively designed for educational institutes like yours. Showcase your courses, your outstanding
+
+                    faculty and your world-class facilities. Highlight the achievement of your students or upload videos of
+
+                    your classes. Let the world know about your specialized courses. Market your courses on our platform
+
+                    and be discovered by students in your area. We handle payments and bookings so that your classes will
+
+                    fill up quickly and you can focus on what you do best - teaching.</p>
+                <div className="features grid row">
+                    <div className="cell">
+                        <i className="fa fa-file-text" />
+                        <p className="lead">Create Institute Profile</p>
+                        <p>Get ready to be discovered and enhance your enrollment through your institute profile on Careerraft.</p>
+                    </div>
+                    <div className="cell">
+                        <i className="fa fa-users" />
+                        <p className="lead">Connect with students and Parents</p>
+                        <p>We help you fill seats in your class with new students and help you generate additional revenue.</p>
+                    </div>
+                    <div className="cell">
+                        <i className="fa fa-certificate" />
+                        <p className="lead">Get Featured</p>
+                        <p>Get featured on Careerraft and be visible to all those potential students looking for your expertise.</p>
+                    </div>
+                </div>
+                <div className="ft-list">
+                    <div>
+                        <h6>Increase Enrollments and Sales</h6>
+                        <p className="lead">
+                            We help you fill seats in your class with new students and help you generate additional revenue.
+
+                            Through Careerraft you can reach to a wider market, which traditional marketing methods fall short of
+
+                            reaching.
+                        </p>
+                    </div>
+                    <div>
+                        <h6>Book Demo Class</h6>
+                        <p className="lead">
+                            Our research has shown that those students who book the demo class are more likely to join the classes.
+                            Hence we provide the facility of booking demo class through Careerraft.
+                        </p>
+                    </div>
+                    <div>
+                        <h6>Get Featured</h6>
+                        <p className="lead">
+                            Thousands of students visit Careerraft every day in search of the quality classes going on in their
+
+                            surroundings. It’s your chance to get featured on the home page of Careerraft and be visible to all those
+
+                            potential students looking for your expertise.
+                        </p>
+                    </div>
+                    <div>
+                        <h6>Online Payment and Booking</h6>
+                        <p className="lead">
+                            Careerraft promotes online admission and online fees payment facility for booking of your classes
+
+                            through all major payment methods (Net Banking, Credit/Debit Cards, PayU Money). We transfer the
+
+                            fees within 48 hours into your account with a minimum internet handling charges at Careerraft’s side.
+                        </p>
+                    </div>
+                </div>
+                <h6>Ready to partner with us?</h6>
+                <p>Please <Link to="/contact-us">contact us</Link> and we'll help you get started.</p>
+            </div>
+        )
+    }
+}

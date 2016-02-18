@@ -4,10 +4,12 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 
 import { CREATE_COURSE, LOAD_COURSES, DELETE_COURSE } from '../../actions/course';
 import { LOAD_CATEGORIES } from '../../actions/category';
+import {createToast} from '../../actions';
 
 
 
@@ -29,13 +31,20 @@ export default class CreateCourse extends React.Component{
         super(props, ctx);
 
         this.state = {
-            categories: []
+            category: null
         }
     }
 
     @autobind
     onSubmit(data){
-        return this.props.dispatch(CREATE_COURSE(data));
+        const category = this.state.category;
+        return this.props.dispatch(CREATE_COURSE({...data, category})).then(
+            () => {
+                this.props.dispatch(createToast('Created'));
+                this.props.resetForm();
+            },
+            e => this.props.dispatch(createToast(e))
+        )
     }
 
     componentDidMount(){
@@ -43,8 +52,10 @@ export default class CreateCourse extends React.Component{
     }
 
     @autobind
-    delete(id){
-        this.props.dispatch(DELETE_COURSE(id))
+    selectCategory(e){
+        const val = e.target.value;
+        this.setState({category: val});
+        this.props.dispatch(LOAD_COURSES(val));
     }
 
     render(){
@@ -54,8 +65,7 @@ export default class CreateCourse extends React.Component{
             return (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
-                    <p>{c.description}</p>
-                    <button onClick={() => this.delete(c._id)}>Delete</button>
+                    <Link to={`/admin/course/${c._id}/edit`}>Edit</Link>
                 </li>
             )
         });
@@ -65,7 +75,8 @@ export default class CreateCourse extends React.Component{
                     <h4>Add Course</h4>
                     <div>
                         <label>Select Category</label>
-                        <select {...category} value={category.value}>
+                        <select value={this.state.category} onChange={this.selectCategory} >
+                            <option value="">Select category</option>
                             {this.props.category.categories.map(i => {
                                 return (<option value={i._id} key={i._id}>{i.name}</option>)
                             })}
@@ -78,7 +89,7 @@ export default class CreateCourse extends React.Component{
                     </div>
                     <div>
                         <label>Description</label>
-                        <input type="text" {...description}/>
+                        <textarea  {...description} value={description.value || ''}/>
                     </div>
                     <div>
                         <button disabled={submitting} type="submit">Save</button>

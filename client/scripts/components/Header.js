@@ -125,14 +125,12 @@ export default class Nav extends React.Component {
                         <button type="submit">Search</button>
                     </form>
                 ) : <nav className="cell">
-                    <Link to="/categories">Categories</Link>
-                    <Link to="/courses">Courses</Link>
-                    <Link to="/institutes">Institutes</Link>
+                    <Link to="/about">ABOUT</Link>
+                    <Link to="/core-values">CORE VALUES</Link>
+                    <Link to="/team">TEAM</Link>
+                    <Link to="/contact-us">GET IN TOUCH</Link>
                 </nav> }
                 <nav className="grid row">
-                    <Link to="/about">ABOUT</Link>
-                    <Link to="/services">SERVICE</Link>
-                    <Link to="/contact">GET IN TOUCH</Link>
                     {loginMenu}
                 </nav>
             </header>

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"raft.categories"},{"v":1,"key":{"_fts":"text","_ftsx":1},"name":"category text search","ns":"raft.categories","background":true,"weights":{"description":1,"name":1,"tags":1},"default_language":"english","language_override":"language","textIndexVersion":3}]}

@@ -15,10 +15,10 @@ h5,
 h6 {
     font-family: $heading-font-family;
     font-size: $base-font-size;
-    color: $blue;
+    color: $darker-gray;
     line-height: $heading-line-height;
     margin: 0 0 $small-spacing;
-    font-weight: 500;
+    font-weight: 100;
 }
 
 h1, h2 { line-height: 1.1; }
@@ -28,6 +28,10 @@ h2 { font-size: 250%; letter-spacing: -1px; }
 h3 { font-size: 200%; }
 h4 { font-size: 180%; }
 h5 { font-size: 130%; }
+
+h5, h6{
+    font-weight: 400;
+}
 
 
 p {
@@ -62,4 +66,22 @@ picture {
 
 .sm {
     font-size: 75%!important;
+}
+
+.lead {
+    font-size: 120%;
+}
+
+.text-error{
+    color: $error;
+}
+.text-success {
+    color: $success;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-left{
+    text-align: left;
 }

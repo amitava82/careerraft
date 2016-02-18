@@ -33,7 +33,8 @@
     },
 
     "google": {
-        "browser": "AIzaSyC5X3hZW_EBR7mHVxvUv3CPB6UAR-3hK94"
+        "browser": "AIzaSyC5X3hZW_EBR7mHVxvUv3CPB6UAR-3hK94",
+        "analytics": "UA-73916287-1"
     },
 
     "auth": {

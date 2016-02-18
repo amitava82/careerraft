@@ -3,16 +3,17 @@
  */
 var config = require('config');
 
-export default function html(markup, initialState){
+export default function html(markup, initialState, helmet){
+    const title = helmet.title.toString() || 'Careerraft';
     return (
         `
     <!DOCTYPE html>
     <html>
         <head>
-            <title>CareerRaft</title>
+            ${title}
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="keywords" content="" />
+            <meta name="keywords" content="careerraft, IIT, JEE, PUC, dance, music, coaching class, personal tutor, online class, online tutor, medical coaching, CET" />
             <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning." />
             <meta name="author" content="Careerraft" />
             <meta name="copyright" content="(c) 2016 Careerraft Inc." />

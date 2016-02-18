@@ -40,7 +40,7 @@ export default class SearchContainer extends React.Component {
         props.dispatch(search.SEARCH({
             q: props.location.query.q,
             loc: props.search_store.location,
-            category: props.location.query.category
+            ...props.location.query
         })).then(
             r => this.setState({loading: false}),
             e => console.log(e)

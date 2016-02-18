@@ -63,23 +63,23 @@ export default class HomeHero extends React.Component {
                     </div>
                 </div>
                 <div className="cell grid row tile-container">
-                    <Link to="" className="cell tile">
+                    <Link to={categoryUrl('pre-school')} className="cell tile">
                         <i className="fa fa-pencil" />
                         <h4>Pre-School</h4>
                     </Link>
-                    <Link to="" className="cell tile">
+                    <Link to={categoryUrl('engineering-entrance')} className="cell tile">
                         <i className="fa fa-graduation-cap" />
                         <h4>Engineering Entrance</h4>
                     </Link>
-                    <Link to="" className="cell tile">
+                    <Link to={categoryUrl('medical-entrance')} className="cell tile">
                         <i className="fa fa-user-md" />
                         <h4>Medical Entrance</h4>
                     </Link>
-                    <Link to="" className="cell tile">
+                    <Link to={categoryUrl('commerce-classes')} className="cell tile">
                         <i className="fa fa-inr" />
                         <h4>Commerce Classes</h4>
                     </Link>
-                    <Link to="" className="cell tile">
+                    <Link to={categoryUrl('hobby-classes')} className="cell tile">
                         <i className="fa fa-music" />
                         <h4>Hobby Classes</h4>
                     </Link>
@@ -91,4 +91,8 @@ export default class HomeHero extends React.Component {
             </div>
         )
     }
+}
+
+function categoryUrl(id){
+    return `/categories/${id}`;
 }

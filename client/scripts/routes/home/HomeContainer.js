@@ -18,23 +18,10 @@ import Hero from './HomeHero';
 @connect(state => state)
 export default class HomeContainer extends React.Component {
 
-    componentDidMount(){
-            this.props.dispatch(search.SEARCH());
-            this.props.dispatch(category.LOAD_CATEGORIES());
-    }
-
     render(){
-
-        const instsList = this.props.search_store.results.map(i => {
-            return <InstItem inst={i} />;
-        });
-
-        const categories = this.props.category_store.categories.map(i => {
-           return <Link className="list-group-item" to={`/search?category=${i._id}`}>{i.name}</Link>
-        });
         return (
             <div className="home-page">
-                <Hero />
+                <Hero  />
                 <div className="teach-hint">
                     Are you an individual or running a training center? <Link to="/educator">Learn how Careerraft can help you.</Link>
                 </div>

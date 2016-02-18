@@ -1,0 +1,57 @@
+.about-page, .team-page, .contact-page, .values-page,.educator-page {
+    padding: 30px 60px;
+    margin: 0 auto;
+    margin-top: 70px;
+    max-width: 1100px;
+    background: #FFF;
+
+    span {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+.team-page{
+    p {
+        text-align: left;
+    }
+
+    img{
+        max-width: 200px;
+        padding-top: 65px;
+    }
+}
+.contact-page{
+    text-align: left;
+
+    > .lead{
+        margin: 20px 0 100px 0;
+    }
+    span{
+        display: inline;
+    }
+    input, textarea{
+        width: 100%;
+    }
+}
+
+.educator-page {
+    text-align: left;
+    h2{
+        font-size: 2rem;
+        font-weight: 100;
+        color: $orange;
+    }
+    span{
+        display: inline;
+    }
+    .features{
+        margin: 40px 0;
+    }
+
+    .ft-list {
+        > div {
+            margin-bottom: 40px;
+        }
+    }
+}

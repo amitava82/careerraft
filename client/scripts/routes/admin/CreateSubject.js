@@ -4,53 +4,79 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 
 import { CREATE_SUBJECT, LOAD_SUBJECTS } from '../../actions/subject';
 import { LOAD_COURSES } from '../../actions/course';
 import { LOAD_CATEGORIES } from '../../actions/category';
+import {createToast} from '../../actions';
 
 
 
 @connect(state => {
     return {
-        subject: state.subject_store,
-        course: state.course_store,
-        category: state.category_store
+        category_store: state.category_store,
+        subject_store: state.subject_store,
+        course_store: state.course_store
     }
 })
 @reduxForm({
     form: 'subject',
-    fields: ['name', 'description', 'category', 'course']
+    fields: ['name', 'description']
 })
 export default class CreateSubject extends React.Component{
 
     static displayName = 'CreateSubjectFrom';
 
+    constructor(props, ctx){
+        super(props, ctx);
+
+        this.state = {
+            category: null,
+            course: null
+        }
+    }
+
     @autobind
     onSubmit(data){
-        return this.props.dispatch(CREATE_SUBJECT(data));
+        const {category, course} = this.state;
+        return this.props.dispatch(CREATE_SUBJECT({...data, category, course})).then(
+            () => {
+                this.props.dispatch(createToast('Created'));
+                this.props.resetForm();
+            },
+            e => this.props.dispatch(createToast(e))
+        )
     }
 
     componentDidMount(){
-        //this.props.dispatch(LOAD_COURSES());
+        console.log('cat')
         this.props.dispatch(LOAD_CATEGORIES());
     }
 
     @autobind
-    delete(item){
+    selectCategory(e){
+        const val = e.target.value;
+        this.setState({category: val, course: null});
+        this.props.dispatch(LOAD_COURSES(val));
+    }
 
+    @autobind
+    selectCourse(e){
+        const val = e.target.value;
+        this.props.dispatch(LOAD_SUBJECTS({course: val}));
+        this.setState({course: val});
     }
 
     render(){
-        const {fields: {name, description, category, course}, error, handleSubmit, submitting, subject} = this.props;
+        const {fields: {name, description}, error, handleSubmit, submitting,category_store, subject_store, course_store} = this.props;
 
-        const subjects = subject.subjects.map(c => {
+        const subjects = subject_store.subjects.map(c => {
             return (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
-                    <p>{c.description}</p>
-                    <button onClick={this.delete}>Delete</button>
+                    <Link to={`/admin/subject/${c._id}/edit`}>Edit</Link>
                 </li>
             )
         });
@@ -60,24 +86,18 @@ export default class CreateSubject extends React.Component{
                     <h4>Add Subject</h4>
                     <div>
                         <label>Select Category</label>
-                        <select {...category} value={category.value}
-                                              onChange={e =>{
-                                                category.onChange(e);
-                                                this.props.dispatch(LOAD_COURSES(e.target.value))
-                                              }
-
-                        }>
+                        <select value={this.state.category} onChange={this.selectCategory}>
                             <option value="">Select</option>
-                            {this.props.category.categories.map(i => {
+                            {category_store.categories.map(i => {
                                 return (<option value={i._id} key={i._id}>{i.name}</option>)
                             })}
                         </select>
                     </div>
                     <div>
                         <label>Select Course</label>
-                        <select {...course} value={course.value}>
+                        <select value={this.state.course} onChange={this.selectCourse}>
                             <option value="">Select</option>
-                            {this.props.course.courses.map(i => {
+                            {course_store.courses.map(i => {
                                 return (<option value={i._id} key={i._id}>{i.name}</option>)
                             })}
                         </select>
@@ -89,7 +109,7 @@ export default class CreateSubject extends React.Component{
                     </div>
                     <div>
                         <label>Description</label>
-                        <input type="text" {...description}/>
+                        <textarea {...description} value={description.value || ''} />
                     </div>
                     <div>
                         <button disabled={submitting} type="submit">Save</button>

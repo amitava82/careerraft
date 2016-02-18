@@ -1,5 +1,5 @@
 {
-    "middleware": ["log"],
+    "middleware": ["apiRequest"],
     "routes": [
         {
             "path": "/api/categories",

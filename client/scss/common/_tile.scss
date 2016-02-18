@@ -13,12 +13,19 @@
         margin: -1px;
         background-color: $orange;
         transition: all 250ms ease;
-        cursor: pointer;
+        text-align: center;
+
         &:hover {
             background-color: $blue;
             i.fa{
                 color: white;
             }
+        }
+
+        p {
+            color: white;
+            margin-top: 10px;
+            font-weight: 100;
         }
 
         h4{

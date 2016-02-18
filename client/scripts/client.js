@@ -4,14 +4,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import { Provider } from 'react-redux';
+
 
 
 import routes from './routes';
 import createStore from './createStore';
 import apiClient from './helpers/api';
 
-const store = createStore(window.__INITIAL_STATE__, browserHistory);
+const history = useScroll(() => browserHistory)();
+const store = createStore(window.__INITIAL_STATE__, history);
 
 class Client extends React.Component {
 
@@ -19,7 +22,7 @@ class Client extends React.Component {
 
         return (
             <Provider store={store}>
-                <Router history={browserHistory}>
+                <Router history={history}>
                     {routes}
                 </Router>
             </Provider>

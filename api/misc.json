@@ -1,0 +1,11 @@
+{
+    "middleware": ["apiRequest"],
+    "routes": [
+        {
+            "path": "/api/misc/send_mail",
+            "method": "post",
+            "handler": "sendMail",
+            "middleware": []
+        }
+    ]
+}

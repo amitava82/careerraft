@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
-
+import Helmet from 'react-helmet';
 import HTML from './html';
 import routes from './routes';
 import createStore from './createStore';
@@ -48,8 +48,8 @@ function handleRender(req, res){
         }catch(e){
             throw e;
         }
-
-        const markup = HTML(renderedHtml, state);
+        const head = Helmet.rewind();
+        const markup = HTML(renderedHtml, state, head);
 
         res.send(markup);
     }
