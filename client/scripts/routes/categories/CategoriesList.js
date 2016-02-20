@@ -4,13 +4,23 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import {LOAD_CATEGORIES} from '../../actions/category';
+
+import {loadCategories} from '../../redux/modules/category';
+
+import middleware from '../../utils/middleware';
 
 @connect(state => state)
+@middleware([
+    {
+        key: '$categories',
+        watch: (props) => props,
+        handler: (props) => props.dispatch(loadCategories())
+    }
+])
 export default class CategoryDetails extends React.Component {
 
     componentDidMount(){
-        this.props.dispatch(LOAD_CATEGORIES());
+        //this.props.dispatch(LOAD_CATEGORIES());
     }
 
     render() {

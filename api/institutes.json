@@ -28,6 +28,18 @@
             "method": "put",
             "handler": "addSubjects",
             "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/institutes/:id/categories",
+            "method": "put",
+            "handler": "addCategory",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/institutes/:id/categories/:category",
+            "method": "del",
+            "handler": "deleteCategory",
+            "middleware": ["ensureLoggedIn"]
         }
     ]
 }

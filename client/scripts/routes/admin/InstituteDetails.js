@@ -5,7 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import {LOAD_INSTITUTE} from '../../actions/institute';
+import {getInstitute} from '../../redux/modules/institute';
 import  AssignSubject from './AssignSubject';
 
 
@@ -20,7 +20,7 @@ export default class InstituteDetails extends React.Component {
         }
     }
     componentDidMount(){
-        this.props.dispatch(LOAD_INSTITUTE(this.props.params.id)).then(
+        this.props.dispatch(getInstitute(this.props.params.id)).then(
             r => this.setState({institute: r})
         )
     }
@@ -28,7 +28,7 @@ export default class InstituteDetails extends React.Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.params.id == this.props.params.id) return;
 
-        this.props.dispatch(LOAD_INSTITUTE(this.props.params.id)).then(
+        this.props.dispatch(getInstitute(this.props.params.id)).then(
             r => this.setState({institute: r})
         )
     }

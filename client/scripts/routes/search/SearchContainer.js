@@ -5,8 +5,8 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
-
-import { search } from '../../actions';
+import Helmet from 'react-helmet';
+import { search } from '../../redux/modules/search';
 
 import map from 'lodash/map';
 
@@ -37,7 +37,7 @@ export default class SearchContainer extends React.Component {
     }
 
     search(props){
-        props.dispatch(search.SEARCH({
+        props.dispatch(search({
             q: props.location.query.q,
             loc: props.search_store.location,
             ...props.location.query
@@ -54,9 +54,9 @@ export default class SearchContainer extends React.Component {
         });
         return (
             <div className="search-page">
+                <Helmet title="Search for institutes, classes, courses, subjects" />
                 <h4>Search results for <em>{this.props.location.query.q}</em></h4>
-                <hr />
-                {this.state.loading? 'LOADING>....' : searchList}
+                {this.state.loading ? 'LOADING....' : searchList}
                 {this.props.children}
             </div>
         )

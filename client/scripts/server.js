@@ -9,11 +9,11 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import HTML from './html';
 import routes from './routes';
-import createStore from './createStore';
+import createStore from './redux/createStore';
 import ApiClient from './helpers/api';
 import config from 'config';
 
-import { STORE_SESSION } from './actions/session';
+import { storeSession } from './redux/modules/session';
 import fetchComponentData from './helpers/fetchComponentData';
 
 
@@ -28,7 +28,7 @@ function handleRender(req, res){
     const store = createStore({}, history, api);
 
     if(req.isAuthenticated()){
-        store.dispatch(STORE_SESSION(req.user));
+        store.dispatch(storeSession(req.user));
     }
 
     function hydrate(props){

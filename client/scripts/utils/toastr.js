@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import classNames from 'classnames';
 
-import {REMOVE_TOAST} from '../actions/misc';
+import {removeToast} from '../redux/modules/toast';
 
 const ICONS = {
     'warn': 'fa-exclamation-circle',
@@ -37,7 +37,7 @@ export default class ToastFactory extends React.Component{
             delete timr.id;
         }
         this.setState({timers: timr}, () => {
-            this.props.dispatch(REMOVE_TOAST(id));
+            this.props.dispatch(removeToast(id));
         });
     }
 

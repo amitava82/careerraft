@@ -13,6 +13,11 @@ var envPlugin = new webpack.DefinePlugin({
 });
 
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js');
+var env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')});
+
+var plugins = [commonsPlugin];
+
+if(process.env.NODE_ENV == 'production') plugins.push(env);
 
 module.exports = {
     entry: {
@@ -46,7 +51,7 @@ module.exports = {
         // you can now require('file') instead of require('file.coffee')
         extensions: ['', '.js', '.json']
     },
-    plugins: [commonsPlugin],
+    plugins: plugins,
     modulesDirectories: [
         'node_modules'
     ]

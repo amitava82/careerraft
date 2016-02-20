@@ -13,7 +13,13 @@ export default class PureInput extends Component {
     }
 
     render() {
-        const {field, ...rest} = this.props;
-        return <input {...field} {...rest}/>;
+        const {field, label, ...rest} = this.props;
+        return (
+            <div className="input">
+                {label && <label>{label}</label>}
+                <input className="form-control" {...field} {...rest}/>
+                {field && field.touched && field.error && <div className="text-error">{field.error}</div>}
+            </div>
+        )
     }
 }

@@ -7,10 +7,10 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 
-import { CREATE_SUBJECT, LOAD_SUBJECTS } from '../../actions/subject';
-import { LOAD_COURSES } from '../../actions/course';
-import { LOAD_CATEGORIES } from '../../actions/category';
-import {createToast} from '../../actions';
+import { createSubject, getSubjects } from '../../redux/modules/subject';
+import { loadCourses } from '../../redux/modules/course';
+import { loadCategories } from '../../redux/modules/category';
+import {createToast} from '../../redux/modules/toast';
 
 
 
@@ -41,7 +41,7 @@ export default class CreateSubject extends React.Component{
     @autobind
     onSubmit(data){
         const {category, course} = this.state;
-        return this.props.dispatch(CREATE_SUBJECT({...data, category, course})).then(
+        return this.props.dispatch(createSubject({...data, category, course})).then(
             () => {
                 this.props.dispatch(createToast('Created'));
                 this.props.resetForm();
@@ -52,20 +52,20 @@ export default class CreateSubject extends React.Component{
 
     componentDidMount(){
         console.log('cat')
-        this.props.dispatch(LOAD_CATEGORIES());
+        this.props.dispatch(loadCategories());
     }
 
     @autobind
     selectCategory(e){
         const val = e.target.value;
         this.setState({category: val, course: null});
-        this.props.dispatch(LOAD_COURSES(val));
+        this.props.dispatch(loadCourses(val));
     }
 
     @autobind
     selectCourse(e){
         const val = e.target.value;
-        this.props.dispatch(LOAD_SUBJECTS({course: val}));
+        this.props.dispatch(getSubjects({course: val}));
         this.setState({course: val});
     }
 

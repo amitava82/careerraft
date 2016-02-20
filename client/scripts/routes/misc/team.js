@@ -2,11 +2,13 @@
  * Created by amitava on 18/02/16.
  */
 import React from 'react';
+import Helmet from 'react-helmet';
 
 export default class Team extends React.Component {
     render(){
         return (
             <div className="team-page">
+                <Helmet title="Careerraft :: Team" />
                 <h2 className="text-center">Meet the Leadership</h2>
                 <div className="grid">
                     <div className="cell">

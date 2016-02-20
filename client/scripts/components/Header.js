@@ -8,10 +8,9 @@ import reduce from 'lodash/reduce';
 import throttle from 'lodash/throttle';
 var Geosuggest = require('react-geosuggest');
 
-import { institute, search } from '../actions';
 
+import { setLocation } from '../redux/modules/search';
 import getUserLocation from '../utils/location';
-
 import Dropdown from './Dropdown';
 
 @connect(state => state)
@@ -37,14 +36,14 @@ export default class Nav extends React.Component {
 
     componentDidMount(){
         getUserLocation(loc => {
-            this.props.dispatch(search.SET_LOCATION([loc.lng, loc.lat]));
+            this.props.dispatch(setLocation([loc.lng, loc.lat]));
         });
     }
 
     @autobind
     onGeoSelect(data){
         const p = data.location;
-        this.props.dispatch(search.SET_LOCATION([p.lng, p.lat]));
+        this.props.dispatch(setLocation([p.lng, p.lat]));
     }
 
     getGeoLocation() {
@@ -67,7 +66,7 @@ export default class Nav extends React.Component {
     @autobind
     onValueChange(val){
         if(!val)
-            this.props.dispatch(search.SET_LOCATION(null));
+            this.props.dispatch(setLocation(null));
     }
 
     render () {

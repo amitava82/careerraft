@@ -6,11 +6,10 @@ import {reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import {LOAD_CATEGORIES} from '../../actions/category'
-import {LOAD_COURSES} from '../../actions/course';
-import {LOAD_SUBJECTS} from '../../actions/subject';
-import {ADD_SUBJECTS} from '../../actions/institute';
-
+import {loadCategories} from '../../redux/modules/category';
+import {loadCourses} from '../../redux/modules/course';
+import {getSubjects} from '../../redux/modules/subject';
+import {addSubject} from '../../redux/modules/institute';
 
 @reduxForm({
     form: 'assign_subject',
@@ -33,12 +32,12 @@ export default class AssignSubject extends React.Component {
     }
 
     componentDidMount(){
-        this.props.dispatch(LOAD_CATEGORIES());
+        this.props.dispatch(loadCategories());
     }
 
     @autobind
     onSubmit(data){
-        return this.props.dispatch(ADD_SUBJECTS(this.props.inst_id, data)).then(
+        return this.props.dispatch(addSubject(this.props.inst_id, data)).then(
             r => this.props.onSave(r),
             e => console.log(e)
         )
@@ -47,13 +46,13 @@ export default class AssignSubject extends React.Component {
     @autobind
     onChangeCategory(e){
         this.props.fields.category.onChange(e);
-        this.props.dispatch(LOAD_COURSES(e.target.value));
+        this.props.dispatch(loadCourses(e.target.value));
     }
 
     @autobind
     onChangeCourse(e){
         this.props.fields.course.onChange(e);
-        this.props.dispatch(LOAD_SUBJECTS({course: e.target.value, category: this.props.fields.category.value}));
+        this.props.dispatch(getSubjects({course: e.target.value, category: this.props.fields.category.value}));
     }
 
     render(){

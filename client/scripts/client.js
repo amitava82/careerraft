@@ -10,11 +10,11 @@ import { Provider } from 'react-redux';
 
 
 import routes from './routes';
-import createStore from './createStore';
+import createStore from './redux/createStore';
 import apiClient from './helpers/api';
 
 const history = useScroll(() => browserHistory)();
-const store = createStore(window.__INITIAL_STATE__, history);
+const store = createStore(window.__INITIAL_STATE__, history, new apiClient());
 
 class Client extends React.Component {
 

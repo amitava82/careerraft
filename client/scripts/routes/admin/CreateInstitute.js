@@ -5,12 +5,21 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
+import map from 'lodash/map';
 
-import { institute, category, course, subject, createToast } from '../../actions';
+import {createInstitute} from '../../redux/modules/institute';
+import {loadCourses} from '../../redux/modules/course';
+import {loadCategories} from '../../redux/modules/category';
+import {getSubjects} from '../../redux/modules/subject';
+import {createToast} from '../../redux/modules/toast';
 
+import Input from '../../components/PureInput';
+import Select from '../../components/Select';
+import Textarea from '../../components/Textarea';
+import STATES from '../../utils/states';
 
 @reduxForm({
-    form: 'institute',
+    form: 'institute_create',
     fields: [
         'name',
         'description',
@@ -52,7 +61,7 @@ export default class CreateInstitute extends React.Component{
 
     @autobind
     onSubmit(data){
-        this.props.dispatch(institute.CREATE_INSTITUTE(data)).then(
+        return this.props.dispatch(createInstitute(data)).then(
             d => {
                 this.props.resetForm();
                 this.props.dispatch(createToast('Institute created.'));
@@ -62,6 +71,7 @@ export default class CreateInstitute extends React.Component{
                     text: e._error,
                     type: 'error'
                 }));
+                return Promise.reject(e);
             }
         )
     }
@@ -83,81 +93,70 @@ export default class CreateInstitute extends React.Component{
             }, error, handleSubmit, submitting} = this.props;
 
         return (
-            <div className="grid row">
+            <div className="grid row create-int-page">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
                     <h4>Create Institute</h4>
                     <div>
-                        <label>Name</label>
-                        <input type="text" {...name}/>
-                        {name.error && <div>{name.error}</div>}
+                        <Input label="Name" type="text" field={name} />
                     </div>
                     <div>
-                        <label>Institute type Type</label>
-                        <select {...type}>
-                            <option value="">Select</option>
-                            <option value="organization">Institute</option>
-                            <option value="individual">Individual</option>
-                        </select>
+                        <Select label="Institute type Type" field={type} options={[
+                            {label: 'Institute', value: 'institute'},
+                            {label: 'Individual', value: 'individual'}
+                        ]} />
                     </div>
                     <div>
-                        <label>Description</label>
-                        <input type="text" {...description}/>
+                        <Textarea label="Description" field={description} />
                     </div>
                     <div>
                         <label>Address</label>
-                        <input type="text" {...address.line1} placeholder="Address line 1"/>
-                        <input type="text" {...address.line2} placeholder="Address line 2"/>
-                        <input type="text" {...address.locality} placeholder="Locality"/>
-                        <input type="text" {...address.city} placeholder="City"/>
-                        <input type="text" {...address.state} placeholder="State"/>
-                        <input type="text" {...address.pincode} placeholder="Pin Code"/>
+                        <Input type="text" field={address.line1} placeholder="Address line 1" />
+                        <Input type="text" field={address.line2} placeholder="Address line 2" />
+                        <Input type="text" field={address.locality} placeholder="Locality" />
+                        <Input type="text" field={address.city} placeholder="City" />
+                        <Select field={address.state} options={map(STATES, (v,k) => ({label: v, value: k}))} />
+
+                        <Input type="text" field={address.pincode} placeholder="Pin Code" />
                     </div>
                     <div>
                         <label>Location [Longitude, Latitude]</label>
-                        <input type="text" {...address.loc[0]} />
-                        <input type="text" {...address.loc[1]} />
+                        <input type="text" {...address.loc[0]} placeholder="Longitude"/>
+                        <input type="text" {...address.loc[1]} placeholder="Latitude"/>
                     </div>
                     <div>
-                        <label>Logo</label>
-                        <input type="text" {...logo} />
+                        <Input type="text" field={logo} label="Logo URL" />
                     </div>
                     <div>
-                        <label>Banner</label>
-                        <input type="text" {...banner} />
+                        <Input type="text" field={banner} label="Banner URL" />
                     </div>
                     <div>
-                        <label>Website</label>
-                        <input type="text" {...website} />
+                        <Input type="text" field={website} label="Website address" />
                     </div>
                     <div>
-                        <label>email</label>
-                        <input type="text" {...email} />
+                        <Input type="email" field={email} label="Email address" />
                     </div>
                     <div>
                         <label>Telephones</label>
                         {telephones.map(p => {
                             return (
                                 <div>
-                                    <input type="text" {...p.name} />
-                                    <input type="text" {...p.number} />
+                                    <Input type="text" field={p.name} />
+                                    <Input type="text" field={p.number} />
                                 </div>
                             )
                         })}
                         <a onClick={e => {
-
+                            telephones.addField()
                         }}>Add more</a>
                     </div>
                     <div>
-                        <label>Established in</label>
-                        <input type="text" {...estd} />
+                        <Input type="text" field={estd} label="Established in" />
                     </div>
                     <div>
-                        <label>Student count</label>
-                        <input type="text" {...student_count} />
+                        <Input type="text" field={student_count} label="Student count" />
                     </div>
                     <div>
-                        <label>Faculty count</label>
-                        <input type="text" {...faculty_count} />
+                        <Input type="text" field={faculty_count} label="Faculty count" />
                     </div>
 
                     <div>

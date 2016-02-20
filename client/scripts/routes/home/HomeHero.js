@@ -8,7 +8,8 @@ import autobind from 'autobind-decorator';
 import { routeActions } from 'react-router-redux';
 var Geosuggest = require('react-geosuggest');
 
-import { search } from '../../actions';
+import { setLocation } from '../../redux/modules/search';
+import {HOME_CATEGORIES} from '../../constants';
 
 @connect(state => state)
 export default class HomeHero extends React.Component {
@@ -36,16 +37,25 @@ export default class HomeHero extends React.Component {
     @autobind
     onGeoSelect(data){
         const p = data.location;
-        this.props.dispatch(search.SET_LOCATION([p.lng, p.lat]));
+        this.props.dispatch(setLocation([p.lng, p.lat]));
     }
 
     @autobind
     onValueChange(val){
         if(!val)
-            this.props.dispatch(search.SET_LOCATION(null));
+            this.props.dispatch(setLocation(null));
     }
 
     render(){
+
+        const cats = HOME_CATEGORIES.map(i => {
+            return (
+                <Link to={`/categories/${i.id}`} className="cell tile">
+                    <i className={`fa ${i.icon}`}/>
+                    <h4>{i.name}</h4>
+                </Link>
+            )
+        });
 
         return (
             <div>
@@ -63,26 +73,7 @@ export default class HomeHero extends React.Component {
                     </div>
                 </div>
                 <div className="cell grid row tile-container">
-                    <Link to={categoryUrl('pre-school')} className="cell tile">
-                        <i className="fa fa-pencil" />
-                        <h4>Pre-School</h4>
-                    </Link>
-                    <Link to={categoryUrl('engineering-entrance')} className="cell tile">
-                        <i className="fa fa-graduation-cap" />
-                        <h4>Engineering Entrance</h4>
-                    </Link>
-                    <Link to={categoryUrl('medical-entrance')} className="cell tile">
-                        <i className="fa fa-user-md" />
-                        <h4>Medical Entrance</h4>
-                    </Link>
-                    <Link to={categoryUrl('commerce-classes')} className="cell tile">
-                        <i className="fa fa-inr" />
-                        <h4>Commerce Classes</h4>
-                    </Link>
-                    <Link to={categoryUrl('hobby-classes')} className="cell tile">
-                        <i className="fa fa-music" />
-                        <h4>Hobby Classes</h4>
-                    </Link>
+                    {cats}
                     <Link to="/categories" className="cell tile">
                         <i className="fa fa-ellipsis-h" />
                         <h4>VIEW ALL</h4>
@@ -91,8 +82,4 @@ export default class HomeHero extends React.Component {
             </div>
         )
     }
-}
-
-function categoryUrl(id){
-    return `/categories/${id}`;
 }

@@ -6,6 +6,11 @@ import update from 'react-addons-update';
 import extend from 'lodash/extend';
 import reject from 'lodash/reject';
 
+import { resolve, reject as _reject } from 'redux-simple-promise';
+
+import createAction from '../createActions';
+const [TOAST, REMOVE_TOAST] = createAction('toast', ["TOAST", "REMOVE_TOAST"]);
+
 const initialState = {
     toasts: []
 };
@@ -15,9 +20,10 @@ const toastDefaults = {
   timeout: 5000
 };
 
-export default handleActions({
-    TOAST: {
-        next(state, action){
+export default function(state=initialState, action = {}){
+    //debugger;
+    switch (action.type){
+        case TOAST:
             const data = action.payload;
             let toast = {};
             if (typeof data === 'string'){
@@ -32,21 +38,34 @@ export default handleActions({
             }
             toast.id = id();
             return update(state, {
-              toasts: {$push: [toast]}
+                toasts: {$push: [toast]}
             });
-        }
-    },
 
-    REMOVE_TOAST: {
-        next(state, action) {
+        case REMOVE_TOAST:
             return update(state, {
                 toasts: {$set: reject(state.toasts, {id: action.payload})}
-            })
-        }
+            });
+
+        default:
+            return state;
     }
-}, initialState)
+}
 
 
 function id(){
     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+}
+
+export function createToast(data){
+    return {
+        type: TOAST,
+        payload: data
+    }
+}
+
+export function removeToast(id){
+    return {
+        type: REMOVE_TOAST,
+        payload: id
+    }
 }

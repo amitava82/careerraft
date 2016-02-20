@@ -5,8 +5,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import Helmet from 'react-helmet';
 
-import { course, category } from '../../actions'
 
 @connect(state => state)
 export default class HomeContainer extends React.Component {
@@ -19,6 +19,7 @@ export default class HomeContainer extends React.Component {
 
         return (
             <div className="admin-page grid row">
+                <Helmet title="Careerraft admin page" />
                 <aside>
                     <div className="list-group">
                         <Link to="/admin/institute/add" className="list-group-item">Create Institute</Link>

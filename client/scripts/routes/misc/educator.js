@@ -9,7 +9,7 @@ export default class Educator extends React.Component {
     render(){
         return (
             <div className="educator-page">
-                <Helmet title="Learn how Careerraft can help you." />
+                <Helmet title="Careerraft :: Learn how Careerraft can help you." />
                 <h2 className="text-center">Create your Careerraft profile and reach more students</h2>
                 <p className="lead">A modern Institute needs a modern online presence to reach maximum students. Move beyond your
 

@@ -3,8 +3,10 @@
  */
 import React from 'react';
 import {reduxForm} from 'redux-form';
-import {SEND_MAIL, TOAST} from '../../actions/misc';
+import {sendMail} from '../../redux/modules/misc';
+import {createToast} from '../../redux/modules/toast';
 import autobind from 'autobind-decorator';
+import Helmet from 'react-helmet';
 
 const validate = values => {
     const errors = {};
@@ -42,14 +44,14 @@ export default class Contact extends React.Component {
 
     @autobind
     sendMail(data){
-        return this.props.dispatch(SEND_MAIL(data)).then(
+        return this.props.dispatch(sendMail(data)).then(
             r => {
                 this.props.resetForm();
-                this.props.dispatch(TOAST('Thank you! Your message has been sent.'));
+                this.props.dispatch(createToast('Thank you! Your message has been sent.'));
 
             },
             e => {
-                this.props.dispatch(TOAST(e));
+                this.props.dispatch(createToast(e));
             }
         )
     }
@@ -58,6 +60,7 @@ export default class Contact extends React.Component {
         const {fields: {name, email, telephone, message}, error, handleSubmit, submitting} = this.props;
         return (
             <div className="contact-page">
+                <Helmet title="Careerraft :: Contact us" />
                 <p className="lead">
                     Want to partner with us or have a feedback? Please get in touch, we'd love to hear from you.
                 </p>

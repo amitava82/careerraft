@@ -8,8 +8,8 @@ import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
 
-import { CREATE_CATEGORY, LOAD_CATEGORIES, DELETE_CATEGORY } from '../../actions/category';
-import {createToast} from '../../actions';
+import { createCategory, loadCategories } from '../../redux/modules/category';
+import {createToast} from '../../redux/modules/toast';
 
 
 
@@ -28,9 +28,9 @@ export default class CreateCategory extends React.Component{
 
     @autobind
     onSubmit(data){
-        return this.props.dispatch(CREATE_CATEGORY(data)).then(
+        return this.props.dispatch(cre(data)).then(
             () => {
-                this.props.dispatch(createToast('Created'));
+                this.props.dispatch(createCategory('Created'));
                 this.props.resetForm();
             },
             e => this.props.dispatch(createToast(e))
@@ -38,13 +38,9 @@ export default class CreateCategory extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch(LOAD_CATEGORIES())
+        this.props.dispatch(loadCategories())
     }
 
-    @autobind
-    delete(id){
-        this.props.dispatch(DELETE_CATEGORY(id));
-    }
 
     render(){
         const {fields: {name, description}, error, handleSubmit, submitting, category} = this.props;

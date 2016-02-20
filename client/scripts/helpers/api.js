@@ -4,6 +4,12 @@
 import superagent from 'superagent';
 import { stringify } from 'qs'
 const methods = ['get', 'post', 'put', 'patch', 'del'];
+const Promise = require('bluebird');
+
+Promise.config({
+    // Enable cancellation.
+    cancellation: true
+});
 
 class _ApiClient {
     constructor(req, config) {
@@ -17,7 +23,7 @@ class _ApiClient {
             return '/api' + adjustedPath;
         }
         methods.forEach((method) =>
-            this[method] = (path, params, data) => new Promise((resolve,reject) => {
+            this[method] = (path, params, data) => new Promise((resolve,reject,onCancel) => {
                 const request = superagent[method](formatUrl(path));
 
                 if(method != 'get' && !data){
@@ -40,6 +46,9 @@ class _ApiClient {
                 request.end((err, {body}) => {
                     err ? reject(body || err) : resolve(body)
                 });
+
+                onCancel(() => request.abort());
+
             }));
     }
 }

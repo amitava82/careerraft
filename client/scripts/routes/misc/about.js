@@ -2,17 +2,20 @@
  * Created by amitava on 18/02/16.
  */
 import React from 'react';
+import Helmet from 'react-helmet';
 
 export default class About extends React.Component {
-    render(){
+    render() {
         return (
             <div className="about-page">
+                <Helmet title="Careerraft :: About us"/>
                 <h2 className="text-center">Welcome to CareerRaft</h2>
                 <h4>The World of Education</h4>
                 <p className="lead">
                     We are the fastest-growing family in the education space. Fed up with endless on-site visits and
 
-                    unavailable informational listings about institutes, we created an institute search system several notches
+                    unavailable informational listings about institutes, we created an institute search system several
+                    notches
 
                     above others. Led by passionate problem-solvers and backed by top minds, we are dedicated towards
 
@@ -23,14 +26,17 @@ export default class About extends React.Component {
                     Whether you are just starting your research, want to narrow down your options, or have a specific
 
                     question, Careerraft can help.
+                </p>
 
-                    <h6>Read advice online and ask the experts</h6>
+                <h6>Read advice online and ask the experts</h6>
 
-                    Get free help and advice from a pool of experts and friends about every aspect of your education.
+                <p className="lead"> Get free help and advice from a pool of experts and friends about every aspect of
+                    your education.</p>
 
-                    <h6>Search and compare institutes</h6>
+                <h6>Search and compare institutes</h6>
 
-                    Search detailed, unbiased information about education institutes and resources. Careerraft aggregates
+                <p className="lead"> Search detailed, unbiased information about education institutes and resources.
+                    Careerraft aggregates
 
                     data from the most trusted sources so you can spend less time digging through websites and more time
 

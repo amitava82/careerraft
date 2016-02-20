@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
+import Helmet from 'react-helmet';
 
-import middleware from '../../utils/middleware';
-import { institute } from '../../actions';
+import { loadInstitutes } from '../../redux/modules/institute';
 
 import InstituteDetails from './InstituteDetails';
 
@@ -33,7 +33,7 @@ export default class SearchContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.props.dispatch(institute.LOAD_INSTITUTE(this.props.params.id)).then(
+        this.props.dispatch(loadInstitutes(this.props.params.id)).then(
             i => this.setState({institute: i, loading: false}),
             e => console.log(e)
         )
@@ -42,6 +42,7 @@ export default class SearchContainer extends React.Component {
     render (){
         return (
             <div className="inst-page">
+                <Helmet title="Careerraft - Institutes lists" />
                 {this.state.loading ? 'Loading...' : <InstituteDetails inst={this.state.institute} />}
                 {this.props.children}
             </div>

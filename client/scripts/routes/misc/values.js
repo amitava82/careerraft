@@ -2,11 +2,13 @@
  * Created by amitava on 18/02/16.
  */
 import React from 'react';
+import Helmet from 'react-helmet';
 
 export default class CoreValues extends React.Component {
     render(){
         return (
             <div className="values-page">
+                <Helmet title="Careerraft :: Our core values" />
                 <h2 className="text-center">Our core values</h2>
                 <p className="lead">
                     We take pride in our culture. There are some core values that have been inherent and are an integral

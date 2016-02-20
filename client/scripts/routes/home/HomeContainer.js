@@ -5,10 +5,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import map from 'lodash/map';
+import Helmet from 'react-helmet';
 
+import middleware from '../../utils/middleware';
 import formatAddress from '../../utils/format-address';
 
-import { institute, category, search, createToast } from '../../actions'
+import * as instActions from '../../redux/modules/institute';
+import * as categoryActions from '../../redux/modules/category';
+import * as categorySearch from '../../redux/modules/search';
+import {createToast} from '../../redux/modules/toast';
+
 
 //import Item from './components/Item';
 import FilterBar from './components/FilterBar';
@@ -16,11 +22,32 @@ import InstItem from './components/InstItem';
 import Hero from './HomeHero';
 
 @connect(state => state)
+@middleware([
+    {
+        key: '$categories',
+        watch: props => props.params.id,
+        handler: (props, id) => props.dispatch(categoryActions.loadCategories())
+    },
+    {
+        key: '$institutes',
+        watch: (props) => props.params.id,
+        handler: (props, instId) => props.dispatch(instActions.loadInstitutes())
+    }
+])
 export default class HomeContainer extends React.Component {
 
+    componentDidMount(){
+        console.log(this.props)
+    }
+
     render(){
+
+        console.log(this.props.$categories, this.props.$institutes);
+
+        console.log(this.props.fetch('$institutes'))
         return (
             <div className="home-page">
+                <Helmet title="Careerraft - Search better, Learn better" />
                 <Hero  />
                 <div className="teach-hint">
                     Are you an individual or running a training center? <Link to="/educator">Learn how Careerraft can help you.</Link>

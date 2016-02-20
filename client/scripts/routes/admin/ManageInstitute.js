@@ -6,7 +6,8 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
-import {institute, category, course, subject} from '../../actions';
+import {getInstitute} from '../../redux/modules/institute';
+import {loadCategories} from '../../redux/modules/category';
 
 import Api from '../../helpers/api';
 
@@ -28,14 +29,15 @@ export default class ManageInstitute extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch(category.LOAD_CATEGORIES());
+        this.props.dispatch(loadCategories());
     }
 
     @autobind
     search(e){
-        var q = this.refs.query.value;
-
-        api.get('institutes', {name: q}).then(
+        const q = this.refs.query.value;
+        const query = {};
+        if(q) query.name = q;
+        api.get('institutes', query).then(
             r => {
                 this.setState({institutes: r})
             },
@@ -47,7 +49,7 @@ export default class ManageInstitute extends React.Component{
     selectOrg(id){
         this.setState({institute: null});
 
-        this.props.dispatch(institute.LOAD_INSTITUTE(id)).then(
+        this.props.dispatch(getInstitute(id)).then(
             r => {
                 this.setState({institute: r})
             },
