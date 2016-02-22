@@ -22,21 +22,19 @@ const initialState = {
 export default function(state = initialState, action = {}){
 
     switch (action.type) {
-        case SET_LOCATION:
         case SEARCH:
             return update(state, {
                 loading: {$set: true},
                 error: {$set: null}
             });
 
-        case _reject(SET_LOCATION):
         case _reject(SEARCH):
             return update(state, {
                 loading: {$set: false},
                 error: {$set: action.payload}
             });
 
-        case resolve(SET_LOCATION):
+        case SET_LOCATION:
             return update(state, {
                 location: {
                     $set: action.payload
@@ -45,7 +43,8 @@ export default function(state = initialState, action = {}){
 
         case resolve(SEARCH):
             return update(state, {
-                results: {$set: action.payload}
+                results: {$set: action.payload},
+                loading: {$set: false}
             });
 
         default:
@@ -64,7 +63,7 @@ export function search(query){
     return {
         type: SEARCH,
         payload: {
-            promise: api => api.get('search', query)
+            promise: api => api.get('search', {params: query})
         }
     }
 }

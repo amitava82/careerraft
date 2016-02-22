@@ -8,7 +8,7 @@ import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
 
-import { createCategory, loadCategories } from '../../redux/modules/category';
+import { createCategory, updateCategory, loadCategories } from '../../redux/modules/category';
 import {createToast} from '../../redux/modules/toast';
 
 
@@ -20,7 +20,7 @@ import {createToast} from '../../redux/modules/toast';
 })
 @reduxForm({
     form: 'category',
-    fields: ['name', 'description', 'category']
+    fields: ['_id', 'name', 'description']
 })
 export default class CreateCategory extends React.Component{
 
@@ -28,30 +28,54 @@ export default class CreateCategory extends React.Component{
 
     @autobind
     onSubmit(data){
-        return this.props.dispatch(cre(data)).then(
-            () => {
-                this.props.dispatch(createCategory('Created'));
-                this.props.resetForm();
-            },
-            e => this.props.dispatch(createToast(e))
-        )
+        if(data._id){
+            const id = data._id;
+            delete data._id;
+            this.props.dispatch(updateCategory(id, data)).then(
+                () => {
+                    this.props.dispatch(createToast('Updated'));
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        }else{
+            return this.props.dispatch(createCategory(data)).then(
+                () => {
+                    this.props.dispatch(createToast('Created'));
+                    this.props.resetForm();
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        }
     }
 
     componentDidMount(){
         this.props.dispatch(loadCategories())
     }
 
+    @autobind
+    edit(id){
+        const cat = this.props.category.entities[id];
+        this.props.initializeForm(cat);
+    }
+
+    @autobind
+    reset(){
+        this.props.initializeForm({});
+    }
 
     render(){
         const {fields: {name, description}, error, handleSubmit, submitting, category} = this.props;
 
-        const categories = category.categories.map(c => {
+        const categories = category.ids.map(i => {
+            const c = category.entities[i];
             return (
                 <li key={c._id}>
-                    <strong>{c.name}</strong> <Link to={`/admin/category/${c._id}/edit`}>Edit</Link>
+                    <strong>{c.name}</strong>
+                    <button className="btn sm" onClick={() => this.edit(c._id)}>Edit</button>
                 </li>
             )
         });
+
         return (
             <div className="grid row">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
@@ -67,6 +91,7 @@ export default class CreateCategory extends React.Component{
                     </div>
                     <div>
                         <button disabled={submitting} type="submit">Save</button>
+                        <button type="button" onClick={this.reset}>Reset</button>
                     </div>
                 </form>
                 <div className="cell">

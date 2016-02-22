@@ -5,14 +5,14 @@ import AdminContainer from './AdminContainer';
 import CreateCategory from './CreateCategory';
 import CreateSubject from './CreateSubject';
 import CreateCourse from './CreateCourse';
-import CreateInstitute from './CreateInstitute';
-import ManageInstitute from './ManageInstitute';
-import InstituteDetails from './InstituteDetails';
-import EditCategory from './EditCategory';
-import EditInstitute from './EditInstitute';
-import EditInstituteCategories from './EditInstituteCategories';
-import EditInstituteCourses from './EditInstituteCourses';
-import EditInstituteSubject from './EditInstituteSubjects';
+import CreateInstitute from './institute/CreateInstitute';
+import ManageInstitute from './institute/ManageInstitute';
+import InstituteDetails from './institute/InstituteDetails';
+
+import EditInstitute from './institute/EditInstitute';
+import EditBasicDetails from './institute/EditBasicDetails';
+import EditInstituteCategories from './institute/EditInstituteCategories';
+import AssignSubject from './institute/AssignSubject';
 
 export {
     AdminContainer,
@@ -22,9 +22,8 @@ export {
     ManageInstitute,
     CreateSubject,
     InstituteDetails,
-    EditCategory,
     EditInstitute,
     EditInstituteCategories,
-    EditInstituteCourses,
-    EditInstituteSubject
+    EditBasicDetails,
+    AssignSubject
 }

@@ -8,6 +8,29 @@ import {Link} from 'react-router';
 import Helmet from 'react-helmet';
 
 
+const sideLinks = [
+    {
+        name: 'Create Institute',
+        link: 'institute/add'
+    },
+    {
+        name: 'Manage Institute',
+        link: 'institute/manage'
+    },
+    {
+        name: 'Add Category',
+        link: 'category/add'
+    },
+    {
+        name: 'Add Course',
+        link: 'course/add'
+    },
+    {
+        name: 'Add Subject',
+        link: 'subject/add'
+    }
+];
+
 @connect(state => state)
 export default class HomeContainer extends React.Component {
 
@@ -22,11 +45,14 @@ export default class HomeContainer extends React.Component {
                 <Helmet title="Careerraft admin page" />
                 <aside>
                     <div className="list-group">
-                        <Link to="/admin/institute/add" className="list-group-item">Create Institute</Link>
-                        <Link to="/admin/institute/manage" className="list-group-item">Manage Institute</Link>
-                        <Link to="/admin/category/add" className="list-group-item">Add Category</Link>
-                        <Link to="/admin/course/add" className="list-group-item">Add Course</Link>
-                        <Link to="/admin/subject/add" className="list-group-item">Add Subject</Link>
+                        {
+                            sideLinks.map(i => {
+                                return (
+                                    <Link to={`/admin/${i.link}`} className="list-group-item" activeClassName="active">{i.name}</Link>
+                                )
+                            })
+
+                        }
                         <a  className="list-group-item" href="/auth/logout">Logout</a>
                     </div>
                 </aside>

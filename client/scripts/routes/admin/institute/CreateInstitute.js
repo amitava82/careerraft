@@ -4,19 +4,20 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
+import {routeActions} from 'react-router-redux';
 import autobind from 'autobind-decorator';
-import map from 'lodash/map';
+import map from '../../../../../node_modules/lodash/map';
 
-import {createInstitute} from '../../redux/modules/institute';
-import {loadCourses} from '../../redux/modules/course';
-import {loadCategories} from '../../redux/modules/category';
-import {getSubjects} from '../../redux/modules/subject';
-import {createToast} from '../../redux/modules/toast';
+import {createInstitute} from '../../../redux/modules/institute';
+import {loadCourses} from '../../../redux/modules/course';
+import {loadCategories} from '../../../redux/modules/category';
+import {getSubjects} from '../../../redux/modules/subject';
+import {createToast} from '../../../redux/modules/toast';
 
-import Input from '../../components/PureInput';
-import Select from '../../components/Select';
-import Textarea from '../../components/Textarea';
-import STATES from '../../utils/states';
+import Input from '../../../components/PureInput';
+import Select from '../../../components/Select';
+import Textarea from '../../../components/Textarea';
+import STATES from '../../../utils/states';
 
 @reduxForm({
     form: 'institute_create',
@@ -63,7 +64,7 @@ export default class CreateInstitute extends React.Component{
     onSubmit(data){
         return this.props.dispatch(createInstitute(data)).then(
             d => {
-                this.props.resetForm();
+                this.props.dispatch(routeActions.push(`/admin/institute/manage/${d.result}`));
                 this.props.dispatch(createToast('Institute created.'));
             },
             e => {

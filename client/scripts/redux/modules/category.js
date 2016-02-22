@@ -3,15 +3,19 @@
  */
 import update from 'react-addons-update';
 import reject from 'lodash/reject';
+import merge from 'lodash/merge'
+import union from 'lodash/union'
 import { resolve, reject as _reject } from 'redux-simple-promise';
+import Schemas from '../../helpers/schema';
 
 import createAction from '../createActions';
 
-const [LOAD, CREATE, DELETE, GET] = createAction('category', ["LOAD", "CREATE", "DELETE", "GET"]);
+const [LOAD, CREATE, DELETE, GET, UPDATE] = createAction('category', ["LOAD", "CREATE", "DELETE", "GET", "UPDATE"]);
 
 
 const initialState = {
-  categories: [],
+  ids: [],
+  entities: {},
   loading: false,
   error: null
 };
@@ -24,6 +28,7 @@ export default function (state= initialState, action = {}) {
         case CREATE:
         case DELETE:
         case GET:
+        case UPDATE:
             return update(state, {
                 loading: {$set: true},
                 error: {$set: null}
@@ -33,23 +38,24 @@ export default function (state= initialState, action = {}) {
         case _reject(CREATE):
         case _reject(DELETE):
         case _reject(GET):
+        case _reject(UPDATE):
             return update(state, {
                 loading: {$set: false},
                 error: {$set: action.payload}
             });
 
         case resolve(LOAD):
-            return update(state, {
-                    loading: {$set: false},
-                    categories: {$set: action.payload}
-                }
-            );
-
+            return merge({}, state, {
+                loading: false,
+                ids: union(state.ids, action.payload.result),
+                entities: action.payload.entities.categories
+            });
 
         case resolve(CREATE):
-            return update(state, {
-                categories: {$push: [action.payload]},
-                loading: {$set: false}
+        case resolve(UPDATE):
+            return merge({}, state, {
+                ids: union(state.ids, [action.payload.result]),
+                entities: action.payload.entities.categories
             });
 
         case resolve(DELETE):
@@ -69,7 +75,9 @@ export function loadCategories(){
     return {
         type: LOAD,
         payload: {
-            promise: api => api.get(`categories`)
+            promise: api => api.get(`categories`, {
+                schema: Schemas.CategoryArray
+            })
         }
     }
 }
@@ -78,8 +86,22 @@ export function createCategory(data){
     return {
         type: CREATE,
         payload: {
-            promise: api => api.post('categories', data),
-            data
+            promise: api => api.post('categories', {
+                data: data,
+                schema: Schemas.Category
+            })
+        }
+    }
+}
+
+export function updateCategory(id, data){
+    return {
+        type: UPDATE,
+        payload: {
+            promise: api => api.put(`categories/${id}`, {
+                data,
+                schema: Schemas.Category
+            })
         }
     }
 }

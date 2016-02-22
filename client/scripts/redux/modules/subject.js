@@ -3,16 +3,20 @@
  */
 import update from 'react-addons-update';
 import reject from 'lodash/reject';
+import merge from 'lodash/merge'
+import union from 'lodash/union'
 import { resolve, reject as _reject } from 'redux-simple-promise';
 
 import createAction from '../createActions';
+import Schemas from '../../helpers/schema';
 
 const [LOAD, CREATE] = createAction('subject', ["LOAD", "CREATE"]);
 
 
 
 const initialState = {
-    subjects: [],
+    ids: [],
+    entities: {},
     loading: false,
     error: null
 };
@@ -29,23 +33,25 @@ export default function (state= initialState, action = {}) {
 
         case _reject(LOAD):
         case _reject(CREATE):
+            console.log(action)
             return update(state, {
                 loading: {$set: false},
                 error: {$set: action.payload}
             });
 
         case resolve(LOAD):
-            return update(state, {
-                subjects: {$set: action.payload},
-                loading: {$set: false}
+            console.log(action)
+            return merge({}, state, {
+                loading: false,
+                ids: union(state.ids, action.payload.result),
+                entities: action.payload.entities.subjects
             });
 
         case resolve(CREATE):
-            return update(state, {
-                subjects: {
-                    $push: [action.payload],
-                    loading: {$set: false}
-                }
+            return merge({}, state, {
+                loading: false,
+                ids: union(state.ids, [action.payload.result]),
+                entities: action.payload.entities.subjects
             });
 
         default:
@@ -57,7 +63,7 @@ export function getSubjects(query){
     return {
         type: LOAD,
         payload: {
-            promise: api => api.get(`subjects`, query)
+            promise: api => api.get(`subjects`, {params: query, schema: Schemas.SubjectArray})
         }
     }
 }
@@ -66,7 +72,7 @@ export function createSubject(data){
     return {
         type: CREATE,
         payload: {
-            promise: api => api.post('subjects', data)
+            promise: api => api.post('subjects', {data: data, schema: Schemas.Subject})
         }
     }
 }

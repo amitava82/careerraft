@@ -21,7 +21,6 @@ export default class HomeHero extends React.Component {
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
-            types: ['geocode'],
             country: 'in',
             onChange: this.onValueChange
         };
@@ -37,7 +36,10 @@ export default class HomeHero extends React.Component {
     @autobind
     onGeoSelect(data){
         const p = data.location;
-        this.props.dispatch(setLocation([p.lng, p.lat]));
+        this.props.dispatch(setLocation({
+            label: data.label,
+            location: [p.lng, p.lat]
+        }));
     }
 
     @autobind

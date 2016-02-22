@@ -6,10 +6,10 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
-import {getInstitute} from '../../redux/modules/institute';
-import {loadCategories} from '../../redux/modules/category';
+import {getInstitute} from '../../../redux/modules/institute';
+import {loadCategories} from '../../../redux/modules/category';
 
-import Api from '../../helpers/api';
+import Api from '../../../helpers/api';
 
 const api = new Api();
 

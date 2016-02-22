@@ -5,7 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import {getInstitute} from '../../redux/modules/institute';
+import {getInstitute} from '../../../redux/modules/institute';
 import  AssignSubject from './AssignSubject';
 
 

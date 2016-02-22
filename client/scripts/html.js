@@ -22,7 +22,7 @@ export default function html(markup, initialState, helmet){
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places&types=geocode"></script>
         </head>
         <body>
             <div id="app-root">${markup}</div>

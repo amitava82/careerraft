@@ -28,7 +28,6 @@ export default class Nav extends React.Component {
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
-            types: ['geocode'],
             country: 'in',
             onChange: this.onValueChange
         };
@@ -36,24 +35,19 @@ export default class Nav extends React.Component {
 
     componentDidMount(){
         getUserLocation(loc => {
-            this.props.dispatch(setLocation([loc.lng, loc.lat]));
+            this.props.dispatch(setLocation({
+                location: [loc.lng, loc.lat]
+            }));
         });
     }
 
     @autobind
     onGeoSelect(data){
         const p = data.location;
-        this.props.dispatch(setLocation([p.lng, p.lat]));
-    }
-
-    getGeoLocation() {
-        getUserLocation(loc => {
-            const circle = new google.maps.Circle({
-                center: loc,
-                radius: 50000 //50KM //position.coords.accuracy
-            });
-            this.autocomplete.setBounds(circle.getBounds());
-        });
+        this.props.dispatch(setLocation({
+            label: data.label,
+            location: [p.lng, p.lat]
+        }));
     }
 
     @autobind

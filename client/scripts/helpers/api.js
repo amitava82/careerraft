@@ -2,6 +2,9 @@
  * Created by amitava on 06/02/16.
  */
 import superagent from 'superagent';
+import {normalize, arrayOf} from 'normalizr';
+import isArray from 'lodash/isArray';
+
 import { stringify } from 'qs'
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 const Promise = require('bluebird');
@@ -23,7 +26,7 @@ class _ApiClient {
             return '/api' + adjustedPath;
         }
         methods.forEach((method) =>
-            this[method] = (path, params, data) => new Promise((resolve,reject,onCancel) => {
+            this[method] = (path, {params, data, schema} = {}) => new Promise((resolve,reject,onCancel) => {
                 const request = superagent[method](formatUrl(path));
 
                 if(method != 'get' && !data){
@@ -43,8 +46,16 @@ class _ApiClient {
                 if (data) {
                     request.send(data);
                 }
-                request.end((err, {body}) => {
-                    err ? reject(body || err) : resolve(body)
+                request.end((err, {body} = {}) => {
+                    if(err){
+                        reject(body || err);
+                    }else {
+                        if(schema){
+                            resolve(normalize(body, schema));
+                        }else{
+                            resolve(body);
+                        }
+                    }
                 });
 
                 onCancel(() => request.abort());

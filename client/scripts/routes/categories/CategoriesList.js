@@ -20,12 +20,13 @@ import middleware from '../../utils/middleware';
 export default class CategoryDetails extends React.Component {
 
     componentDidMount(){
-        //this.props.dispatch(LOAD_CATEGORIES());
+        this.props.dispatch(loadCategories());
     }
 
     render() {
 
-        const categories = this.props.category_store.categories.map(i => {
+        const categories = this.props.category_store.ids.map(c => {
+            const i = this.props.category_store.entities[c];
             return (
                 <div className="tile">
                     <Link to={`/categories/${i._id}`}>

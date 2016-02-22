@@ -6,11 +6,11 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import autobind from 'autobind-decorator';
-import find from 'lodash/find';
+import find from '../../../../../node_modules/lodash/find';
 
-import {loadCategories} from '../../redux/modules/category';
-import {addSubject} from '../../redux/modules/institute';
-import {createToast} from '../../redux/modules/toast';
+import {loadCategories} from '../../../redux/modules/category';
+import {addSubject} from '../../../redux/modules/institute';
+import {createToast} from '../../../redux/modules/toast';
 
 
 

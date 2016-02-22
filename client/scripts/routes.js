@@ -38,7 +38,9 @@ import {
     EditInstitute,
     EditInstituteCategories,
     EditInstituteCourses,
-    EditInstituteSubject
+    EditInstituteSubject,
+    EditBasicDetails,
+    AssignSubject
 } from './routes/admin'
 
 import NotFound from './routes/misc/404';
@@ -70,9 +72,8 @@ export default (
                 <Route path="institute/manage" >
                     <IndexRoute component={ManageInstitute} />
                     <Route path=":id" component={EditInstitute}>
-                        <Route path="categories" component={EditInstituteCategories} />
-                        <Route path="courses" component={EditInstituteCourses} />
-                        <Route path="subjects" component={EditInstituteSubject} />
+                        <IndexRoute component={EditBasicDetails} />
+                        <Route path="subjects" component={AssignSubject} />
                     </Route>
                 </Route>
                 <Route path="category/add" component={CreateCategory} />

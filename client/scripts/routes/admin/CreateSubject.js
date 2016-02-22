@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 
+import reduce from 'lodash/reduce';
+
 import { createSubject, getSubjects } from '../../redux/modules/subject';
 import { loadCourses } from '../../redux/modules/course';
 import { loadCategories } from '../../redux/modules/category';
@@ -22,7 +24,7 @@ import {createToast} from '../../redux/modules/toast';
     }
 })
 @reduxForm({
-    form: 'subject',
+    form: 'subject_create',
     fields: ['name', 'description']
 })
 export default class CreateSubject extends React.Component{
@@ -41,14 +43,17 @@ export default class CreateSubject extends React.Component{
     @autobind
     onSubmit(data){
         const {category, course} = this.state;
-        return this.props.dispatch(createSubject({...data, category, course})).then(
-            () => {
-                this.props.dispatch(createToast('Created'));
-                this.props.resetForm();
-            },
-            e => this.props.dispatch(createToast(e))
-        )
-    }
+        const p =  this.props.dispatch(createSubject({...data, category, course}));
+
+        p.then(
+                (r) => {
+                    console.log(r)
+                    this.props.dispatch(createToast('Created'));
+                    this.props.resetForm();
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        }
 
     componentDidMount(){
         console.log('cat')
@@ -72,14 +77,17 @@ export default class CreateSubject extends React.Component{
     render(){
         const {fields: {name, description}, error, handleSubmit, submitting,category_store, subject_store, course_store} = this.props;
 
-        const subjects = subject_store.subjects.map(c => {
-            return (
-                <li key={c._id}>
-                    <strong>{c.name}</strong>
-                    <Link to={`/admin/subject/${c._id}/edit`}>Edit</Link>
-                </li>
-            )
-        });
+        const subjects = reduce(subject_store.ids, (memo, i) => {
+            const c = subject_store.entities[i];
+            if(c.course == this.state.course)
+                memo.push(
+                    <li key={c._id}>
+                        <strong>{c.name}</strong>
+                        <Link to={`/admin/subject/${c._id}/edit`}>Edit</Link>
+                    </li>
+                );
+            return memo;
+        }, []);
         return (
             <div className="grid row">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
@@ -88,8 +96,9 @@ export default class CreateSubject extends React.Component{
                         <label>Select Category</label>
                         <select value={this.state.category} onChange={this.selectCategory}>
                             <option value="">Select</option>
-                            {category_store.categories.map(i => {
-                                return (<option value={i._id} key={i._id}>{i.name}</option>)
+                            {category_store.ids.map(i => {
+                                const c = category_store.entities[i];
+                                return (<option value={c._id} key={c._id}>{c.name}</option>)
                             })}
                         </select>
                     </div>
@@ -97,9 +106,12 @@ export default class CreateSubject extends React.Component{
                         <label>Select Course</label>
                         <select value={this.state.course} onChange={this.selectCourse}>
                             <option value="">Select</option>
-                            {course_store.courses.map(i => {
-                                return (<option value={i._id} key={i._id}>{i.name}</option>)
-                            })}
+                            {reduce(course_store.ids, (memo, c) => {
+                                const i = course_store.entities[c];
+                                if(i.category == this.state.category)
+                                    memo.push((<option value={i._id} key={i._id}>{i.name}</option>))
+                                return memo;
+                            }, [])}
                         </select>
                     </div>
                     <div>

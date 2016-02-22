@@ -6,6 +6,7 @@ import { reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
+import reduce from 'lodash/reduce';
 
 import { createCourse, loadCourses } from '../../redux/modules/course';
 import { loadCategories } from '../../redux/modules/category';
@@ -61,14 +62,17 @@ export default class CreateCourse extends React.Component{
     render(){
         const {fields: {name, description, category}, error, handleSubmit, submitting, course} = this.props;
 
-        const courses = course.courses.map(c => {
-            return (
+        const courses = reduce(course.ids, (memo,i) => {
+            const c = course.entities[i];
+            if(c.category == this.state.category)
+            memo.push (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
                     <Link to={`/admin/course/${c._id}/edit`}>Edit</Link>
                 </li>
-            )
-        });
+            );
+            return memo;
+        }, []);
         return (
             <div className="grid row">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
@@ -77,7 +81,8 @@ export default class CreateCourse extends React.Component{
                         <label>Select Category</label>
                         <select value={this.state.category} onChange={this.selectCategory} >
                             <option value="">Select category</option>
-                            {this.props.category.categories.map(i => {
+                            {this.props.category.ids.map(c => {
+                                const i = this.props.category.entities[c];
                                 return (<option value={i._id} key={i._id}>{i.name}</option>)
                             })}
                         </select>

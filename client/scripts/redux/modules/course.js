@@ -3,15 +3,20 @@
  */
 import update from 'react-addons-update';
 import reject from 'lodash/reject';
+import merge from 'lodash/merge'
+import union from 'lodash/union'
+
 import { resolve, reject as _reject } from 'redux-simple-promise';
 
+import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
 const [LOAD, CREATE, DELETE, GET] = createAction('course', ["LOAD", "CREATE", "DELETE", "GET"]);
 
 
 const initialState = {
-    courses: [],
+    ids: [],
+    entities: {},
     loading: false,
     error: null
 };
@@ -37,9 +42,10 @@ export default function reducer(state = initialState, action = {}){
             });
 
         case resolve(LOAD):
-            return update(state, {
-                courses: {$set: action.payload},
-                loading: {$set: false}
+            return merge({}, state, {
+                loading: false,
+                ids: union(state.ids, action.payload.result),
+                entities: action.payload.entities.courses
             });
 
         case resolve(CREATE):
@@ -66,7 +72,7 @@ export function loadCourses(category){
     return {
         type: LOAD,
         payload: {
-            promise: api => api.get(`courses`, {category}),
+            promise: api => api.get(`courses`, {params: {category}, schema: Schemas.CourseArray}),
             category
         }
     }
@@ -76,7 +82,7 @@ export function createCourse(data){
     return {
         type: CREATE,
         payload: {
-            promise: api => api.post('courses', data),
+            promise: api => api.post('courses', {data: data, schema: Schemas.Course}),
             data
         }
     }

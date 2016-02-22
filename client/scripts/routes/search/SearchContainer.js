@@ -6,22 +6,17 @@ import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import Helmet from 'react-helmet';
+
 import { search } from '../../redux/modules/search';
 
-import map from 'lodash/map';
-
-import InstItem from '../home/components/InstItem';
+import SearchResults from './SearchResuts';
+import Loading from '../../components/Loading';
 
 @connect(state => state)
 export default class SearchContainer extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
-
-        this.state = {
-            loading: true
-        }
-
     }
 
 
@@ -30,7 +25,7 @@ export default class SearchContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextPros){
-        if(this.state.loading) return;
+
         if(isEqual(nextPros.location.query, this.props.location.query) && isEqual(this.props.search_store.location, nextPros.search_store.location)) return;
 
         this.search(nextPros);
@@ -48,15 +43,24 @@ export default class SearchContainer extends React.Component {
     }
 
     render (){
+        const query = this.props.location.query.q;
+        const pageTitle = query ? `Search results for ${query}` : "Search for institutes, classes, courses, subjects";
 
-        const searchList = this.props.search_store.results.map(i => {
-            return <InstItem inst={i} />;
-        });
+        const {search_store} = this.props;
+
+        let content = null;
+
+        if(search_store.error){
+            content = <h5>{search_store.error}</h5>
+        }else{
+            content = search_store.loading ? <Loading /> : <SearchResults results={search_store.results} />
+        }
+
         return (
             <div className="search-page">
-                <Helmet title="Search for institutes, classes, courses, subjects" />
-                <h4>Search results for <em>{this.props.location.query.q}</em></h4>
-                {this.state.loading ? 'LOADING....' : searchList}
+                <Helmet title={pageTitle} />
+                <h4>Search results for <em>{query}</em></h4>
+                {content}
                 {this.props.children}
             </div>
         )
