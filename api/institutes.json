@@ -30,15 +30,16 @@
             "middleware": ["ensureLoggedIn"]
         },
         {
-            "path": "/api/institutes/:id/categories",
-            "method": "put",
-            "handler": "addCategory",
+            "path": "/api/institutes/:id/subjects/:subject",
+            "method": "del",
+            "handler": "deleteSubject",
             "middleware": ["ensureLoggedIn"]
         },
+
         {
-            "path": "/api/institutes/:id/categories/:category",
-            "method": "del",
-            "handler": "deleteCategory",
+            "path": "/api/institutes/:id/upload/:type",
+            "method": "post",
+            "handler": "upload",
             "middleware": ["ensureLoggedIn"]
         }
     ]

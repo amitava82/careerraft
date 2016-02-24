@@ -3,6 +3,7 @@ var async = require('async');
 var config = require('config');
 var routes = require('./api');
 var _  = require('lodash');
+var path = require('path');
 
 require("babel-register");
 

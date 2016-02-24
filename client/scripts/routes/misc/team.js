@@ -9,98 +9,109 @@ export default class Team extends React.Component {
         return (
             <div className="team-page">
                 <Helmet title="Careerraft :: Team" />
-                <h2 className="text-center">Meet the Leadership</h2>
-                <div className="grid">
-                    <div className="cell">
-                        <img src="/images/atul.jpg"/>
-                    </div>
-                    <div className="cell-2">
-                        <h4>Atul Tiwari</h4>
-                        <p>
-                            Atul is the founder of Careerraft. His dream is to re-imagine education in a truly ‘student-first’ way and
-
-                            unlock the true potential of student.
-                            <br />
-
-                            Atul holds an Integrated Master’s Degree in Applied Geology from Indian School of Mines, Dhanbad.
-
-                            An avid fan of cricket, Atul is a fitness enthusiast and his routine alternates between a long walk
-
-                            outdoors and a trip around the less crowded parts of the city.
-
-                            <br />
-
-                            His leadership translation is simple - the essence of leadership is not only to have a vision but also what
-
-                            it takes to translate it into action.
-                            &nbsp;<a href="https://www.linkedin.com/in/atultiwari89">LinkedIn</a>
-                        </p>
+                <div className="hero-unit">
+                    <div className="page-inner grid">
+                        <div className="cell-span-7">
+                            <h3 className="text-display-2">Meet the Leadership</h3>
+                        </div>
+                        <div className="cell-span-3"></div>
                     </div>
                 </div>
+                <div className="content-body">
+                    <div className="page-inner">
+                        <div className="grid">
+                            <div className="cell-span-3">
+                                <img src="/images/atul.jpg"/>
+                            </div>
+                            <div className="cell-2">
+                                <h4 className="text-headline">Atul Tiwari</h4>
+                                <article>
+                                    Atul is the founder of Careerraft. His dream is to re-imagine education in a truly ‘student-first’ way and
 
-                <div className="grid">
-                    <div className="cell">
-                        <img src="/images/amit.jpg"/>
-                    </div>
-                    <div className="cell-2">
-                        <h4>Amitava Saha</h4>
-                        <p>
-                            Amitava is the Co-Founder and CTO at Careerraft. He oversees all things tech,
+                                    unlock the true potential of student.
+                                    <br />
 
-                            including infrastructure, application management, and IT. Before Careerraft, Amitava has worked with several startups
-                            in medical, IT, SaaS domain and has expertise in both frontend and backend technologies.
-                            <br />
+                                    Atul holds an Integrated Master’s Degree in Applied Geology from Indian School of Mines, Dhanbad.
 
-                            Fascinated by small ideas that turned into global powerhouses, and innovation, simplicity, and the
+                                    An avid fan of cricket, Atul is a fitness enthusiast and his routine alternates between a long walk
 
-                            potential of technology have always been his passions. Careerraft is a both a passion and a dream come
+                                    outdoors and a trip around the less crowded parts of the city.
 
-                            true for him.
+                                    <br />
 
-                            <br />
+                                    His leadership translation is simple - the essence of leadership is not only to have a vision but also what
 
-                            Amitava has Master’s degree in business from Indiana University of Pennsylvania and Bachelor’s degree from the PES Institute of Applied Science.
+                                    it takes to translate it into action.
+                                    &nbsp;<a href="https://www.linkedin.com/in/atultiwari89">LinkedIn</a>
+                                </article>
+                            </div>
+                        </div>
 
-                            Amitava’s passion for technology does not stop at work and is always on the look-out for ways that he
+                        <div className="grid">
+                            <div className="cell-span-3">
+                                <img src="/images/amit.jpg"/>
+                            </div>
+                            <div className="cell-2">
+                                <h4 className="text-headline">Amitava Saha</h4>
+                                <article>
+                                    Amitava is the Co-Founder and CTO at Careerraft. He oversees all things tech,
 
-                            can use it to make his life easier.
-                            &nbsp;<a href="https://in.linkedin.com/in/amitavaksaha">LinkedIn</a>
-                        </p>
-                    </div>
-                </div>
+                                    including infrastructure, application management, and IT. Before Careerraft, Amitava has worked with several startups
+                                    in medical, IT, SaaS domain and has expertise in both frontend and backend technologies.
+                                    <br />
 
-                <div className="grid">
-                    <div className="cell">
-                        <img src="/images/abh.jpg"/>
-                    </div>
-                    <div className="cell-2">
-                        <h4>Abhishek Kundan</h4>
-                        <p>
-                            Abhishek is the Co-Founder and Chief Financial Officer at Careerraft. In addition to taking care of the
+                                    Fascinated by small ideas that turned into global powerhouses, and innovation, simplicity, and the
 
-                            company’s financial and legal side, he is also involved in General Management and Leadership
+                                    potential of technology have always been his passions. Careerraft is a both a passion and a dream come
 
-                            Development. Abhishek also spearheads all Careerraft Joint Venture and M&A processes.
+                                    true for him.
 
-                            <br />
+                                    <br />
 
-                            Before Careerraft, Abhishek worked with IBM and Fintellix (earlier iCreate Softwares), handling many
+                                    Amitava has Master’s degree in business from Indiana University of Pennsylvania and Bachelor’s degree from the PES Institute of Applied Science.
 
-                            portfolios clients in Banking sector.
+                                    Amitava’s passion for technology does not stop at work and is always on the look-out for ways that he
 
-                            <br />
+                                    can use it to make his life easier.
+                                    &nbsp;<a href="https://in.linkedin.com/in/amitavaksaha">LinkedIn</a>
+                                </article>
+                            </div>
+                        </div>
 
-                            Abhishek has an MBA from the Indian Institute of Management (IIM), Bangalore and Bachelor’s in
+                        <div className="grid">
+                            <div className="cell-span-3">
+                                <img src="/images/abh.jpg"/>
+                            </div>
+                            <div className="cell-2">
+                                <h4 className="text-headline">Abhishek Kundan</h4>
+                                <article>
+                                    Abhishek is the Co-Founder and Chief Financial Officer at Careerraft. In addition to taking care of the
 
-                            Mineral Engineering from Indian School of Mines, Dhanbad.
+                                    company’s financial and legal side, he is also involved in General Management and Leadership
 
-                            <br />
+                                    Development. Abhishek also spearheads all Careerraft Joint Venture and M&A processes.
 
-                            Abhishek believes in working hard, working smart, and living a balanced life. When he isn’t being a
+                                    <br />
 
-                            super-hero at work, he indulges in pencil sketching and creating art.
-                            &nbsp;<a href="https://www.linkedin.com/in/abhishek-kundan-frm-a771931b">LinkedIn</a>
-                        </p>
+                                    Before Careerraft, Abhishek worked with IBM and Fintellix (earlier iCreate Softwares), handling many
+
+                                    portfolios clients in Banking sector.
+
+                                    <br />
+
+                                    Abhishek has an MBA from the Indian Institute of Management (IIM), Bangalore and Bachelor’s in
+
+                                    Mineral Engineering from Indian School of Mines, Dhanbad.
+
+                                    <br />
+
+                                    Abhishek believes in working hard, working smart, and living a balanced life. When he isn’t being a
+
+                                    super-hero at work, he indulges in pencil sketching and creating art.
+                                    &nbsp;<a href="https://www.linkedin.com/in/abhishek-kundan-frm-a771931b">LinkedIn</a>
+                                </article>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

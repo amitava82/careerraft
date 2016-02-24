@@ -5,9 +5,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
-import { loadInstitutes } from '../../redux/modules/institute';
+import { getInstitute } from '../../redux/modules/institute';
 
 import InstituteDetails from './InstituteDetails';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 //@middleware([
 //    {
@@ -26,24 +28,27 @@ export default class SearchContainer extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
-
-        this.state = {
-            loading: true
-        }
     }
 
     componentDidMount(){
-        this.props.dispatch(loadInstitutes(this.props.params.id)).then(
-            i => this.setState({institute: i, loading: false}),
-            e => console.log(e)
-        )
+        this.props.dispatch(getInstitute(this.props.params.id));
     }
 
     render (){
+        const {institute_store, params} = this.props;
+
+       // debugger;
+
+        const inst = institute_store.entities[params.id];
+
+        if(institute_store.error) return <Error error={institute_store.error} />;
+
+        if(institute_store.loading || !inst) return <Loading />;
+
         return (
             <div className="inst-page">
-                <Helmet title="Careerraft - Institutes lists" />
-                {this.state.loading ? 'Loading...' : <InstituteDetails inst={this.state.institute} />}
+                <Helmet title={`Careerraft - ${inst.name}`} />
+                <InstituteDetails inst={inst} />
                 {this.props.children}
             </div>
         )

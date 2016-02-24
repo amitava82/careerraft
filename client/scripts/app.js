@@ -11,8 +11,13 @@ import Footer from './components/Footer';
 import Toastr from './utils/toastr';
 
 import getUserLocation from './utils/location';
+import {loadCategories} from './redux/modules/category';
 
 export default class App extends React.Component {
+
+    static needs = [
+        loadCategories
+    ];
     render(){
         return (
             <main>

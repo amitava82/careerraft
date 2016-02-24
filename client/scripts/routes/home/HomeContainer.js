@@ -22,29 +22,26 @@ import InstItem from './components/InstItem';
 import Hero from './HomeHero';
 
 @connect(state => state)
-@middleware([
-    {
-        key: '$categories',
-        watch: props => props.params.id,
-        handler: (props, id) => props.dispatch(categoryActions.loadCategories())
-    },
-    {
-        key: '$institutes',
-        watch: (props) => props.params.id,
-        handler: (props, instId) => props.dispatch(instActions.loadInstitutes())
-    }
-])
+//@middleware([
+//    {
+//        key: '$categories',
+//        watch: props => props.params.id,
+//        handler: (props, id) => props.dispatch(categoryActions.loadCategories())
+//    },
+//    {
+//        key: '$institutes',
+//        watch: (props) => props.params.id,
+//        handler: (props, instId) => props.dispatch(instActions.loadInstitutes())
+//    }
+//])
 export default class HomeContainer extends React.Component {
 
     componentDidMount(){
-        console.log(this.props)
+
     }
 
     render(){
 
-        console.log(this.props.$categories, this.props.$institutes);
-
-        console.log(this.props.fetch('$institutes'))
         return (
             <div className="home-page">
                 <Helmet title="Careerraft - Search better, Learn better" />

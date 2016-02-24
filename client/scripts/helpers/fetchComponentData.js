@@ -1,8 +1,11 @@
 /**
  * Created by amitava on 10/02/16.
  */
+var _ = require('lodash');
+
 export default function fetchComponentData(dispatch, components, params) {
-    const needs = components.reduce( (prev, current) => {
+    var _components = _.compact(components);
+    const needs = _components.reduce( (prev, current) => {
         return (current.needs || [])
             .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
             .concat(prev);

@@ -61,54 +61,67 @@ export default class Contact extends React.Component {
         return (
             <div className="contact-page">
                 <Helmet title="Careerraft :: Contact us" />
-                <p className="lead">
-                    Want to partner with us or have a feedback? Please get in touch, we'd love to hear from you.
-                </p>
-                <div className="grid row">
-                    <div className="cell">
-                        <p className="lead">
-                            VISIT OUR OFFICE
-                        </p>
-                        <p>
-                            <strong><i className="fa fa-map-marker"></i> Address:</strong> 100 Ft Road, Indiranagar, Bangalore
-                        </p>
-                        <p>
-                            <strong><i className="fa fa-phone"></i> Telephone:</strong> +91-8147267399
-                        </p>
-                        <p>
-                            <strong><i className="fa fa-envelope-o"></i> Email:</strong> <a href="mailto:aloha@careerraft.com">aloha@careerraft.com</a>
-                        </p>
-                    </div>
-                    <div className="cell">
-                        <form onSubmit={handleSubmit(this.sendMail)}>
-                            <div className="control-group">
-                                <label>
-                                    YOUR NAME:
-                                </label>
-                                <input {...name} className="form-control" type="text"/>
-                                {name.touched && name.error && <div className="text-error">{name.error}</div>}
-                            </div>
-                            <div className="control-group">
-                                <label>YOUR EMAIL ADDRESS</label>
-                                <input {...email} className="form-control" type="email"/>
-                                {email.touched && email.error && <div className="text-error">{email.error}</div>}
-                            </div>
-                            <div className="control-group">
-                                <label>YOUR PHONE NUMBER</label>
-                                <input {...telephone} className="form-control" type="text"/>
-                                {telephone.touched && telephone.error && <div className="text-error">{telephone.error}</div>}
-                            </div>
-                            <div className="control-group">
-                                <label>MESSAGE</label>
-                                <textarea {...message} value={message.value || ''} />
-                                {message.touched && message.error && <div className="text-error">{message.error}</div>}
-                            </div>
-                            <div className="control-group">
-                                <button disabled={submitting} type="submit">SUBMIT</button>
-                            </div>
-                        </form>
+                <div className="hero-unit">
+                    <div className="page-inner grid">
+                        <div className="cell-span-7">
+                            <h3 className="text-display-2">Connect</h3>
+                        </div>
+                        <div className="cell-span-3"></div>
                     </div>
                 </div>
+                <div className="content-body">
+                    <div className="page-inner">
+                        <div className="grid m-bl">
+                            <p className="text-subhead">Want to partner with us or have a feedback? Please get in touch, we'd love to hear from you.</p>
+                        </div>
+                        <div className="grid row">
+                            <div className="cell-span-6">
+                                <p className="text-headline">
+                                    VISIT OUR OFFICE
+                                </p>
+                                <p>
+                                    <strong><i className="fa fa-map-marker"></i> Address:</strong> 100 Ft Road, Indiranagar, Bangalore
+                                </p>
+                                <p>
+                                    <strong><i className="fa fa-phone"></i> Telephone:</strong> +91-8147267399
+                                </p>
+                                <p>
+                                    <strong><i className="fa fa-envelope-o"></i> Email:</strong> <a href="mailto:aloha@careerraft.com">aloha@careerraft.com</a>
+                                </p>
+                            </div>
+                            <div className="cell-span-6">
+                                <form onSubmit={handleSubmit(this.sendMail)}>
+                                    <div className="control-group">
+                                        <label>
+                                            YOUR NAME:
+                                        </label>
+                                        <input {...name} className="form-control" type="text"/>
+                                        {name.touched && name.error && <div className="text-error">{name.error}</div>}
+                                    </div>
+                                    <div className="control-group">
+                                        <label>YOUR EMAIL ADDRESS</label>
+                                        <input {...email} className="form-control" type="email"/>
+                                        {email.touched && email.error && <div className="text-error">{email.error}</div>}
+                                    </div>
+                                    <div className="control-group">
+                                        <label>YOUR PHONE NUMBER</label>
+                                        <input {...telephone} className="form-control" type="text"/>
+                                        {telephone.touched && telephone.error && <div className="text-error">{telephone.error}</div>}
+                                    </div>
+                                    <div className="control-group">
+                                        <label>MESSAGE</label>
+                                        <textarea {...message} value={message.value || ''} />
+                                        {message.touched && message.error && <div className="text-error">{message.error}</div>}
+                                    </div>
+                                    <div className="control-group">
+                                        <button disabled={submitting} type="submit">SUBMIT</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         )
     }

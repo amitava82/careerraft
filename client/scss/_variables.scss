@@ -1,10 +1,11 @@
 // Typography
-$base-font-family: 'Roboto', sans-serif;
+$base-font-family: 'Raleway', sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$base-font-size: 1rem;
-$base-font-weight: 300;
+$base-font-size: .95rem;
+$base-font-weight: 500;
+$heading-font-weight: 700;
 
 // Line height
 $base-line-height: 1.5;
@@ -36,7 +37,7 @@ $info: #3276b1;
 
 
 // Font Colors
-$base-font-color: $medium-gray;
+$base-font-color: $grey;
 $action-color: $orange;
 
 // Border

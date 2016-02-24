@@ -2,65 +2,123 @@
  * Created by amitava on 10/02/16.
  */
 import React from 'react';
+import {connect} from 'react-redux';
+import { routeActions } from 'react-router-redux';
+import autobind from 'autobind-decorator';
+
 import each from 'lodash/each';
 
 import formatAddress from '../../utils/format-address';
+import Avatar from '../../components/Avatar';
 
-
+@connect(state => {
+    return {
+        category_store: state.category_store
+    }
+})
 export default class InstituteDetails extends React.Component {
+
+    @autobind
+    goBack(){
+            this.props.dispatch(routeActions.goBack());
+    }
 
     render(){
 
         const inst = this.props.inst;
 
-        let courses = [], subjects = [], categories = [];
+        let courses = {}, categories = [];
 
-        each(inst.subjects, i => {
-           courses.push(<span className="pill">{i.course}</span>);
-            subjects.push(<span className="pill">{i.name}</span>);
-            categories.push(<span className="pill">{i.category}</span>);
+
+        inst.subjects.forEach(i => {
+            const c = i.subject.course;
+            if(courses[c._id]){
+                courses[c._id].subjects.push(i);
+            }else{
+                courses[c._id] = c;
+                c.subjects = [i]
+            }
+        });
+
+        const coursesList = [];
+        each(courses, (val, key) => {
+            const subjects = val.subjects.map(i => {
+                return (
+                    <div className="pill pill-success">
+                        {i.name}
+                    </div>
+                )
+            });
+            coursesList.push(
+                <div className="m-bl">
+                    <h5 className="text-headline">{val.name}</h5>
+                    <p>{val.description}</p>
+                    <div className="pills">
+                        {subjects}
+                    </div>
+                </div>
+            )
         });
 
         return (
-            <div className="inst grid column">
-                <div className="header grid row">
-                    <div className="cell-2">
-                        <h3>{inst.name}</h3>
-                        <address>
-                            <i className="fa fa-map-marker" />
-                            {formatAddress(inst.address)}
-                        </address>
-                        <h5>Courses</h5>
-                        <div className="pills">
-                            {courses}
+            <div className="inst-profile">
+                <div className="inst-profile-header">
+                    <div className="page-inner grid">
+                        <div className="cell-span-2">
+                            <button onClick={this.goBack} className="link"><i className="fa fa-angle-double-left"></i> Back</button>
                         </div>
-                        <h5>Categories</h5>
-                        <div className="pills">
-                            {categories}
+                        <div className="cell-span-7">
+                            <h3 className="text-display-2 profile-title">{inst.name}</h3>
+                            <address>
+                                <i className="fa fa-map-marker" />
+                                {formatAddress(inst.address)}
+                            </address>
                         </div>
-                    </div>
-                    <div className="cell-1 grid column">
-                        <div>
-                            {inst.telephones.map(i => {
-                                return (
-                                    <p>{i.name}: {i.number}</p>
-                                )
-                            })}
-                        </div>
-                        <div>
-                            <a href={inst.website}>{inst.website}</a>
-                        </div>
+                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content">
-                    <div className="box">
-                        <div className="box-header">
-                            <h5>About XYZ center</h5>
+                <div className="inst-profile-content">
+                    <div className="page-inner grid">
+                        <div className="cell-span-2 pull-up">
+                            <div className="inst-avatar">
+                                <Avatar width="130" height="120" name={inst.name} />
+                            </div>
+
                         </div>
-                        <div className="box-content">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
+                        <div className="cell-span-7">
+                            <div className="profile-header">
+                                <article>
+                                    {inst.short_description}
+                                </article>
+                                <div className="inst-type">
+                                    INSTITUTE TYPE: <span>{inst.type}</span>
+                                </div>
+                                <div className="grid text-center">
+                                    <div className="cell-4">
+                                        <i className="fa fa-phone" />
+                                        {inst.telephones.map(i => {
+                                            return <span className="inst-phone">{i.name}: {i.number}</span>;
+                                        })}
+                                    </div>
+                                    <div className="cell-4"><i className="fa fa-envelope" /> {inst.email}</div>
+                                    <div className="cell-4"><i className="fa fa-external-link" /> <a href={inst.website} target="_blank">{inst.website}</a></div>
+                                </div>
+                            </div>
+                            <div className="profile-body">
+                                <div className="profile-section border-bottom-think">
+                                    <h3 className="text-display-2">Overview</h3>
+                                    <article className="profile-sub-section">{inst.description}</article>
+                                </div>
+                                <div className="profile-section border-bottom-think">
+                                    <h3 className="text-display-1">Courses Offered</h3>
+                                    <div className="profile-sub-section">
+                                        {coursesList}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="cell-span-3">
                         </div>
                     </div>
                 </div>

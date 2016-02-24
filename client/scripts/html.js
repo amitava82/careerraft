@@ -2,7 +2,7 @@
  * Created by amitava on 31/01/16.
  */
 var config = require('config');
-
+import {KEYWORDS} from './constants';
 export default function html(markup, initialState, helmet){
     const title = helmet.title.toString() || 'Careerraft';
     return (
@@ -13,11 +13,11 @@ export default function html(markup, initialState, helmet){
             ${title}
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="keywords" content="careerraft, IIT, JEE, PUC, dance, music, coaching class, personal tutor, online class, online tutor, medical coaching, CET" />
+            <meta name="keywords" content="${KEYWORDS}" />
             <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning." />
             <meta name="author" content="Careerraft" />
             <meta name="copyright" content="(c) 2016 Careerraft Inc." />
-            <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500' rel='stylesheet' type='text/css'>
             <link href='/static/css/client.css' rel='stylesheet' type='text/css'>
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};

@@ -51,7 +51,7 @@ export default function promiseMiddleware(resolvedName, rejectedName) {
                     payload: result,
                     meta: newAction.payload
                 });
-                return result;
+                return Promise.resolve(result);
             },
             (error) => {
                 dispatch({
@@ -59,7 +59,7 @@ export default function promiseMiddleware(resolvedName, rejectedName) {
                     payload: error,
                     meta: newAction.payload
                 });
-                throw error;
+                return Promise.reject(error);
             }
         );
     };

@@ -20,58 +20,66 @@ import fetchComponentData from './helpers/fetchComponentData';
 module.exports = function (deps, app, callback) {
 
     app.use(handleRender);
+
+
+    function handleRender(req, res){
+        const api = new ApiClient(req, config.get('api'));
+        const history = createHistory(req.originalUrl);
+        const store = createStore({}, history, api);
+
+        if(req.isAuthenticated()){
+            store.dispatch(storeSession(req.user));
+        }
+
+        function hydrate(props){
+            const InitialComponent = (
+                <Provider store={store}>
+                    <RoutingContext {...props} />
+                </Provider>
+            );
+
+            //TODO server side render
+
+            const state = store.getState();
+
+            let renderedHtml = '';
+            try {
+                renderedHtml = renderToString(InitialComponent);
+            }catch(e){
+                deps.log.error(e);
+                throw e;
+            }
+            const head = Helmet.rewind();
+            const markup = HTML(renderedHtml, state, head);
+
+            res.send(markup);
+        }
+
+        //const location = createLocation(req.originalUrl);
+
+        match({history, routes: routes, location: req.originalUrl}, function (err, redirect, props) {
+            if (err) {
+                deps.log.error(err);
+                res.status(500);
+                hydrate();
+            }else if(redirect){
+                res.redirect(redirect.pathname + redirect.search);
+            }else if(!props){
+                res.status(404);
+                hydrate();
+            }else{
+                //hydrate(props);
+                fetchComponentData(store.dispatch, props.components, props.params).then(
+                    (r) => {
+                        hydrate(props);
+                    },
+                    e => {
+                        deps.log.error(e);
+                        res.status(500).send(e);
+                    }
+                )
+            }
+        });
+    }
+
 };
-
-function handleRender(req, res){
-    const api = new ApiClient(req, config.get('api'));
-    const history = createHistory(req.originalUrl);
-    const store = createStore({}, history, api);
-
-    if(req.isAuthenticated()){
-        store.dispatch(storeSession(req.user));
-    }
-
-    function hydrate(props){
-        const InitialComponent = (
-            <Provider store={store}>
-                <RoutingContext {...props} />
-            </Provider>
-        );
-
-        //TODO server side render
-
-        const state = store.getState();
-
-        let renderedHtml = '';
-        try {
-            renderedHtml = renderToString(InitialComponent);
-        }catch(e){
-            throw e;
-        }
-        const head = Helmet.rewind();
-        const markup = HTML(renderedHtml, state, head);
-
-        res.send(markup);
-    }
-
-    //const location = createLocation(req.originalUrl);
-
-    match({history, routes: routes, location: req.originalUrl}, function (err, redirect, props) {
-        if (err) {
-            console.error(err);
-            res.status(500);
-            hydrate();
-        }else if(redirect){
-            res.redirect(redirect.pathname + redirect.search);
-        }else if(!props){
-            res.status(404);
-            hydrate();
-        }else{
-            hydrate(props);
-            //fetchComponentData(store.dispatch, props.components, props.params).then(
-            //    () => hydrate(props),
-            //    e => res.status(500).send(e)
-            //)
-        }
-    });
-}

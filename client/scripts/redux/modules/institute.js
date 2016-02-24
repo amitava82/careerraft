@@ -9,7 +9,7 @@ import { resolve, reject as _reject } from 'redux-simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, DELETE, GET, ADD_SUBJECT] = createAction('institute', ["LOAD", "CREATE", "DELETE", "GET", "ADD_SUBJECT"]);
+const [LOAD, CREATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT] = createAction('institute', ["LOAD", "CREATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT"]);
 
 
 const initialState = {
@@ -27,6 +27,7 @@ export default function(state = initialState, action = {}){
         case DELETE:
         case GET:
         case ADD_SUBJECT:
+        case REMOVE_SUBJECT:
             return merge({}, state, {
                 loading: true,
                  error: null
@@ -37,6 +38,7 @@ export default function(state = initialState, action = {}){
         case _reject(DELETE):
         case _reject(GET):
         case _reject(ADD_SUBJECT):
+        case _reject(REMOVE_SUBJECT):
             return merge({}, state, {
                 loading: false,
                 error: action.payload
@@ -51,6 +53,7 @@ export default function(state = initialState, action = {}){
 
         case resolve(GET):
         case resolve(ADD_SUBJECT):
+        case resolve(REMOVE_SUBJECT):
             return merge({}, state, {
                 ids: union(state.ids, [action.payload.result]),
                 entities: action.payload.entities.institutes,
@@ -106,6 +109,15 @@ export function addSubject(id, data){
         type: ADD_SUBJECT,
         payload: {
             promise: api => api.put(`institutes/${id}/subjects`, {data: data, schema: Schemas.Institute})
+        }
+    }
+}
+
+export function removeSubject(id, subject){
+    return {
+        type: REMOVE_SUBJECT,
+        payload: {
+            promise: api => api.del(`institutes/${id}/subjects/${subject}`, {schema: Schemas.Institute})
         }
     }
 }

@@ -19,10 +19,6 @@ import {
 } from './routes/categories';
 
 import {
-        CourseContainer
-} from './routes/course';
-
-import {
     SearchContainer
 } from './routes/search';
 
@@ -60,7 +56,6 @@ export default (
             <IndexRoute component={CategoriesList} />
             <Route path=":id" component={CategoryDetails} />
         </Route>
-        <Route path="courses" component={CourseContainer} />
         <Route path="search" component={SearchContainer}>
         </Route>
         <Route path="institute/:id" component={InstituteContainer}>
@@ -82,7 +77,7 @@ export default (
                 <Route path="subject/add" component={CreateSubject} />
         </Route>
 
-        <Route path="/about" component={AboutUs} />
+        <Route path="/about" component={AboutUs}  />
         <Route path="/team" component={Team} />
         <Route path="/core-values" component={CoreValues} />
         <Route path="/contact-us" component={Contact} />

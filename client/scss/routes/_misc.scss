@@ -1,29 +1,32 @@
 .about-page, .team-page, .contact-page, .values-page,.educator-page {
-    padding: 30px 60px;
-    margin: 0 auto;
-    margin-top: 70px;
-    max-width: 1100px;
-    background: #FFF;
+    article{
+        margin-bottom: 20px;
+    }
 
-    span {
-        display: block;
-        margin-bottom: 10px;
+    .hero-unit{
+        background-image: url("/images/board_bg.jpg");
+    }
+}
+
+.about-page{
+    .hero-unit{
+        background-image: url("/images/books_bg.jpg");
     }
 }
 
 .team-page{
-    p {
-        text-align: left;
-    }
 
     img{
+        margin-top: 20px;
         max-width: 200px;
-        padding-top: 65px;
+        max-height:200px;
     }
 }
 .contact-page{
-    text-align: left;
-
+    .hero-unit{
+        background-image: url("/images/pen.jpg");
+        background-position: 0px -110px;
+    }
     > .lead{
         margin: 20px 0 100px 0;
     }
@@ -36,11 +39,8 @@
 }
 
 .educator-page {
-    text-align: left;
-    h2{
-        font-size: 2rem;
-        font-weight: 100;
-        color: $orange;
+    .hero-unit{
+        background-image: url("/images/puiple.jpg");
     }
     span{
         display: inline;

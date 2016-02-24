@@ -10,7 +10,7 @@ import reduce from 'lodash/reduce';
 import {loadCategories} from '../../../redux/modules/category';
 import {loadCourses} from '../../../redux/modules/course';
 import {getSubjects} from '../../../redux/modules/subject';
-import {addSubject} from '../../../redux/modules/institute';
+import {addSubject, removeSubject} from '../../../redux/modules/institute';
 
 @reduxForm({
     form: 'assign_subject',
@@ -39,10 +39,6 @@ export default class AssignSubject extends React.Component {
         }
     }
 
-    componentDidMount(){
-        this.props.dispatch(loadCategories());
-    }
-
     @autobind
     onSubmit(data){
         return this.props.dispatch(addSubject(this.props.params.id, data)).then(
@@ -61,6 +57,13 @@ export default class AssignSubject extends React.Component {
     onChangeCourse(e){
         this.props.fields.course.onChange(e);
         this.props.dispatch(getSubjects({course: e.target.value, category: this.props.fields.category.value}));
+    }
+
+    @autobind
+    unassign(cat){
+        if(confirm("Confirm delete?")){
+            this.props.dispatch(removeSubject(this.props.params.id, cat.subject._id));
+        }
     }
 
     render(){
@@ -122,7 +125,7 @@ export default class AssignSubject extends React.Component {
                     <h5>Assigned subjects:</h5>
                     {inst.subjects.map(i => {
                         return (
-                            <p>{i.subject.course.name} - {i.name}</p>
+                            <p>{i.subject.course.name} - {i.name} <button onClick={() => this.unassign(i)} className="link">Delete</button></p>
                         )
                     })}
                 </div>

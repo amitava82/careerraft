@@ -26,8 +26,57 @@
     }
 }
 
+.cell-span-1{
+    flex-basis: 8.3333%;
+}
+
+.cell-span-2{
+    flex-basis: 16.6666%;
+}
+
+.cell-span-3{
+    flex-basis: 25%;
+}
+
+
+.cell-span-4{
+    flex-basis: 33.3333%;
+}
+
+.cell-span-5{
+    flex-basis: 41.6666%;
+}
+
+.cell-span-6{
+    flex-basis: 50%;
+}
+
+.cell-span-7{
+    flex-basis: 58.3333%;
+}
+
+.cell-span-8{
+    flex-basis: 66.6666%;
+}
+
+.cell-span-9{
+    flex-basis: 75%;
+}
+
+.cell-span-10{
+    flex-basis: 83.3333%;
+}
+
+.cell-span-11{
+    flex-basis: 91.6666%;
+}
+
+.cell-span-12{
+    flex-basis: 100%;
+}
+
 .cell {
-    flex: 1
+    flex: 1 1 8%;
 }
 
 .cell-2 {
@@ -42,4 +91,11 @@
     flex: 4;
 }
 
+.page-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
+.content-body{
+    margin: 20px 0;
+}

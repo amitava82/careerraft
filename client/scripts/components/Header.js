@@ -13,6 +13,15 @@ import { setLocation } from '../redux/modules/search';
 import getUserLocation from '../utils/location';
 import Dropdown from './Dropdown';
 
+const NOSEARCH = {
+    "/about": true,
+    "/core-values": true,
+    "/team": true,
+    "/contact-us": true,
+    "/educator": true,
+    "/": true
+};
+
 @connect(state => state)
 export default class Nav extends React.Component {
 
@@ -97,7 +106,7 @@ export default class Nav extends React.Component {
         }else {
             loginMenu = (
                 <div>
-                    <a href="/auth/login">Login / Register</a>
+                    <a href="/educator">For Institutes</a>
                 </div>
             )
         }
@@ -109,7 +118,7 @@ export default class Nav extends React.Component {
                         <img src="/images/logo.png" />
                     </Link>
                 </div>
-                {this.props.routing.location.pathname != '/' ? (
+                {NOSEARCH[this.props.routing.location.pathname] !== true ? (
                     <form onSubmit={this.onSubmit} className="search grid cell">
                         <Geosuggest {...this.geoOptions} />
                         <div>

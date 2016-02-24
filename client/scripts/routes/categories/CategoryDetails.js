@@ -11,36 +11,32 @@ import {loadCourses} from '../../redux/modules/course'
 import middleware from '../../utils/middleware';
 
 
-@middleware([
-    {
-        key: '$categories',
-        watch: (props) => props.params.id,
-        handler: (props, id) => props.dispatch(loadCourses({_id: id}))
-    }
-])
 @connect(state => state)
 export default class CategoryDetails extends React.Component {
 
     componentDidMount(){
-        //this.props.dispatch(LOAD_COURSES({_id: this.props.params.id}));
+        this.props.dispatch(loadCourses({_id: this.props.params.id}));
     }
 
     render() {
 
-        const courses = this.props.course_store.courses.map(i => {
+        const {course_store} = this.props;
+        const courses = course_store.ids.map(i => {
+            const c = course_store.entities[i];
             return (
+                <div className="m-bl">
+                    <h5 className="text-headline"><Link to={`/search/?course=${c._id}`} key={c._id} className="strong">{c.name}</Link></h5>
+                    <p>{c.description}</p>
+                </div>
 
-                    <Link to={`/subjects/${i._id}`} key={i._id} className="tile">
-                        <h6>{i.name}</h6>
-                        <p>{i.description}</p>
-                    </Link>
             )
         });
         return (
-            <div>
-                <h5>Courses available under this category:</h5>
-                <div className="tile-container">
-                    {courses}
+            <div className="content-body">
+                <div className="page-inner">
+                    <div>
+                        {courses}
+                    </div>
                 </div>
             </div>
         )

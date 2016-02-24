@@ -64,7 +64,7 @@ export default class HomeHero extends React.Component {
                 <div className="hero cell grid center justify-center">
                     <div className="overlay"></div>
                     <div className="content">
-                        <h3>Find the best place to learn almost anything</h3>
+                        <h3 className="text-display-1">Find the best place to learn almost anything</h3>
                         <form onSubmit={this.onSubmit} className="search grid cell justify-center">
                             <Geosuggest {...this.geoOptions} />
                             <div>

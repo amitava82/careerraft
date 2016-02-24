@@ -42,5 +42,7 @@
             "clientId": "382582555193921",
             "clientSecret": "85f16c3473fb0fac13e6da7e5215031c"
         }
-    }
+    },
+
+    "uploadDir": "/Users/amitava/Documents/uploads/"
 }

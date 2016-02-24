@@ -1,3 +1,95 @@
 .inst-page {
-    padding-top: 30px;
+    .inst-profile{
+
+    }
+
+    .inst-profile-header{
+        background-image: url("/images/inst-bg.jpg");
+        background-color: rgba(0,0,0,.2);
+        background-size: 100%;
+        background-position: 0 100%;
+        color: white;
+        text-shadow: 0 3px 2px rgba(0,0,0,.5);
+        padding: 15px 0 20px;
+        position: relative;
+
+        &:after {
+            content: "";
+            background: url(http://careerraft.com/wp-content/themes/brooklyn/images/overlay-pattern.png) repeat;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            background-color: rgba(44,62,80 , 0.2 );
+            opacity: .3;
+        }
+
+        > div {
+            position: relative;
+            z-index: 1;
+        }
+
+        button.link {
+            color: white;
+            padding: 0;
+        }
+    }
+
+    .inst-profile-content{
+        margin: 20px 0;
+        .pull-up{
+            top: -80px;
+            position: relative;
+        }
+        .inst-avatar{
+
+        }
+
+        .profile-header {
+            border-bottom: 5px solid #DDD;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            article{
+                margin-bottom: 20px;
+            }
+            >.inst-type {
+                border-top: 1px dotted #ccc;
+                border-bottom: 1px dotted #ccc;
+                padding: 5px 0;
+                font-weight: 500;
+                font-size: .8rem;
+                color: #aaa;
+                margin-bottom: 10px;
+
+                > span {
+                    text-transform: capitalize;
+                    color: #111;
+                    font-size: .9rem;
+                }
+            }
+
+            .inst-phone {
+                margin: 0 10px;
+            }
+        }
+    }
+
+    .profile-title{
+        color: white;
+        margin-bottom: 0;
+    }
+
+    .profile-section {
+        margin-bottom: 50px;
+    }
+
+    .profile-sub-section {
+        margin-bottom: 40px;
+    }
+
+    .pill {
+        margin-right: 5px;
+    }
+
 }
