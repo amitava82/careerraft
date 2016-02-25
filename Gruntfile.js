@@ -37,7 +37,12 @@ module.exports = function(grunt){
     });
 
     grunt.registerTask('webpack', 'Build webpack', function(){
-        spawn('webpack -p');
+        grunt.util.spawn({
+            cmd: 'webpack',
+            args: ['p']
+        }, function(err){
+            console.log(err);
+        });
     });
 
     grunt.registerTask('css', ['sass', 'postcss']);
