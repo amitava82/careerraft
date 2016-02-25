@@ -55,7 +55,8 @@ export default function (state= initialState, action = {}) {
         case resolve(UPDATE):
             return merge({}, state, {
                 ids: union(state.ids, [action.payload.result]),
-                entities: action.payload.entities.categories
+                entities: action.payload.entities.categories,
+                loading: false
             });
 
         case resolve(DELETE):

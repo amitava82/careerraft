@@ -12,20 +12,33 @@ import Error from '../../components/Error';
 export default class CategoryContainer extends React.Component {
 
     render(){
-        const cat = this.props.category_store.entities[this.props.params.id];
 
-        if(!cat) return <Error>Invalid category</Error>;
+        const catid = this.props.params.id;
+        let catHeader = null;
+
+        if(catid){
+            const cat = this.props.category_store.entities[catid];
+            catHeader = (
+                <div className="cell-span-11">
+                    <h3 className="text-display-2">{cat.name}</h3>
+                    <p>{cat.description}</p>
+                </div>
+            )
+        }else {
+            catHeader = (
+                <div className="cell-span-11">
+                    <h3 className="text-display-2">Categories</h3>
+                </div>
+            )
+        }
 
         return (
             <div className="course-page">
                 <Helmet title="Careerraft - Courses" />
                 <div className="hero-unit">
                     <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">{cat.name}</h3>
-                            <p>{cat.description}</p>
-                        </div>
-                        <div className="cell-span-3"></div>
+                        <div className="cell-span-1"></div>
+                        {catHeader}
                     </div>
                 </div>
                 {this.props.children}

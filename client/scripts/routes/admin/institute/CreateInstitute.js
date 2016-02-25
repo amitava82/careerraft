@@ -24,6 +24,7 @@ import STATES from '../../../utils/states';
     fields: [
         'name',
         'description',
+        'short_description',
         'address.line1',
         'address.line2',
         'address.locality',
@@ -81,6 +82,7 @@ export default class CreateInstitute extends React.Component{
         const {fields: {
             name,
             description,
+            short_description,
             address,
             logo,
             banner,
@@ -108,6 +110,9 @@ export default class CreateInstitute extends React.Component{
                     </div>
                     <div>
                         <Textarea label="Description" field={description} />
+                    </div>
+                    <div>
+                        <Textarea label="Short Description" field={short_description} />
                     </div>
                     <div>
                         <label>Address</label>

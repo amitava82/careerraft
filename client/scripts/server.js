@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RoutingContext, match } from 'react-router';
+import { RouterContext, match, useRouterHistory } from 'react-router';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -34,7 +34,7 @@ module.exports = function (deps, app, callback) {
         function hydrate(props){
             const InitialComponent = (
                 <Provider store={store}>
-                    <RoutingContext {...props} />
+                    <RouterContext {...props} />
                 </Provider>
             );
 
@@ -69,7 +69,7 @@ module.exports = function (deps, app, callback) {
                 hydrate();
             }else{
                 //hydrate(props);
-                fetchComponentData(store.dispatch, props.components, props.params).then(
+                fetchComponentData(store.dispatch, props.components, props).then(
                     (r) => {
                         hydrate(props);
                     },

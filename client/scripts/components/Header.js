@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import each from 'lodash/each';
 import reduce from 'lodash/reduce';
@@ -25,6 +25,10 @@ const NOSEARCH = {
 @connect(state => state)
 export default class Nav extends React.Component {
 
+    static contextTypes = {
+        search: React.PropTypes.func
+    };
+
     constructor(props, ctx){
         super(props, ctx);
 
@@ -38,16 +42,22 @@ export default class Nav extends React.Component {
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
             country: 'in',
-            onChange: this.onValueChange
+            onChange: this.onValueChange,
+            initialValue: 'Bangalore'
         };
     }
 
     componentDidMount(){
-        getUserLocation(loc => {
-            this.props.dispatch(setLocation({
-                location: [loc.lng, loc.lat]
-            }));
-        });
+        this.props.dispatch(setLocation({
+            location: {lat: 12.9667, lng: 77.5667},
+            label: 'Bangalore'
+        }));
+
+        //getUserLocation(loc => {
+        //    this.props.dispatch(setLocation({
+        //        location: [loc.lng, loc.lat]
+        //    }));
+        //});
     }
 
     @autobind
@@ -55,7 +65,7 @@ export default class Nav extends React.Component {
         const p = data.location;
         this.props.dispatch(setLocation({
             label: data.label,
-            location: [p.lng, p.lat]
+            location: p
         }));
     }
 
@@ -63,7 +73,7 @@ export default class Nav extends React.Component {
     onSubmit(e){
         e.preventDefault();
         const q = this.refs.query.value;
-        this.props.dispatch(routeActions.push(`/search?q=${q}`));
+        this.context.search(q);
     }
 
     @autobind

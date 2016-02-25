@@ -18,7 +18,7 @@ import {createToast} from '../../redux/modules/toast';
 
 //import Item from './components/Item';
 import FilterBar from './components/FilterBar';
-import InstItem from './components/InstItem';
+import InstItem from './../search/InstItem';
 import Hero from './HomeHero';
 
 @connect(state => state)

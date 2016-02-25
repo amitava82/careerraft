@@ -23,14 +23,14 @@ categorySchema.define({
 
 });
 
-courseSchema.define({
-    category: categorySchema
-});
-
-subjectSchema.define({
-    course: courseSchema,
-    category: categorySchema
-});
+//courseSchema.define({
+//    category: categorySchema
+//});
+//
+//subjectSchema.define({
+//    course: courseSchema,
+//    category: categorySchema
+//});
 
 export default {
     Institute: instituteSchema,

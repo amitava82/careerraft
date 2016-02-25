@@ -3,15 +3,17 @@
  */
 import React from 'react';
 
-import InstItem from '../home/components/InstItem';
+import InstItem from './InstItem';
+
 
 export default class SearchResuts extends React.Component{
+
 
     render(){
         const results = this.props.results || [];
 
         const resultList = results.map(i => {
-           return <InstItem inst={i} key={i._id} />
+           return <InstItem inst={i}  />
         });
 
         return(

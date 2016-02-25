@@ -1,7 +1,6 @@
 /**
  * Created by amitava on 08/02/16.
  */
-import update from 'react-addons-update';
 import reject from 'lodash/reject';
 import merge from 'lodash/merge'
 import union from 'lodash/union'
@@ -10,7 +9,7 @@ import { resolve, reject as _reject } from 'redux-simple-promise';
 import createAction from '../createActions';
 import Schemas from '../../helpers/schema';
 
-const [LOAD, CREATE] = createAction('subject', ["LOAD", "CREATE"]);
+const [LOAD, CREATE, UPDATE] = createAction('subject', ["LOAD", "CREATE", "UPDATE"]);
 
 
 
@@ -26,21 +25,21 @@ export default function (state= initialState, action = {}) {
     switch (action.type){
         case LOAD:
         case CREATE:
-            return update(state, {
-                loading: {$set: true},
-                error: {$set: null}
+        case UPDATE:
+            return merge({}, state, {
+                loading: true,
+                error: null
             });
 
         case _reject(LOAD):
         case _reject(CREATE):
-            console.log(action)
-            return update(state, {
-                loading: {$set: false},
-                error: {$set: action.payload}
+        case _reject(UPDATE):
+            return merge({}, state, {
+                loading: false,
+                error: action.payload
             });
 
         case resolve(LOAD):
-            console.log(action)
             return merge({}, state, {
                 loading: false,
                 ids: union(state.ids, action.payload.result),
@@ -48,6 +47,7 @@ export default function (state= initialState, action = {}) {
             });
 
         case resolve(CREATE):
+        case resolve(UPDATE):
             return merge({}, state, {
                 loading: false,
                 ids: union(state.ids, [action.payload.result]),
@@ -73,6 +73,15 @@ export function createSubject(data){
         type: CREATE,
         payload: {
             promise: api => api.post('subjects', {data: data, schema: Schemas.Subject})
+        }
+    }
+}
+
+export function update(id, data){
+    return {
+        type: UPDATE,
+        payload: {
+            promise: api => api.put(`subjects/${id}`, {data, schema: Schemas.Subject})
         }
     }
 }

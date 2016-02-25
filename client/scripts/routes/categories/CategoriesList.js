@@ -5,8 +5,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
-import {loadCategories} from '../../redux/modules/category';
-
 import middleware from '../../utils/middleware';
 
 @connect(state => state)
@@ -21,17 +19,27 @@ export default class CategoryDetails extends React.Component {
         const categories = this.props.category_store.ids.map(c => {
             const i = this.props.category_store.entities[c];
             return (
-                <div className="tile">
-                    <Link to={`/categories/${i._id}`}>
-                        <h4>{i.name}</h4>
-                        <p>{i.description}</p>
-                    </Link>
+                <div className="m-bl">
+                    <h5 className="text-headline">
+                        <Link className="strong" to={`/categories/${i._id}`}>
+                            {i.name}
+                        </Link>
+                    </h5>
+                    <p>{i.description}</p>
                 </div>
+
             )
         });
         return (
-            <div className="tile-container">
-                {categories}
+            <div className="content-body">
+                <div className="page-inner">
+                    <div className="grid">
+                        <div className="cell-span-1"></div>
+                        <div className="cell-span-11">
+                            {categories}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 

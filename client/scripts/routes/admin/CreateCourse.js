@@ -8,7 +8,7 @@ import {Link} from 'react-router';
 import autobind from 'autobind-decorator';
 import reduce from 'lodash/reduce';
 
-import { createCourse, loadCourses } from '../../redux/modules/course';
+import { createCourse, loadCourses, update } from '../../redux/modules/course';
 import { loadCategories } from '../../redux/modules/category';
 import {createToast} from '../../redux/modules/toast';
 
@@ -22,7 +22,7 @@ import {createToast} from '../../redux/modules/toast';
 })
 @reduxForm({
     form: 'course',
-    fields: ['name', 'description', 'category']
+    fields: ['_id', 'name', 'description', 'category']
 })
 export default class CreateCourse extends React.Component{
 
@@ -38,14 +38,24 @@ export default class CreateCourse extends React.Component{
 
     @autobind
     onSubmit(data){
-        const category = this.state.category;
-        return this.props.dispatch(createCourse({...data, category})).then(
-            () => {
-                this.props.dispatch(createToast('Created'));
-                this.props.resetForm();
-            },
-            e => this.props.dispatch(createToast(e))
-        )
+        if(data._id){
+            const id = data._id;
+            delete data._id;
+            this.props.dispatch(update(id, data)).then(
+                () => {
+                    this.props.dispatch(createToast('Updated'));
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        }else{
+            return this.props.dispatch(createCourse(data)).then(
+                () => {
+                    this.props.dispatch(createToast('Created'));
+                    this.props.resetForm();
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        }
     }
 
     componentDidMount(){
@@ -59,6 +69,12 @@ export default class CreateCourse extends React.Component{
         this.props.dispatch(loadCourses(val));
     }
 
+    @autobind
+    edit(id){
+        const s = this.props.course.entities[id];
+        this.props.initializeForm(s);
+    }
+
     render(){
         const {fields: {name, description, category}, error, handleSubmit, submitting, course} = this.props;
 
@@ -68,7 +84,7 @@ export default class CreateCourse extends React.Component{
             memo.push (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
-                    <Link to={`/admin/course/${c._id}/edit`}>Edit</Link>
+                    <button className="btn sm" onClick={() => this.edit(c._id)}>Edit</button>
                 </li>
             );
             return memo;

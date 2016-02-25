@@ -26,6 +26,10 @@ import Error from '../../components/Error';
 @connect(state => state)
 export default class SearchContainer extends React.Component {
 
+    //static needs = [
+    //    [getInstitute, 'params.id']
+    //];
+
     constructor(props, ctx){
         super(props, ctx);
     }

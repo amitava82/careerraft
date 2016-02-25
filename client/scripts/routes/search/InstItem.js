@@ -1,0 +1,50 @@
+/**
+ * Created by amitava on 14/02/16.
+ */
+import React from 'react';
+import {Link} from 'react-router';
+import uniq from 'lodash/uniq'
+
+import formatAddress from '../../utils/format-address';
+
+export default class InstItem extends React.Component {
+
+    render(){
+        const i = this.props.inst;
+
+        const categories = [], subjects = [], courses = [];
+        i.subjects.forEach(i => {
+            categories.push(
+                i.category
+            );
+            courses.push(
+                i.course
+            )
+        });
+
+        const desc = i.description.length >= 300 ? i.description + '...' : i.description;
+
+        return (
+            <div key={i._id} className="inst-item">
+                <h5 className="text-headline"><Link to={`/institute/${i._id}`}>{i.name}</Link></h5>
+                <p className="addr"><i className="fa fa-map-marker" /> {formatAddress(i.address)}</p>
+                <p className="desc">{desc}</p>
+                <div className="m-bm">
+                    <h5 className="text-subhead">
+                        <span className="strong">Specializes in:</span> {uniq(courses).join(', ')}
+                    </h5>
+                </div>
+                <div className="categories pills">
+                    <div><span className="strong">Listed under:</span> {uniq(categories).map(i => {
+                        return (
+                            <div className="pill pill-default">
+                                {i}
+                            </div>
+                        )
+                    })}</div>
+
+                </div>
+            </div>
+        )
+    }
+}

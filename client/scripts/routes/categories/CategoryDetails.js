@@ -5,6 +5,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import reduce from 'lodash/reduce';
 
 import {loadCourses} from '../../redux/modules/course'
 
@@ -21,21 +22,26 @@ export default class CategoryDetails extends React.Component {
     render() {
 
         const {course_store} = this.props;
-        const courses = course_store.ids.map(i => {
+        const courses = reduce(course_store.ids, (memo,i) => {
             const c = course_store.entities[i];
-            return (
-                <div className="m-bl">
-                    <h5 className="text-headline"><Link to={`/search/?course=${c._id}`} key={c._id} className="strong">{c.name}</Link></h5>
-                    <p>{c.description}</p>
-                </div>
+            if(c.category == this.props.params.id)
+                memo.push(
+                    <div className="m-bl" key={i._id}>
+                        <h5 className="text-headline"><Link to={`/search/?course=${c._id}`} key={c._id} className="strong">{c.name}</Link></h5>
+                        <p>{c.description}</p>
+                    </div>
+                );
+            return memo;
+        }, []);
 
-            )
-        });
         return (
             <div className="content-body">
                 <div className="page-inner">
-                    <div>
-                        {courses}
+                    <div className="grid">
+                        <div className="cell-span-1"></div>
+                        <div className="cell-span-11">
+                            {courses}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ import autobind from 'autobind-decorator';
 
 import reduce from 'lodash/reduce';
 
-import { createSubject, getSubjects } from '../../redux/modules/subject';
+import { createSubject, getSubjects, update } from '../../redux/modules/subject';
 import { loadCourses } from '../../redux/modules/course';
 import { loadCategories } from '../../redux/modules/category';
 import {createToast} from '../../redux/modules/toast';
@@ -25,7 +25,7 @@ import {createToast} from '../../redux/modules/toast';
 })
 @reduxForm({
     form: 'subject_create',
-    fields: ['name', 'description']
+    fields: ['_id', 'name', 'description']
 })
 export default class CreateSubject extends React.Component{
 
@@ -41,22 +41,31 @@ export default class CreateSubject extends React.Component{
     }
 
     @autobind
-    onSubmit(data){
-        const {category, course} = this.state;
-        const p =  this.props.dispatch(createSubject({...data, category, course}));
+    onSubmit(data) {
 
-        p.then(
-                (r) => {
-                    console.log(r)
+        const {category, course} = this.state;
+
+        if (data._id) {
+            const id = data._id;
+            delete data._id;
+            this.props.dispatch(update(id, data)).then(
+                () => {
+                    this.props.dispatch(createToast('Updated'));
+                },
+                e => this.props.dispatch(createToast(e))
+            )
+        } else {
+            return this.props.dispatch(createSubject({...data, category, course})).then(
+                () => {
                     this.props.dispatch(createToast('Created'));
                     this.props.resetForm();
                 },
                 e => this.props.dispatch(createToast(e))
             )
         }
+    }
 
     componentDidMount(){
-        console.log('cat')
         this.props.dispatch(loadCategories());
     }
 
@@ -65,6 +74,7 @@ export default class CreateSubject extends React.Component{
         const val = e.target.value;
         this.setState({category: val, course: null});
         this.props.dispatch(loadCourses(val));
+        this.props.resetForm();
     }
 
     @autobind
@@ -72,6 +82,13 @@ export default class CreateSubject extends React.Component{
         const val = e.target.value;
         this.props.dispatch(getSubjects({course: val}));
         this.setState({course: val});
+        this.props.resetForm();
+    }
+
+    @autobind
+    edit(id){
+        const s = this.props.subject_store.entities[id];
+        this.props.initializeForm(s);
     }
 
     render(){
@@ -83,7 +100,7 @@ export default class CreateSubject extends React.Component{
                 memo.push(
                     <li key={c._id}>
                         <strong>{c.name}</strong>
-                        <Link to={`/admin/subject/${c._id}/edit`}>Edit</Link>
+                        <button className="btn sm" onClick={() => this.edit(c._id)}>Edit</button>
                     </li>
                 );
             return memo;

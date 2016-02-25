@@ -6,6 +6,7 @@ require("babel-register");
 var Category = require('../lib/models/Category')();
 var Course = require('../lib/models/Course')();
 var Subject = require('../lib/models/Subject')();
+var Summary = require('../lib/models/SummaryDoc')();
 var config = require('config');
 var db = require('../lib/core/mongodb')({config: config});
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -36,6 +37,17 @@ db(function(){
           }
       ]
     };
+
+    Summary.insert('56cdb0b482e361b86a17a8fa').then(
+        function(r){
+            console.log(r)
+        },
+        function(e){
+            console.log(e)
+        }
+    );
+
+    return;
 
 
     //Organization.findOneAndUpdate({_id: ObjectId("56c3151e9b84cc0f5a5056c5")}, {

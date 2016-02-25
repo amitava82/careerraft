@@ -3,13 +3,14 @@
  */
 
 import reject from 'lodash/reject';
-import merge from 'lodash/merge'
-import union from 'lodash/union'
+import merge from 'lodash/merge';
+import union from 'lodash/union';
+import extend from 'lodash/extend';
 import { resolve, reject as _reject } from 'redux-simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT] = createAction('institute', ["LOAD", "CREATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT"]);
+const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT] = createAction('institute', ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT"]);
 
 
 const initialState = {
@@ -24,6 +25,7 @@ export default function(state = initialState, action = {}){
     switch (action.type){
         case LOAD:
         case CREATE:
+        case UPDATE:
         case DELETE:
         case GET:
         case ADD_SUBJECT:
@@ -35,6 +37,7 @@ export default function(state = initialState, action = {}){
 
         case _reject(LOAD):
         case _reject(CREATE):
+        case _reject(UPDATE):
         case _reject(DELETE):
         case _reject(GET):
         case _reject(ADD_SUBJECT):
@@ -45,7 +48,7 @@ export default function(state = initialState, action = {}){
             });
 
         case resolve(LOAD):
-            return merge({}, state, {
+            return extend({}, state, {
                 ids: union(state.ids, action.payload.result),
                 entities: action.payload.entities.institutes,
                 loading: false
@@ -54,18 +57,19 @@ export default function(state = initialState, action = {}){
         case resolve(GET):
         case resolve(ADD_SUBJECT):
         case resolve(REMOVE_SUBJECT):
-            return merge({}, state, {
+            return extend({}, state, {
                 ids: union(state.ids, [action.payload.result]),
                 entities: action.payload.entities.institutes,
                 loading: false
             });
 
         case resolve(CREATE):
-            return merge({}, state, {
+        case resolve(UPDATE):
+            return extend({}, state, {
                 ids: union(state.ids, [action.payload.result]),
-                entities: action.payload.entities.institutes
+                entities: action.payload.entities.institutes,
+                loading: false
             });
-
 
         default:
             return state;
@@ -101,6 +105,16 @@ export function createInstitute(data) {
         payload: {
             promise: api => api.post(`institutes`, {data: data, schema: Schemas.Institute})
         }
+    }
+}
+
+export function update(id, data) {
+    return {
+        type: UPDATE,
+        payload: {
+            promise: api => api.put(`institutes/${id}`, {data, schema: Schemas.Institute})
+        }
+
     }
 }
 

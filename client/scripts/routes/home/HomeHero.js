@@ -14,15 +14,20 @@ import {HOME_CATEGORIES} from '../../constants';
 @connect(state => state)
 export default class HomeHero extends React.Component {
 
-    constructor(props){
-        super(props);
+    static contextTypes = {
+        search: React.PropTypes.func
+    };
+
+    constructor(props, ctx){
+        super(props, ctx);
         this.geoOptions = {
             inputClassName: 'form-control',
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
             country: 'in',
-            onChange: this.onValueChange
+            onChange: this.onValueChange,
+            initialValue: 'Bangalore'
         };
     }
 
@@ -30,7 +35,7 @@ export default class HomeHero extends React.Component {
     onSubmit(e){
         e.preventDefault();
         const q = this.refs.query.value;
-        this.props.dispatch(routeActions.push(`/search?q=${q}`));
+        this.context.search(q);
     }
 
     @autobind
@@ -38,7 +43,7 @@ export default class HomeHero extends React.Component {
         const p = data.location;
         this.props.dispatch(setLocation({
             label: data.label,
-            location: [p.lng, p.lat]
+            location: p
         }));
     }
 

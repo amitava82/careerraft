@@ -17,7 +17,7 @@ import Loading from '../../../components/Loading';
 
 import AssignSubject from './AssignSubject';
 
-import {getInstitute} from '../../../redux/modules/institute';
+import {getInstitute, update} from '../../../redux/modules/institute';
 
 
 @reduxForm({
@@ -25,6 +25,7 @@ import {getInstitute} from '../../../redux/modules/institute';
     fields: [
         'name',
         'description',
+        'short_description',
         'address.line1',
         'address.line2',
         'address.locality',
@@ -66,7 +67,7 @@ export default class EditInstitute extends React.Component{
 
     @autobind
     onSubmit(data){
-        console.log(data)
+        this.props.dispatch(update(this.props.params.id, data));
     }
 
     render(){
@@ -78,6 +79,7 @@ export default class EditInstitute extends React.Component{
                 <form onSubmit={handleSubmit(this.onSubmit)}>
                     <div className="control-group">
                         <Input type="text" field={fields.name} label="Name"/>
+                        <Textarea field={fields.short_description} label="Short description" />
                         <Textarea field={fields.description} label="Description" />
                         <label>Address</label>
                         <Input type="text" field={fields.address.line1} placeholder="Line 1"/>
