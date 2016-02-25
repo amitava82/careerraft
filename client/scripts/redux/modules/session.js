@@ -2,7 +2,7 @@
  * Created by amitava on 31/01/16.
  */
 import update from 'react-addons-update';
-import { resolve, reject as _reject } from 'redux-simple-promise';
+import { resolve, reject as _reject } from '../middleware/simple-promise';
 
 import createAction from '../createActions';
 

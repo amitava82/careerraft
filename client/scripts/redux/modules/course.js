@@ -5,7 +5,7 @@ import reject from 'lodash/reject';
 import merge from 'lodash/merge'
 import union from 'lodash/union'
 
-import { resolve, reject as _reject } from 'redux-simple-promise';
+import { resolve, reject as _reject } from '../middleware/simple-promise';
 
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';

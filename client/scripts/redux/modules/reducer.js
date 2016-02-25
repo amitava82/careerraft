@@ -2,10 +2,8 @@
  * Created by amitava on 31/01/16.
  */
 import { combineReducers } from 'redux';
-import promiseMiddleware from 'redux-simple-promise';
 import { routeReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
-import thunk from 'redux-thunk';
 
 import session from './session';
 import search from './search';

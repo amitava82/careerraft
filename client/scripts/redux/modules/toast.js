@@ -6,7 +6,7 @@ import update from 'react-addons-update';
 import extend from 'lodash/extend';
 import reject from 'lodash/reject';
 
-import { resolve, reject as _reject } from 'redux-simple-promise';
+import { resolve, reject as _reject } from '../middleware/simple-promise';
 
 import createAction from '../createActions';
 const [TOAST, REMOVE_TOAST] = createAction('toast', ["TOAST", "REMOVE_TOAST"]);

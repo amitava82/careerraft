@@ -22,7 +22,7 @@ if(process.env.NODE_ENV == 'production') plugins.push(env);
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
-        vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history',
+        vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history', 'lodash', 'scroll-behavior', 'qs',
             'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest']
     },
     //devtool: 'source-map',
