@@ -18,8 +18,9 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$blue: #69D2E7;
+$blue: #23b7e5;
 $blue-light: #A7DBD8;
+$blue-dark: #117391;
 $tan: #E0E4CC;
 $orange-lighter: #F38630;
 $orange: #FA6900;
@@ -49,8 +50,8 @@ $base-background-color: #fff;
 $secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
-$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
-$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+$form-box-shadow: none;// inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: none; //$form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 
 // Animations
 $base-duration: 300ms;

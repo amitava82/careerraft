@@ -125,7 +125,7 @@ export default class Nav extends React.Component {
             <header className="grid row center">
                 <div className="brand">
                     <Link to="/">
-                        <img src="/images/logo.png" />
+                        Career<span>raft</span>
                     </Link>
                 </div>
                 {NOSEARCH[this.props.routing.location.pathname] !== true ? (
@@ -137,10 +137,10 @@ export default class Nav extends React.Component {
                         <button type="submit">Search</button>
                     </form>
                 ) : <nav className="cell">
-                    <Link to="/about">ABOUT</Link>
-                    <Link to="/core-values">CORE VALUES</Link>
-                    <Link to="/team">TEAM</Link>
-                    <Link to="/contact-us">GET IN TOUCH</Link>
+                    <Link to="/about">About</Link>
+                    <Link to="/core-values">Core values</Link>
+                    <Link to="/team">Team</Link>
+                    <Link to="/contact-us">Contact us</Link>
                 </nav> }
                 <nav className="grid row">
                     {loginMenu}

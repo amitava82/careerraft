@@ -10,10 +10,17 @@ header {
     .brand {
         width: 150px;
         height: 60px;
+        display: flex;
+        align-items: center;
+        margin-right: 50px;
         a {
-            font-size: 23px;
-            font-weight: 100;
-            color: #0BD2CC;
+            font-size: 24px;
+            font-weight: 700;
+            color: rgba(0,0,0,.6); //#F5FDFF;
+            -webkit-font-smoothing: antialiased;
+            > span:nth-child(2){
+                font-weight: 100;
+            }
         }
 
         img{
@@ -33,6 +40,14 @@ header {
 
         .query {
             width: 300px;
+            margin-left: -1px;
+        }
+        button{
+            background-color: rgba(0,0,0,.3);
+            transition: all 150ms ease 150ms;
+            &:hover{
+                background-color: rgba(0,0,0,.6);
+            }
         }
     }
 
@@ -41,6 +56,10 @@ header {
         a{
             margin: 0 10px;
             color: inherit;
+            font-weight: 100;
+            &:hover, &:focus, &:active{
+                color: $blue-dark;
+            }
         }
         > div {
             margin-left: 20px;
