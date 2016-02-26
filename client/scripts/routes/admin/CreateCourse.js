@@ -48,7 +48,7 @@ export default class CreateCourse extends React.Component{
                 e => this.props.dispatch(createToast(e))
             )
         }else{
-            return this.props.dispatch(createCourse(data)).then(
+            return this.props.dispatch(createCourse({...data, category: this.state.category})).then(
                 () => {
                     this.props.dispatch(createToast('Created'));
                     this.props.resetForm();

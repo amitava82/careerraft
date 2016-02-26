@@ -29,8 +29,8 @@ export default function(state=initialState, action = {}){
             if (typeof data === 'string'){
                 extend(toast, toastDefaults, {text: data});
             }else{
-                if(data._error || data.message){
-                    toast.text = data._error || data.message;
+                if(data.message || data._error){
+                    toast.text = data.message || data._error;
                     toast.type = 'error';
                     toast = extend({}, toastDefaults, toast);
                 }else

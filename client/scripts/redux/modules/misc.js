@@ -6,7 +6,7 @@ export function sendMail(data){
     return {
         type: 'SEND_MAIL',
         payload: {
-            promise: api => api.post('misc/send_mail', data)
+            promise: api => api.post('misc/send_mail', {data})
         }
     }
 }
