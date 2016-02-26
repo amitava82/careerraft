@@ -51,7 +51,7 @@ class _ApiClient {
                         reject(body || err);
                     }else {
                         if(schema){
-                            resolve(normalize(body, schema));
+                            body ? resolve(normalize(body, schema)) : resolve(normalize({}, schema));
                         }else{
                             resolve(body);
                         }

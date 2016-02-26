@@ -34,7 +34,7 @@ export default class SearchContainer extends React.Component {
         super(props, ctx);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.props.dispatch(getInstitute(this.props.params.id));
     }
 
@@ -47,12 +47,16 @@ export default class SearchContainer extends React.Component {
 
         if(institute_store.error) return <Error error={institute_store.error} />;
 
-        if(institute_store.loading || !inst) return <Loading />;
+        if(institute_store.loading) return (
+            <div className="text-center text-title">
+                <Loading />
+            </div>
+        );
 
         return (
             <div className="inst-page">
-                <Helmet title={`Careerraft - ${inst.name}`} />
-                <InstituteDetails inst={inst} />
+                <Helmet title={`Careerraft - ${inst && inst.name}`} />
+                {inst ? <InstituteDetails inst={inst} /> : <p className="text-title text-center">Nothing to display</p>}
                 {this.props.children}
             </div>
         )

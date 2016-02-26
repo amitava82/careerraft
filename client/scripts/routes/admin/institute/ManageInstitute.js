@@ -84,8 +84,8 @@ export default class ManageInstitute extends React.Component{
                 <div className="cell">
                     <label>Search</label>
                     <div className="input-group">
-                        <input type="text" ref="query" />
-                        <button className="sm" onClick={this.search}>Search</button>
+                        <input className="cell-span-3" type="text" ref="query" />
+                        <button className="sm cell-span-1" onClick={this.search}>Search</button>
                     </div>
                     {searchResults}
                 </div>

@@ -10,7 +10,8 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT] = createAction('institute', ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT"]);
+const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES] = createAction('institute',
+    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES"]);
 
 
 const initialState = {
@@ -30,6 +31,7 @@ export default function(state = initialState, action = {}){
         case GET:
         case ADD_SUBJECT:
         case REMOVE_SUBJECT:
+        case UPDATE_BRANCHES:
             return merge({}, state, {
                 loading: true,
                  error: null
@@ -42,6 +44,7 @@ export default function(state = initialState, action = {}){
         case _reject(GET):
         case _reject(ADD_SUBJECT):
         case _reject(REMOVE_SUBJECT):
+        case _reject(UPDATE_BRANCHES):
             return merge({}, state, {
                 loading: false,
                 error: action.payload
@@ -50,19 +53,14 @@ export default function(state = initialState, action = {}){
         case resolve(LOAD):
             return extend({}, state, {
                 ids: union(state.ids, action.payload.result),
-                entities: action.payload.entities.institutes,
+                entities: extend({}, state.entities, action.payload.entities.institutes),
                 loading: false
             });
 
         case resolve(GET):
         case resolve(ADD_SUBJECT):
         case resolve(REMOVE_SUBJECT):
-            return extend({}, state, {
-                ids: union(state.ids, [action.payload.result]),
-                entities: action.payload.entities.institutes,
-                loading: false
-            });
-
+        case resolve(UPDATE_BRANCHES):
         case resolve(CREATE):
         case resolve(UPDATE):
             return extend({}, state, {
@@ -132,6 +130,15 @@ export function removeSubject(id, subject){
         type: REMOVE_SUBJECT,
         payload: {
             promise: api => api.del(`institutes/${id}/subjects/${subject}`, {schema: Schemas.Institute})
+        }
+    }
+}
+
+export function updateBranches(id, branches){
+    return {
+        type: UPDATE_BRANCHES,
+        payload: {
+            promise: api => api.put(`institutes/${id}/branches`, {data: branches, schema: Schemas.Institute})
         }
     }
 }

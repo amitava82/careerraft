@@ -8,10 +8,11 @@
     }
 
     .hero {
-        background-image: url(http://careerraft.com/wp-content/uploads/2015/11/banner1.jpg);
+        background-image: url("/images/laptop_pg.jpeg");
         background-color: rgba(0,0,0,.2);
         height: 300px;
         background-size: 100%;
+        background-position: 0;
         position: relative;
         h3{
             color: white;
@@ -29,7 +30,7 @@
     }
 
     .overlay {
-        background-image: url(http://careerraft.com/wp-content/themes/brooklyn/images/overlay-pattern.png);
+        background-image: url("/images/overlay-pattern.png");
         background-color: rgba(44,62,80 , 0.2 );
         top: 0;
         left: 0;

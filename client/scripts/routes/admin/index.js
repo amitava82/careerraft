@@ -13,6 +13,7 @@ import EditInstitute from './institute/EditInstitute';
 import EditBasicDetails from './institute/EditBasicDetails';
 import EditInstituteCategories from './institute/EditInstituteCategories';
 import AssignSubject from './institute/AssignSubject';
+import ManageBranches from './institute/ManageBranches';
 
 export {
     AdminContainer,
@@ -25,5 +26,6 @@ export {
     EditInstitute,
     EditInstituteCategories,
     EditBasicDetails,
-    AssignSubject
+    AssignSubject,
+    ManageBranches
 }

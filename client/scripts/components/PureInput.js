@@ -2,6 +2,7 @@
  * Created by amitava on 12/02/16.
  */
 import React, {Component, PropTypes} from 'react';
+import classNames from 'classnames';
 
 export default class PureInput extends Component {
     static propTypes = {
@@ -13,9 +14,10 @@ export default class PureInput extends Component {
     }
 
     render() {
-        const {field, label, ...rest} = this.props;
+        const {field, label, className, ...rest} = this.props;
+        const classes = classNames('input', className);
         return (
-            <div className="input">
+            <div className={classes}>
                 {label && <label>{label}</label>}
                 <input className="form-control" {...field} {...rest}/>
                 {field && field.touched && field.error && <div className="text-error">{field.error}</div>}
