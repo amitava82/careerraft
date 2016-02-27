@@ -8,10 +8,10 @@ export default function html(markup, initialState, helmet){
     return (
         `
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
         <head>
             ${title}
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="keywords" content="${KEYWORDS}" />
             <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning." />

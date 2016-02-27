@@ -5,6 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import autobind from 'autobind-decorator';
+import {Link} from 'react-router';
 
 import each from 'lodash/each';
 
@@ -100,8 +101,8 @@ export default class InstituteDetails extends React.Component {
                                             return <span className="inst-phone">{i.name}: {i.number}</span>;
                                         })}
                                     </div>
-                                    <div className="cell-4"><i className="fa fa-envelope" /> {inst.email}</div>
-                                    <div className="cell-4"><i className="fa fa-external-link" /> <a href={inst.website} target="_blank">{inst.website}</a></div>
+                                    <div className="cell-4"><i className="fa fa-envelope" /><a href={`mailto:${inst.email}`}>Email</a></div>
+                                    <div className="cell-4"><i className="fa fa-external-link" /> <a href={inst.website} target="_blank">Website</a></div>
                                 </div>
                             </div>
                             <div className="profile-body">

@@ -8,9 +8,9 @@
             "middleware": []
         },
         {
-            "path": "/api/search/suggestion",
+            "path": "/api/search/filters",
             "method": "get",
-            "handler": "suggestion",
+            "handler": "filters",
             "middleware": []
         }
     ]

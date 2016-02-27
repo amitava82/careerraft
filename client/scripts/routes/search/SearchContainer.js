@@ -9,10 +9,12 @@ import {push} from 'react-router-redux';
 import isEqual from 'lodash/isEqual';
 import Helmet from 'react-helmet';
 import merge from 'lodash/merge';
+import pull from 'lodash/pull';
 
-import { search } from '../../redux/modules/search';
+import { search, filters } from '../../redux/modules/search';
 
 import SearchResults from './SearchResuts';
+import FilterPanel from './FilterPane';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 
@@ -36,6 +38,10 @@ export default class SearchContainer extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
+
+        this.state = {
+            filters: null
+        }
     }
 
     componentDidMount(){
@@ -60,8 +66,35 @@ export default class SearchContainer extends React.Component {
     search(props){
         props.dispatch(search({
             ...props.location.query
-        }))
+        })).then(
+            r => {
+                props.dispatch(filters({...props.location.query})).then(
+                    f => {
+                        this.setState({filters: f});
+                    },
+                    e => {
+
+                    }
+                );
+            }
+        )
     }
+
+    @autobind
+    toggleFilter(val, type, rm){
+        const query = {...this.props.location.query};
+        let q = query[type];
+        if(q){
+            rm ? pull(q, val) : q.push(val)
+        }else{
+            q = [val];
+            //q[type] =  [val];
+        }
+        q.length ? query[type]= q : delete query[type];
+
+        this.props.dispatch(push({...this.props.location, query: query}))
+    }
+
     @autobind
     next(){
         const page = this.props.location.query.page;
@@ -105,8 +138,8 @@ export default class SearchContainer extends React.Component {
                 <Helmet title={pageTitle} />
                 <div className="hero-unit">
                     <div className="page-inner grid">
-                        <div className="cell-span-1"></div>
-                        <div className="cell-span-11">
+                        <div className="cell-span-3"></div>
+                        <div className="cell-span-7">
                             <h3 className="text-display-2">{pageTitle}</h3>
                             {search_store.location && <p className="text-title">Searching around {search_store.location.label}</p>}
                         </div>
@@ -114,8 +147,10 @@ export default class SearchContainer extends React.Component {
                 </div>
                 <div className="content-body">
                     <div className="page-inner grid">
-                        <div className="cell-span-1"></div>
-                        <div className="cell-span-10">
+                        <div className="cell-span-3">
+                            <FilterPanel filters={this.state.filters} toggleFilter={this.toggleFilter} />
+                        </div>
+                        <div className="cell-span-8">
                             {content}
                             <div className="pager grid">
                                 <div className="cell-span-6 text-left">

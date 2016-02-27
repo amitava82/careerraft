@@ -104,10 +104,10 @@ input[type=search] {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
-}
 
-.form-control {
-    height: 40px;
+    &.form-control{
+        height:40px;
+    }
 }
 
 .input-group{

@@ -10,13 +10,14 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 
 import createAction from '../createActions';
 
-const [SET_LOCATION, SEARCH] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET"]);
+const [SET_LOCATION, SEARCH, FILTERS] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS"]);
 
 
 const initialState = {
     query: null,
     location: null,
     results: [],
+    filters: {},
     loading: false,
     error: null,
     recent_search: {},
@@ -67,6 +68,15 @@ export function search(query){
         type: SEARCH,
         payload: {
             promise: api => api.get('search', {params: query})
+        }
+    }
+}
+
+export function filters(params){
+    return {
+        type: FILTERS,
+        payload: {
+            promise: api => api.get('search/filters', {params})
         }
     }
 }

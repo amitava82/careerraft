@@ -27,7 +27,7 @@ export default class CategoryDetails extends React.Component {
             if(c.category == this.props.params.id)
                 memo.push(
                     <div className="m-bl" key={i._id}>
-                        <h5 className="text-headline"><Link to={`/search/?course=${c._id}`} key={c._id} className="strong">{c.name}</Link></h5>
+                        <h5 className="text-headline"><Link to={`/search/?subject_id=${c._id}`} key={c._id} className="strong">{c.name}</Link></h5>
                         <p>{c.description}</p>
                     </div>
                 );

@@ -37,7 +37,7 @@ export default class ManageInstitute extends React.Component{
         const q = this.refs.query.value;
         const query = {};
         if(q) query.name = q;
-        api.get('institutes', query).then(
+        api.get('institutes', {params: query}).then(
             r => {
                 this.setState({institutes: r})
             },

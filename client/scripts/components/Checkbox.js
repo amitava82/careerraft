@@ -13,7 +13,7 @@ export default class Checkbox extends Component {
         return (
             <div className={classes} key={key}>
                 <label className="input-group center">
-                    <input className="form-control" {...field} {...rest}/>
+                    <input type="checkbox" className="form-control" {...field} {...rest}/>
                     {label}
                 </label>
                 {field && field.touched && field.error && <div className="text-error">{field.error}</div>}
