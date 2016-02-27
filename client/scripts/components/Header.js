@@ -125,7 +125,7 @@ export default class Nav extends React.Component {
             <header className="grid row center">
                 <div className="brand">
                     <Link to="/">
-                        Career<span>raft</span>
+                        Career<span>raft</span><span className="beta-badge">beta</span>
                     </Link>
                 </div>
                 {NOSEARCH[this.props.routing.location.pathname] !== true ? (

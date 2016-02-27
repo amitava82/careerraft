@@ -11,6 +11,7 @@ import Checkbox from '../../components/Checkbox';
 @connect(state => state)
 export default class FilterPane extends React.Component {
 
+
     render() {
         const {category_store, routing, filters} = this.props;
         const query = routing.location.query;
@@ -33,7 +34,11 @@ export default class FilterPane extends React.Component {
 
         return (
             <div className="filter-panel">
-                <div className="strong text-title filter-pane-header"><i className="fa fa-filter" /> Refine</div>
+                <div className="strong text-title filter-pane-header">
+                    <i className="fa fa-filter" />
+                    Refine
+                    <button className="link sm text-right" onClick={this.props.resetFilters}>clear</button>
+                </div>
                 <div className="filter-panel-body">
                     <div className="filter-group">
                         <h5 className="text-caption strong">Categories</h5>

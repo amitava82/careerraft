@@ -48,12 +48,12 @@ class _ApiClient {
                 }
                 request.end((err, {body} = {}) => {
                     if(err){
-                        reject(body || err);
+                        return reject(body || err);
                     }else {
                         if(schema){
-                            body ? resolve(normalize(body, schema)) : resolve(normalize({}, schema));
+                            return body ? resolve(normalize(body, schema)) : resolve(normalize({}, schema));
                         }else{
-                            resolve(body);
+                            return resolve(body);
                         }
                     }
                 });
