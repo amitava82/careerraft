@@ -26,7 +26,8 @@
         {
             "path": "/api/courses/:id",
             "method": "delete",
-            "handler": "delete"
+            "handler": "delete",
+            "middleware": ["ensureLoggedIn"]
         }
     ]
 }

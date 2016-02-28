@@ -50,19 +50,30 @@ import Educator from './routes/misc/educator';
 
 import App from './app';
 
-export default (
-    <Route path="/" component={App}>
-        <IndexRoute component={HomeContainer} isHome={true} />
-        <Route path="categories" component={CategoryContainer}>
-            <IndexRoute component={CategoriesList} />
-            <Route path=":id" component={CategoryDetails} />
-        </Route>
-        <Route path="search" component={SearchContainer}>
-        </Route>
-        <Route path="institute/:id" component={InstituteContainer}>
+
+export default (store) => {
+
+    function ensureLoggedIn(nextState, replace, cb){
+        const {session_store: {isLoggedIn}} = store.getState();
+        if(!isLoggedIn) replace('/');
+
+        cb();
+    }
+
+
+    return (
+        <Route path="/" component={App}>
+            <IndexRoute component={HomeContainer} isHome={true} />
+            <Route path="categories" component={CategoryContainer}>
+                <IndexRoute component={CategoriesList} />
+                <Route path=":id" component={CategoryDetails} />
+            </Route>
+            <Route path="search" component={SearchContainer}>
+            </Route>
+            <Route path="institute/:id" component={InstituteContainer}>
                 <Route path="contact" />
-        </Route>
-        <Route path="admin" component={AdminContainer}>
+            </Route>
+            <Route path="admin" component={AdminContainer} onEnter={ensureLoggedIn}>
                 <Route path="institute/add" component={CreateInstitute} />
                 <Route path="institute/add" component={CreateInstitute} />
                 <Route path="institute/manage" >
@@ -77,13 +88,14 @@ export default (
                 <Route path="category/:id/edit" component={EditCategory} />
                 <Route path="course/add"  component={CreateCourse} />
                 <Route path="subject/add" component={CreateSubject} />
-        </Route>
+            </Route>
 
-        <Route path="/about" component={AboutUs}  />
-        <Route path="/team" component={Team} />
-        <Route path="/core-values" component={CoreValues} />
-        <Route path="/contact-us" component={Contact} />
-        <Route path="/educator" component={Educator} />
-        <Route path="*" component={NotFound} status="404" />
-    </Route>
-);
+            <Route path="/about" component={AboutUs}  />
+            <Route path="/team" component={Team} />
+            <Route path="/core-values" component={CoreValues} />
+            <Route path="/contact-us" component={Contact} />
+            <Route path="/educator" component={Educator} />
+            <Route path="*" component={NotFound} status="404" />
+        </Route>
+    );
+}

@@ -21,7 +21,8 @@
         {
             "path": "/api/institutes/:id",
             "method": "put",
-            "handler": "update"
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"]
         },
         {
             "path": "/api/institutes/:id/subjects",

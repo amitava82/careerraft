@@ -55,9 +55,9 @@ module.exports = function (deps, app, callback) {
             res.send(markup);
         }
 
-        //const location = createLocation(req.originalUrl);
+        const _routes = routes(store);
 
-        match({history, routes: routes, location: req.originalUrl}, function (err, redirect, props) {
+        match({history, routes: _routes, location: req.originalUrl}, function (err, redirect, props) {
             if (err) {
                 deps.log.error(err);
                 res.status(500);

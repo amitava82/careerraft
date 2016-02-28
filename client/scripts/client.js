@@ -21,6 +21,8 @@ const appHistory = useRouterHistory(createScrollHistory)({
 
 const store = createStore(window.__INITIAL_STATE__, appHistory, new apiClient());
 
+const _routes = routes(store);
+
 class Client extends React.Component {
 
     render() {
@@ -28,7 +30,7 @@ class Client extends React.Component {
         return (
             <Provider store={store}>
                 <Router history={appHistory}>
-                    {routes}
+                    {_routes}
                 </Router>
             </Provider>
         )
