@@ -85,6 +85,7 @@ export default class SearchContainer extends React.Component {
     @autobind
     toggleFilter(val, type, rm) {
         const query = {...this.props.location.query};
+        delete query.page;
         let q = query[type];
         if (q) {
             rm ? pull(q, val) : q.push(val)
@@ -107,7 +108,10 @@ export default class SearchContainer extends React.Component {
     }
 
     @autobind
-    next() {
+    next(e) {
+        e.preventDefault();
+
+        if(!this.hasMore()) return;
         const page = this.props.location.query.page;
         const next = page ? Number(page) + 1 : 2;
         const q = merge({}, {...this.props.location.query, page: next});
@@ -115,7 +119,11 @@ export default class SearchContainer extends React.Component {
     }
 
     @autobind
-    previous() {
+    previous(e) {
+        e.preventDefault();
+
+        if(this.isFirst()) return;
+
         const page = this.props.location.query.page;
         const prev = page ? Number(page) - 1 : 1;
         const q = merge({}, {...this.props.location.query, page: prev});
@@ -165,17 +173,18 @@ export default class SearchContainer extends React.Component {
                         </div>
                         <div className="col-sm-8 col-md-9">
                             {content}
-                            <div className="pager row">
-                                <div className="col-xs-6 text-left">
-                                    <button disabled={this.isFirst()} onClick={this.previous} className="btn btn-primary">
-                                        Previous
-                                    </button>
-                                </div>
-                                <div className="col-xs-6 text-right">
-                                    <button disabled={!this.hasMore()} onClick={this.next} className="btn btn-primary">Next
-                                    </button>
-                                </div>
-                            </div>
+                            <nav>
+                                <ul className="pager">
+                                    <li className={this.isFirst() && 'disabled'}>
+                                        <a onClick={this.previous} href="#">
+                                            Previous
+                                        </a>
+                                    </li>
+                                    <li className={!this.hasMore() && 'disabled'}>
+                                        <a onClick={this.next} href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
