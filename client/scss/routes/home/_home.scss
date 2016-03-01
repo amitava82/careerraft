@@ -41,6 +41,10 @@
                     width: 100%;
                 }
             }
+
+            .geosuggest {
+                margin-right: -1px;
+            }
         }
     }
 
@@ -57,7 +61,7 @@
 
     .teach-hint {
         text-align: center;
-        font-weight: 400;
+        font-weight: 500;
         padding: 8px 0;
     }
 }

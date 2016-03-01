@@ -21,7 +21,7 @@ export default class HomeHero extends React.Component {
     constructor(props, ctx){
         super(props, ctx);
         this.geoOptions = {
-            inputClassName: 'form-control input-lg',
+            inputClassName: 'form-control input-md',
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
@@ -74,11 +74,10 @@ export default class HomeHero extends React.Component {
                         <h3 className="text-display-1">Find the best place to learn almost anything</h3>
                         <form onSubmit={this.onSubmit} className="search form-inline">
                             <Geosuggest {...this.geoOptions} className="form-group" />
-                            {' '}
                             <div className="input-group">
-                                <input className="query form-control input-lg" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                                <input className="query form-control input-md" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
                                 <span className="input-group-btn">
-                                    <button className="btn btn-default btn-lg" type="submit">SEARCH</button>
+                                    <button className="btn btn-primary btn-md" type="submit"><i className="fa fa-search" /> </button>
                                 </span>
                             </div>
                         </form>

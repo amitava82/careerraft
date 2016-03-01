@@ -10,7 +10,6 @@ module.exports = function(grunt){
                     "build/public/lib/font-awesome/scss",
                     "build/public/lib/bootstrap-sass/assets/stylesheets"
                 ],
-                sourceMap: process.env.NODE_ENV !== 'production',
                 outputStyle: 'compressed'
             },
 

@@ -160,10 +160,12 @@ export default class Header extends React.Component {
             <Navbar.Form pullLeft>
                 <form onSubmit={this.onSubmit} className="search">
                     <Geosuggest {...this.geoOptions} className="form-group" />{' '}
-                    <div className="form-group">{' '}
+                    <div className="input-group">
                         <Input className="query" ref="query" type="text" placeholder="Search for a Course/Institute" />
-                    </div>{' '}
-                    <Button type="submit">Search</Button>
+                        <span className="input-group-btn">
+                            <Button type="submit"><i className="fa fa-search" /></Button>
+                        </span>
+                    </div>
                 </form>
             </Navbar.Form>
         );

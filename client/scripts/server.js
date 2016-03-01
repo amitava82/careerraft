@@ -68,24 +68,13 @@ module.exports = function (deps, app, callback) {
                 //hydrate(props);
                 fetchData(props.components, store, props).then(
                     r => {
-                        console.log(r);
                         res.send(hydrate(props, store));
                     },
                     e => {
-                        console.log(e);
                         deps.log.error(e);
                         res.status(500).send(e);
                     }
                 );
-                //fetchComponentData(store.dispatch, props.components, props).then(
-                //    (r) => {
-                //        hydrate(props);
-                //    },
-                //    e => {
-                //        deps.log.error(e);
-                //        res.status(500).send(e);
-                //    }
-                //)
             }
         });
     }
