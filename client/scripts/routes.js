@@ -47,6 +47,8 @@ import Team from './routes/misc/team';
 import CoreValues from './routes/misc/values';
 import Contact from './routes/misc/contact';
 import Educator from './routes/misc/educator';
+import Privacy from './routes/misc/privacy';
+import Terms from './routes/misc/terms';
 
 import App from './app';
 
@@ -95,6 +97,8 @@ export default (store) => {
             <Route path="/core-values" component={CoreValues} />
             <Route path="/contact-us" component={Contact} />
             <Route path="/educator" component={Educator} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
             <Route path="*" component={NotFound} status="404" />
         </Route>
     );
