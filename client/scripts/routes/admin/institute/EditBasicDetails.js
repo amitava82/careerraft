@@ -92,6 +92,21 @@ export default class EditInstitute extends React.Component{
                         <Input type="text" field={fields.address.loc[0]} placeholder="Longitude"/>
                         <Input type="text" field={fields.address.loc[1]} placeholder="Latitude"/>
 
+                        <div className="form-group">
+                            <label>Telephones</label>
+                            {fields.telephones.map(p => {
+                                return (
+                                    <div>
+                                        <Input type="text" field={p.name} />
+                                        <Input type="text" field={p.number} />
+                                    </div>
+                                )
+                            })}
+                            <a onClick={e => {
+                            fields.telephones.addField()
+                        }}>Add more</a>
+                        </div>
+
                         <Input type="text" field={fields.website} label="Website"/>
                         <Input type="text" field={fields.email} label="Email"/>
 

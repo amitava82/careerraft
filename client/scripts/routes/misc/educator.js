@@ -83,7 +83,7 @@ export default class Educator extends React.Component {
                                 </p>
                             </div>
                             <div>
-                                <h6>Online Payment and Booking</h6>
+                                <h6 className="text-title">Online Payment and Booking</h6>
                                 <p>
                                     Careerraft promotes online admission and online fees payment facility for booking of your classes
 

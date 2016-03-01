@@ -8,6 +8,7 @@ import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
 import each from 'lodash/each';
+import isEmpty from 'lodash/isEmpty';
 
 import formatAddress from '../../utils/format-address';
 import Avatar from '../../components/Avatar';
@@ -97,16 +98,23 @@ export default class InstituteDetails extends React.Component {
                                 </div>
                                 <div className="row text-center">
                                     <div className="col-md-4">
-                                        <i className="fa fa-phone" />{' '}
-                                        {inst.telephones.map(i => {
-                                            return <span className="inst-phone">{i.name}: {i.number}</span>;
-                                        })}
+                                        <div className="pull-left"><i className="fa fa-phone" /></div>
+                                        <div className="">
+                                            {inst.telephones.map(i => {
+                                                if(isEmpty(i)) return null;
+                                                return (
+                                                    <div>
+                                                        <span className="inst-phone">{i.name}: {i.number}</span>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 text-center">
                                         {' '}<a href={`mailto:${inst.email}`}><i className="fa fa-envelope" /> Email</a>
                                     </div>
-                                    <div className="col-md-4">
-                                        {inst.website ? <a href={inst.website} target="_blank"><i className="fa fa-external-link" /> Website</a> : null}
+                                    <div className="col-md-4 text-center">
+                                        {inst.website ? <a href={formatUrl(inst.website)} target="_blank"><i className="fa fa-external-link" /> Website</a> : null}
                                     </div>
                                 </div>
                             </div>
@@ -131,4 +139,12 @@ export default class InstituteDetails extends React.Component {
             </div>
         )
     }
+}
+
+function formatUrl(url){
+    if(url){
+        url = url.trim();
+        return url.indexOf('http://') !== 0 ?  'http://' + url : url;
+    }
+    return url;
 }
