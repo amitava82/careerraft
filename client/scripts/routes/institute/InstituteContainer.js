@@ -63,7 +63,9 @@ export default class SearchContainer extends React.Component {
 
         return (
             <div className="inst-page">
-                <Helmet title={`Careerraft - ${inst && inst.name}`} />
+                <Helmet title={`${inst && inst.name} - Careerraft`} meta={[
+                    {name: 'description', content: inst && inst.short_description}
+                ]}  />
                 {inst ? <InstituteDetails inst={inst} /> : <p className="text-title text-center">Nothing to display</p>}
                 {this.props.children}
             </div>

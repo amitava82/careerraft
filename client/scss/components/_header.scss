@@ -99,6 +99,28 @@ $dropDown: false;
             color: $colHighlight;
         }
     }
+
+    @media (min-width: 992px) {
+        .query{
+            width: 270px !important;
+        }
+
+        .geosuggest{
+            margin-right: -5px;
+        }
+    }
+
+    button {
+        color: white;
+        background-color: rgba(0, 0, 0, .3);
+        transition: all 150ms ease 150ms;
+        border-color: transparent;
+        &:hover {
+            background-color: rgba(0, 0, 0, .6);
+            color: white;
+            border-color: transparent;
+        }
+    }
 }
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu {
@@ -137,28 +159,6 @@ $dropDown: false;
             text-shadow: 0 1px 0px rgba(255, 255, 255, .2);
             top: 7px;
 
-        }
-    }
-
-    .search {
-
-        .loc {
-            //margin-right: -1px;
-        }
-
-        .query {
-            //margin-left: -1px;
-        }
-        button {
-            color: white;
-            background-color: rgba(0, 0, 0, .3);
-            transition: all 150ms ease 150ms;
-            border-color: transparent;
-            &:hover {
-                background-color: rgba(0, 0, 0, .6);
-                color: white;
-                border-color: transparent;
-            }
         }
     }
 }
