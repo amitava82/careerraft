@@ -30,11 +30,19 @@ export default class SearchContainer extends React.Component {
     //    [getInstitute, 'params.id']
     //];
 
+    static fetchData(props, store){
+        const id = props.params.id;
+        const state = store.getState();
+        if(state.institute_store.loading) return false;
+        return store.dispatch(getInstitute(id));
+    }
+
     constructor(props, ctx){
         super(props, ctx);
     }
 
-    componentWillMount(){
+    componentDidMount(){
+        if(this.props.institute_store.entities[this.props.params.id]) return;
         this.props.dispatch(getInstitute(this.props.params.id));
     }
 

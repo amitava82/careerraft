@@ -20,7 +20,7 @@ export default function html(markup, initialState, helmet){
             <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500' rel='stylesheet' type='text/css'>
             <link href='/static/css/client.css' rel='stylesheet' type='text/css'>
             <script type="application/javascript">
-              window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+              window.__INITIAL_STATE__ = ${initialState};
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places&types=geocode"></script>
         </head>

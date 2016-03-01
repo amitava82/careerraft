@@ -24,6 +24,10 @@ export default class App extends React.Component {
         loadCategories
     ];
 
+    static fetchData(props, store){
+        return store.dispatch(loadCategories());
+    }
+
     static childContextTypes = {
         search: React.PropTypes.func
     };

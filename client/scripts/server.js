@@ -14,8 +14,29 @@ import ApiClient from './helpers/api';
 import config from 'config';
 
 import { storeSession } from './redux/modules/session';
-import fetchComponentData from './helpers/fetchComponentData';
+import {fetchComponentData, fetchData} from './helpers/fetchComponentData';
 
+
+function hydrate(props, store){
+    const InitialComponent = (
+        <Provider store={store}>
+            <RouterContext {...props} />
+        </Provider>
+    );
+
+    //TODO server side render
+    const _state = JSON.stringify(store.getState());
+
+    let renderedHtml = '';
+    try {
+        renderedHtml = renderToString(InitialComponent);
+    }catch(e){
+        deps.log.error(e);
+        throw e;
+    }
+    const head = Helmet.rewind();
+    return HTML(renderedHtml, _state, head);
+}
 
 module.exports = function (deps, app, callback) {
 
@@ -31,53 +52,40 @@ module.exports = function (deps, app, callback) {
             store.dispatch(storeSession(req.user));
         }
 
-        function hydrate(props){
-            const InitialComponent = (
-                <Provider store={store}>
-                    <RouterContext {...props} />
-                </Provider>
-            );
-
-            //TODO server side render
-
-            const state = store.getState();
-
-            let renderedHtml = '';
-            try {
-                renderedHtml = renderToString(InitialComponent);
-            }catch(e){
-                deps.log.error(e);
-                throw e;
-            }
-            const head = Helmet.rewind();
-            const markup = HTML(renderedHtml, state, head);
-
-            res.send(markup);
-        }
-
         const _routes = routes(store);
 
         match({history, routes: _routes, location: req.originalUrl}, function (err, redirect, props) {
             if (err) {
                 deps.log.error(err);
                 res.status(500);
-                hydrate();
+                res.send(err.message);
             }else if(redirect){
                 res.redirect(redirect.pathname + redirect.search);
             }else if(!props){
                 res.status(404);
-                hydrate();
+                res.send(hydrate(props, store));
             }else{
                 //hydrate(props);
-                fetchComponentData(store.dispatch, props.components, props).then(
-                    (r) => {
-                        hydrate(props);
+                fetchData(props.components, store, props).then(
+                    r => {
+                        console.log(r);
+                        res.send(hydrate(props, store));
                     },
                     e => {
+                        console.log(e);
                         deps.log.error(e);
                         res.status(500).send(e);
                     }
-                )
+                );
+                //fetchComponentData(store.dispatch, props.components, props).then(
+                //    (r) => {
+                //        hydrate(props);
+                //    },
+                //    e => {
+                //        deps.log.error(e);
+                //        res.status(500).send(e);
+                //    }
+                //)
             }
         });
     }

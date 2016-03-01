@@ -3,7 +3,7 @@
  */
 var _ = require('lodash');
 
-export default function fetchComponentData(dispatch, components, props) {
+export function fetchComponentData(dispatch, components, props) {
     var _components = _.compact(components);
     const needs = _components.reduce( (prev, current) => {
         return (current.needs || [])
@@ -35,4 +35,20 @@ export default function fetchComponentData(dispatch, components, props) {
         }
     });
     return Promise.all(promises);
+}
+
+/*
+    component have static fetchData function which returns promise
+ */
+export function fetchData(components, store, props){
+    const promises = components.map(function (component, index) {
+        if (typeof component.fetchData !== 'function') {
+            return false;
+        }
+
+        return component.fetchData(props, store);
+    });
+
+    return Promise.all(promises)
+
 }
