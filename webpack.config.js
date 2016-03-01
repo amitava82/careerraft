@@ -23,7 +23,8 @@ module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
         vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history', 'lodash', 'scroll-behavior', 'qs',
-            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest', 'react-bootstrap', 'react-router-bootstrap']
+            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest',
+            'react-bootstrap', 'react-router-bootstrap', 'react-select']
     },
     //devtool: 'source-map',
     output: {

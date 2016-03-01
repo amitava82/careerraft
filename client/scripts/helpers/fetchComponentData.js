@@ -42,11 +42,11 @@ export function fetchComponentData(dispatch, components, props) {
  */
 export function fetchData(components, store, props){
     const promises = components.map(function (component, index) {
-        if (typeof component.fetchData !== 'function') {
+        if (component && typeof component.fetchData !== 'function') {
             return false;
         }
 
-        return component.fetchData(props, store);
+        return component && component.fetchData(props, store);
     });
 
     return Promise.all(promises)

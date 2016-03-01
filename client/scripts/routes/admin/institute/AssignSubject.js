@@ -2,31 +2,22 @@
  * Created by amitava on 13/02/16.
  */
 import React from 'react';
-import {reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import reduce from 'lodash/reduce';
+import Select from 'react-select';
 
 import {loadCategories} from '../../../redux/modules/category';
 import {loadCourses} from '../../../redux/modules/course';
 import {getSubjects} from '../../../redux/modules/subject';
 import {addSubject, removeSubject} from '../../../redux/modules/institute';
+import {createToast} from '../../../redux/modules/toast';
 
-@reduxForm({
-    form: 'assign_subject',
-    fields: [
-        'course',
-        'subjects',
-        'category'
-    ]
-}, state => {
-    return {
-        institute_store: state.institute_store,
-        category_store: state.category_store,
-        course_store: state.course_store,
-        subject_store: state.subject_store
-    }
-})
+import Api from '../../../helpers/api';
+
+const api = new Api();
+
+@connect(state => state)
 export default class AssignSubject extends React.Component {
 
     static componentName = 'AssignSubject';
@@ -35,28 +26,36 @@ export default class AssignSubject extends React.Component {
         super(props, ctx);
 
         this.state = {
-
+            values: null
         }
     }
 
+    componentDidMount(){
+        const inst = this.props.institute_store.entities[this.props.params.id];
+        const subs = reduce(inst.subjects, (memo, i) => {
+            memo.push({
+                label: i.subject.course.name + ' - ' +i.subject.name,
+                value: i.subject._id
+            });
+            return memo;
+        }, []);
+
+        this.setState({values: subs});
+    }
+
     @autobind
-    onSubmit(data){
-        return this.props.dispatch(addSubject(this.props.params.id, data)).then(
-            r => this.props.onSave(r),
+    onSubmit(e){
+        e.preventDefault();
+
+        const subs = reduce(this.state.values, (memo, i) => {
+            memo.push(i.value);
+            return memo;
+        }, []);
+
+        return this.props.dispatch(addSubject(this.props.params.id, {subjects: subs})).then(
+            r => this.props.dispatch(createToast('Saved!')),
             e => console.log(e)
         )
-    }
-
-    @autobind
-    onChangeCategory(e){
-        this.props.fields.category.onChange(e);
-        this.props.dispatch(loadCourses(e.target.value));
-    }
-
-    @autobind
-    onChangeCourse(e){
-        this.props.fields.course.onChange(e);
-        this.props.dispatch(getSubjects({course: e.target.value, category: this.props.fields.category.value}));
     }
 
     @autobind
@@ -66,68 +65,49 @@ export default class AssignSubject extends React.Component {
         }
     }
 
+    @autobind
+    loadSubjects(str, callback){
+        api.get(`subjects`, {
+            params: {name: str}
+        }).then(
+            r => {
+                const options = r.map(i => {
+                    return {
+                        label: i.course.name +' - '+i.name,
+                        value: i._id
+                    }
+                });
+                callback(null, {options: options});
+            }
+        );
+    }
+
+    @autobind
+    handleSelectChange(values){
+        this.setState({values})
+    }
+
     render(){
 
-        const {fields: {course, subjects, category}, handleSubmit, submitting, institute_store, category_store, subject_store, course_store} = this.props;
+        const {institute_store, category_store, subject_store, course_store} = this.props;
         const inst = institute_store.entities[this.props.params.id];
 
         return (
             <div className="row">
-                <div className="col-md-8">
-                    <form onSubmit={handleSubmit(this.onSubmit)} className="cell-2">
+                <div className="col-md-12">
+                    <form onSubmit={this.onSubmit}>
                         <div className="form-group">
-                            <label>Select Category</label>
-                            <select  className="form-control" {...category} value={category.value} onChange={this.onChangeCategory}>
-                                <option value="">Select</option>
-                                {
-                                    category_store.ids.map(c => {
-                                        const cat = category_store.entities[c];
-                                        return <option value={cat._id}>{cat.name}</option>
-                                    })
-                                }
-                            </select>
-                            <input type="hidden" {...category} value={category.value} />
+                            <Select.Async
+                                value={this.state.values}
+                                multi={true}
+                                clearable={false}
+                                loadOptions={this.loadSubjects}
+                                name="subjects"
+                                onChange={this.handleSelectChange}
+                            />
                         </div>
-                        <div className="form-group">
-                            <label>Select Course</label>
-                            <select  className="form-control" {...course} onChange={this.onChangeCourse} value={course.value}>
-                                <option value="">Select</option>
-                                {
-                                    reduce(course_store.ids, (memo, c) => {
-                                        const _c = course_store.entities[c];
-                                        if(_c.category == category.value)
-                                            memo.push(<option value={_c._id}>{_c.name}</option>);
-                                        return memo;
-                                    }, [])
-                                }
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Select Subject</label>
-                            <select className="form-control" multiple  {...subjects} value={subjects.value}>
-                                <option  value="">Select</option>
-                                {
-                                    reduce(subject_store.ids, (memo, i) => {
-                                        const s = subject_store.entities[i];
-                                        if(s.course == course.value)
-                                            memo.push( <option value={s._id}>{s.name}</option> );
-                                        return memo;
-                                    }, [])
-                                }
-                            </select>
-                        </div>
-                        <div>
-                            <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>
-                        </div>
+                        <button className="btn btn-primary"  type="submit">Save</button>
                     </form>
-                </div>
-                <div className="col-md-4">
-                    <h5>Assigned subjects:</h5>
-                    {inst.subjects.map(i => {
-                        return (
-                            <p>{i.subject.course.name} - {i.name} <button onClick={() => this.unassign(i)} className="btn btn-link btn-sm">Delete</button></p>
-                        )
-                    })}
                 </div>
             </div>
         )
