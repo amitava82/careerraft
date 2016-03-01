@@ -31,13 +31,10 @@ export default class CategoryDetails extends React.Component {
             )
         });
         return (
-            <div className="content-body">
-                <div className="page-inner">
-                    <div className="grid">
-                        <div className="cell-span-1"></div>
-                        <div className="cell-span-11">
-                            {categories}
-                        </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-11 col-xs-offset-1">
+                        {categories}
                     </div>
                 </div>
             </div>

@@ -1,7 +1,4 @@
 .inst-page {
-    .inst-profile{
-
-    }
 
     .inst-profile-header{
         background-image: url("/images/inst-bg.jpg");
@@ -31,14 +28,14 @@
             z-index: 1;
         }
 
-        button.link {
+        button {
             color: white;
             padding: 0;
         }
     }
 
     .inst-profile-content{
-        margin: 20px 0;
+        margin: 20px auto;
         .pull-up{
             top: -80px;
             position: relative;
@@ -58,15 +55,12 @@
                 border-top: 1px dotted #ccc;
                 border-bottom: 1px dotted #ccc;
                 padding: 5px 0;
-                font-weight: 500;
-                font-size: .8rem;
                 color: #aaa;
                 margin-bottom: 10px;
 
-                > span {
+                > span:nth-child(2) {
                     text-transform: capitalize;
                     color: #111;
-                    font-size: .9rem;
                 }
             }
 
@@ -82,11 +76,11 @@
     }
 
     .profile-section {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
 
     .profile-sub-section {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .pill {

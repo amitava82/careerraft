@@ -15,7 +15,7 @@ export default class PureInput extends Component {
 
     render() {
         const {field, label, className, ...rest} = this.props;
-        const classes = classNames('input', className);
+        const classes = classNames('form-group', className);
         return (
             <div className={classes}>
                 {label && <label>{label}</label>}

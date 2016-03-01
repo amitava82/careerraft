@@ -15,9 +15,9 @@ export default class Textarea extends Component {
     render() {
         const {field, label, ...rest} = this.props;
         return (
-            <div className="textarea">
+            <div className="textarea form-group">
                 {label && <label>{label}</label>}
-                <textarea {...field} value={field && field.value || ''} {...rest} />
+                <textarea className="form-control" {...field} value={field && field.value || ''} {...rest} />
                 {field && field.touched && field.error && <div className="text-error">{field.error}</div>}
             </div>
         )

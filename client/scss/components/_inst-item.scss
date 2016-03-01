@@ -2,8 +2,6 @@
     margin-bottom: 40px;
 
     .addr {
-        font-size: .9rem;
-        font-weight: 500;
         border-bottom: 1px solid #e1e1e1;
         padding-bottom: 5px;
         text-shadow: 1px 1px 1px #fff;
@@ -15,8 +13,9 @@
 
     .pills {
         margin-bottom: 20px;
-        .pill {
+        .label {
             margin-right: 5px;
+            padding: 8px 10px;
         }
     }
 }

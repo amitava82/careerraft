@@ -11,7 +11,6 @@ import InstituteDetails from './institute/InstituteDetails';
 
 import EditInstitute from './institute/EditInstitute';
 import EditBasicDetails from './institute/EditBasicDetails';
-import EditInstituteCategories from './institute/EditInstituteCategories';
 import AssignSubject from './institute/AssignSubject';
 import ManageBranches from './institute/ManageBranches';
 
@@ -24,7 +23,6 @@ export {
     CreateSubject,
     InstituteDetails,
     EditInstitute,
-    EditInstituteCategories,
     EditBasicDetails,
     AssignSubject,
     ManageBranches

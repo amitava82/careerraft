@@ -43,21 +43,25 @@ export default class HomeContainer extends React.Component {
         return (
             <div className="admin-page grid row">
                 <Helmet title="Careerraft admin page" />
-                <aside>
-                    <div className="list-group">
-                        {
-                            sideLinks.map(i => {
-                                return (
-                                    <Link to={`/admin/${i.link}`} className="list-group-item" activeClassName="active">{i.name}</Link>
-                                )
-                            })
+                <div className="container">
+                    <div className="row">
+                        <aside className="col-md-3">
+                            <div className="list-group">
+                                {
+                                    sideLinks.map(i => {
+                                        return (
+                                            <Link to={`/admin/${i.link}`} className="list-group-item" activeClassName="active">{i.name}</Link>
+                                        )
+                                    })
 
-                        }
-                        <a  className="list-group-item" href="/auth/logout">Logout</a>
+                                }
+                                <a  className="list-group-item" href="/auth/logout">Logout</a>
+                            </div>
+                        </aside>
+                        <div className="main col-md-9">
+                            {this.props.children}
+                        </div>
                     </div>
-                </aside>
-                <div className="cell main">
-                    {this.props.children}
                 </div>
             </div>
         )

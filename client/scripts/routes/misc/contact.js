@@ -62,20 +62,21 @@ export default class Contact extends React.Component {
             <div className="contact-page">
                 <Helmet title="Careerraft :: Contact us" />
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">Connect</h3>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <h3 className="text-display-2">Connect</h3>
+                            </div>
                         </div>
-                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content-body">
-                    <div className="page-inner">
-                        <div className="grid m-bl">
+                <div className="content-body container">
+                    <div className="page-inner m-tl col-xs-12">
+                        <div className="m-bl">
                             <p className="text-subhead">Want to partner with us or have a feedback? Please get in touch, we'd love to hear from you.</p>
                         </div>
-                        <div className="grid row">
-                            <div className="cell-span-6">
+                        <div className="row">
+                            <div className="col-md-6">
                                 <p className="text-headline">
                                     VISIT OUR OFFICE
                                 </p>
@@ -89,33 +90,31 @@ export default class Contact extends React.Component {
                                     <strong><i className="fa fa-envelope-o"></i> Email:</strong> <a href="mailto:aloha@careerraft.com">aloha@careerraft.com</a>
                                 </p>
                             </div>
-                            <div className="cell-span-6">
+                            <div className="col-md-6">
                                 <form onSubmit={handleSubmit(this.sendMail)}>
-                                    <div className="control-group">
+                                    <div className="form-group">
                                         <label>
                                             YOUR NAME:
                                         </label>
                                         <input {...name} className="form-control" type="text"/>
                                         {name.touched && name.error && <div className="text-error">{name.error}</div>}
                                     </div>
-                                    <div className="control-group">
+                                    <div className="form-group">
                                         <label>YOUR EMAIL ADDRESS</label>
                                         <input {...email} className="form-control" type="email"/>
                                         {email.touched && email.error && <div className="text-error">{email.error}</div>}
                                     </div>
-                                    <div className="control-group">
+                                    <div className="form-group">
                                         <label>YOUR PHONE NUMBER</label>
                                         <input {...telephone} className="form-control" type="text"/>
                                         {telephone.touched && telephone.error && <div className="text-error">{telephone.error}</div>}
                                     </div>
-                                    <div className="control-group">
+                                    <div className="form-group">
                                         <label>MESSAGE</label>
-                                        <textarea {...message} value={message.value || ''} />
+                                        <textarea className="form-control" {...message} value={message.value || ''} />
                                         {message.touched && message.error && <div className="text-error">{message.error}</div>}
                                     </div>
-                                    <div className="control-group">
-                                        <button disabled={submitting} type="submit">SUBMIT</button>
-                                    </div>
+                                    <button className="btn btn-primary" disabled={submitting} type="submit">SUBMIT</button>
                                 </form>
                             </div>
                         </div>

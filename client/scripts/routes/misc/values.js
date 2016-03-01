@@ -10,15 +10,16 @@ export default class CoreValues extends React.Component {
             <div className="values-page">
                 <Helmet title="Careerraft :: Our core values" />
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">Our core values</h3>
+                    <div className="page-inner container">
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <h3 className="text-display-2">Our core values</h3>
+                            </div>
                         </div>
-                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content-body">
-                    <div className="page-inner">
+                <div className="content-body container">
+                    <div className="page-inner row">
                         <article>
                             We take pride in our culture. There are some core values that have been inherent and are an integral
 

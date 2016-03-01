@@ -10,23 +10,37 @@
     .hero {
         background-image: url("/images/laptop_pg.jpeg");
         background-color: rgba(0,0,0,.2);
-        height: 300px;
-        background-size: 100%;
-        background-position: 0;
+        min-height: 300px;
         position: relative;
         text-align: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
         h3{
             color: white;
             text-transform: uppercase;
             margin-bottom: 50px;
         }
 
-        .query {
-            width: 300px;
+
+        @media (min-width: 1200px) {
+            .query {
+                min-width: 400px;
+            }
         }
 
         .content{
             z-index: 1;
+            position: relative;
+            padding: 50px;
+        }
+
+        .search {
+            @media  (max-width: 768px) {
+                button {
+                    width: 100%;
+                }
+            }
         }
     }
 

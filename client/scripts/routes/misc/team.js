@@ -10,20 +10,21 @@ export default class Team extends React.Component {
             <div className="team-page">
                 <Helmet title="Careerraft :: Team" />
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">Meet the Leadership</h3>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <h3 className="text-display-2">Meet the Leadership</h3>
+                            </div>
                         </div>
-                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content-body">
+                <div className="content-body container">
                     <div className="page-inner">
-                        <div className="grid">
-                            <div className="cell-span-3">
+                        <div className="row">
+                            <div className="col-md-3">
                                 <img src="/images/atul.jpg"/>
                             </div>
-                            <div className="cell-2">
+                            <div className="col-md-9">
                                 <h4 className="text-headline">Atul Tiwari</h4>
                                 <article>
                                     Atul is the founder of Careerraft. His dream is to re-imagine education in a truly ‘student-first’ way and
@@ -47,11 +48,11 @@ export default class Team extends React.Component {
                             </div>
                         </div>
 
-                        <div className="grid">
-                            <div className="cell-span-3">
+                        <div className="row">
+                            <div className="col-md-3">
                                 <img src="/images/amit.jpg"/>
                             </div>
-                            <div className="cell-2">
+                            <div className="col-md-9">
                                 <h4 className="text-headline">Amitava Saha</h4>
                                 <article>
                                     Amitava is the Co-Founder and CTO at Careerraft. He oversees all things tech,
@@ -78,11 +79,11 @@ export default class Team extends React.Component {
                             </div>
                         </div>
 
-                        <div className="grid">
-                            <div className="cell-span-3">
+                        <div className="row">
+                            <div className="col-md-3">
                                 <img src="/images/abh.jpg"/>
                             </div>
-                            <div className="cell-2">
+                            <div className="col-md-9">
                                 <h4 className="text-headline">Abhishek Kundan</h4>
                                 <article>
                                     Abhishek is the Co-Founder and Chief Financial Officer at Careerraft. In addition to taking care of the

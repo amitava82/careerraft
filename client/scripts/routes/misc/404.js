@@ -10,7 +10,14 @@ export default class NotFound extends React.Component{
         return (
             <div>
                 <Helmet title="Not found" />
-                <h1>You seems to have stumbled upon something that does not exists :(</h1>
+                <div className="container">
+                    <div className="row">
+                        <div className="text-center">
+                            <h2 className="text-display-2">Not found</h2>
+                            <h4 className="text-title">You seems to have stumbled upon something that does not exists :(</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

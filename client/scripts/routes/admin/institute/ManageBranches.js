@@ -121,8 +121,10 @@ export default class ManageBranches extends React.Component{
                 <form onSubmit={handleSubmit(this.onSave)}>
                     <label>Search</label>
                     <div className="input-group">
-                        <input className="cell-span-3" type="text" ref="query" />
-                        <button type="button" className="sm cell-span-1" onClick={this.search}>Search</button>
+                        <input className="form-control" type="text" ref="query" />
+                        <div className="input-group-btn">
+                            <button type="button" className="btn btn-primary" onClick={this.search}>Search</button>
+                        </div>
                     </div>
                     <div>
                         {existingBranches.length && <p>Current branches</p>}
@@ -132,7 +134,7 @@ export default class ManageBranches extends React.Component{
                     <p className="text-subhead">Select institutes to assign as branches for <strong>{inst.name}</strong></p>
                     {searchResults}
                     <div>
-                        <button disabled={submitting || !institutes.value}>Save</button>
+                        <button className="btn btn-primary" disabled={submitting || !institutes.value}>Save</button>
                     </div>
                 </form>
             </div>

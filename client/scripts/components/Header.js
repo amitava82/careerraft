@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import { push } from 'react-router-redux';
@@ -7,6 +8,9 @@ import each from 'lodash/each';
 import reduce from 'lodash/reduce';
 import throttle from 'lodash/throttle';
 var Geosuggest = require('react-geosuggest');
+
+import {Navbar, Nav, NavItem, Button, Input} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 
 import { setLocation } from '../redux/modules/search';
@@ -23,7 +27,7 @@ const NOSEARCH = {
 };
 
 @connect(state => state)
-export default class Nav extends React.Component {
+export default class Header extends React.Component {
 
     static contextTypes = {
         search: React.PropTypes.func
@@ -52,6 +56,18 @@ export default class Nav extends React.Component {
             location: {lat: 12.9667, lng: 77.5667},
             label: 'Bangalore'
         }));
+
+        const navBar = ReactDOM.findDOMNode(this);
+        const collapsibleNav = navBar.querySelector('div.navbar-collapse');
+        const btnToggle = navBar.querySelector('button.navbar-toggle');
+
+        navBar.addEventListener('click', (evt) => {
+            if (evt.target.tagName !== 'A' || evt.target.classList.contains('dropdown-toggle') || ! collapsibleNav.classList.contains('in')) {
+                return;
+            }
+
+            btnToggle.click();
+        }, false);
 
         //getUserLocation(loc => {
         //    this.props.dispatch(setLocation({
@@ -108,44 +124,67 @@ export default class Nav extends React.Component {
         let loginMenu = null;
         if(session.isLoggedIn){
             loginMenu = (
-                <div>
-                    {session.user.name}
-                    <Link to="/admin"><i className="fa fa-cog" /></Link>
-                </div>
+                <LinkContainer to="/admin">
+                    <NavItem eventKey={10}>
+                        {session.user.name}
+                        <i className="fa fa-cog" />
+                    </NavItem>
+                </LinkContainer>
             )
         }else {
             loginMenu = (
-                <div>
-                    <a href="/educator">For Institutes</a>
-                </div>
+                <LinkContainer to="/educator" ctiveClassName="active">
+                    <NavItem eventKey={9}>For Institutes</NavItem>
+                </LinkContainer>
             )
         }
 
+        const staticLinks = (
+            <Nav>
+                <LinkContainer to="/about">
+                    <NavItem eventKey={1}>About</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/core-values" onSelect={()=>{}}>
+                    <NavItem eventKey={2}>Core values</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/team">
+                    <NavItem>Team</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/contact-us">
+                    <NavItem>Get in touch</NavItem>
+                </LinkContainer>
+            </Nav>
+        );
+
+        const searchForm = (
+            <Navbar.Form pullLeft>
+                <form onSubmit={this.onSubmit} className="search">
+                    <Geosuggest {...this.geoOptions} className="form-group" />{' '}
+                    <div className="form-group">{' '}
+                        <Input className="query" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                    </div>{' '}
+                    <Button type="submit">Search</Button>
+                </form>
+            </Navbar.Form>
+        );
+
         return (
-            <header className="grid row center">
-                <div className="brand">
-                    <Link to="/">
-                        Career<span>raft</span><span className="beta-badge">beta</span>
-                    </Link>
-                </div>
-                {NOSEARCH[this.props.routing.location.pathname] !== true ? (
-                    <form onSubmit={this.onSubmit} className="search grid cell">
-                        <Geosuggest {...this.geoOptions} />
-                        <div>
-                            <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
-                        </div>
-                        <button type="submit">Search</button>
-                    </form>
-                ) : <nav className="cell">
-                    <Link to="/about">About</Link>
-                    <Link to="/core-values">Core values</Link>
-                    <Link to="/team">Team</Link>
-                    <Link to="/contact-us">Contact us</Link>
-                </nav> }
-                <nav className="grid row">
-                    {loginMenu}
-                </nav>
-            </header>
+            <Navbar fixedTop>
+                <Navbar.Header>
+                    <Navbar.Brand className="brand">
+                        <Link to="/">
+                            Career<span>raft</span><span className="beta-badge">beta</span>
+                        </Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    {NOSEARCH[this.props.routing.location.pathname] === true ? staticLinks : searchForm}
+                    <Nav pullRight className="hidden-sm">
+                        {loginMenu}
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         )
     }
 }

@@ -84,39 +84,41 @@ export default class CreateCourse extends React.Component{
             memo.push (
                 <li key={c._id}>
                     <strong>{c.name}</strong>
-                    <button className="btn sm" onClick={() => this.edit(c._id)}>Edit</button>
+                    <button className="btn btn-link btn-sm" onClick={() => this.edit(c._id)}>Edit</button>
                 </li>
             );
             return memo;
         }, []);
         return (
-            <div className="grid row">
-                <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
-                    <h4>Add Course</h4>
-                    <div>
-                        <label>Select Category</label>
-                        <select value={this.state.category} onChange={this.selectCategory} >
-                            <option value="">Select category</option>
-                            {this.props.category.ids.map(c => {
-                                const i = this.props.category.entities[c];
-                                return (<option value={i._id} key={i._id}>{i.name}</option>)
-                            })}
-                        </select>
-                    </div>
-                    <div>
-                        <label>Name</label>
-                        <input type="text" {...name}/>
-                        {name.error && <div>{name.error}</div>}
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <textarea  {...description} value={description.value || ''}/>
-                    </div>
-                    <div>
-                        <button disabled={submitting} type="submit">Save</button>
-                    </div>
-                </form>
-                <div className="cell">
+            <div className="row">
+                <div className="col-md-9">
+                    <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
+                        <h4>Add Course</h4>
+                        <div className="form-group">
+                            <label>Select Category</label>
+                            <select className="form-control" value={this.state.category} onChange={this.selectCategory} >
+                                <option value="">Select category</option>
+                                {this.props.category.ids.map(c => {
+                                    const i = this.props.category.entities[c];
+                                    return (<option value={i._id} key={i._id}>{i.name}</option>)
+                                })}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input className="form-control" type="text" {...name}/>
+                            {name.error && <div>{name.error}</div>}
+                        </div>
+                        <div className="form-group">
+                            <label>Description</label>
+                            <textarea className="form-control"  {...description} value={description.value || ''}/>
+                        </div>
+                        <div>
+                            <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="col-md-3">
                     <ul>
                         {courses}
                     </ul>

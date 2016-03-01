@@ -22,9 +22,9 @@ export default class Select extends Component {
         });
 
         return (
-            <div className="select">
+            <div className="form-group select">
                 {label && <label>{label}</label>}
-                <select {...field} {...rest}>
+                <select className="form-control" {...field} {...rest}>
                     <option value="">Select</option>
                     {optionsList}
                 </select>

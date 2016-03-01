@@ -10,16 +10,17 @@ export default class About extends React.Component {
             <div className="about-page">
                 <Helmet title="Careerraft :: About us"/>
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">About Careerraft</h3>
+                    <div className="page-inner container">
+                        <div className="row">
+                            <div className="col-xs-10">
+                                <h3 className="text-display-2">About Careerraft</h3>
+                            </div>
                         </div>
-                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content-body">
-                    <div className="page-inner grid">
-                        <div className="cell-span-12">
+                <div className="content-body container">
+                    <div className="page-inner row">
+                        <div className="m-tl col-xs-12">
                             <article>
                                 We are the fastest-growing family in the education space. Fed up with endless on-site visits and
 

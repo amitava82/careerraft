@@ -72,12 +72,12 @@ export default class AssignSubject extends React.Component {
         const inst = institute_store.entities[this.props.params.id];
 
         return (
-            <div className="grid">
-                <div className="cell-3">
+            <div className="row">
+                <div className="col-md-8">
                     <form onSubmit={handleSubmit(this.onSubmit)} className="cell-2">
-                        <div>
+                        <div className="form-group">
                             <label>Select Category</label>
-                            <select {...category} value={category.value} onChange={this.onChangeCategory}>
+                            <select  className="form-control" {...category} value={category.value} onChange={this.onChangeCategory}>
                                 <option value="">Select</option>
                                 {
                                     category_store.ids.map(c => {
@@ -88,9 +88,9 @@ export default class AssignSubject extends React.Component {
                             </select>
                             <input type="hidden" {...category} value={category.value} />
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>Select Course</label>
-                            <select {...course} onChange={this.onChangeCourse} value={course.value}>
+                            <select  className="form-control" {...course} onChange={this.onChangeCourse} value={course.value}>
                                 <option value="">Select</option>
                                 {
                                     reduce(course_store.ids, (memo, c) => {
@@ -102,9 +102,9 @@ export default class AssignSubject extends React.Component {
                                 }
                             </select>
                         </div>
-                        <div>
+                        <div className="form-group">
                             <label>Select Subject</label>
-                            <select multiple  {...subjects} value={subjects.value}>
+                            <select className="form-control" multiple  {...subjects} value={subjects.value}>
                                 <option  value="">Select</option>
                                 {
                                     reduce(subject_store.ids, (memo, i) => {
@@ -117,15 +117,15 @@ export default class AssignSubject extends React.Component {
                             </select>
                         </div>
                         <div>
-                            <button disabled={submitting} type="submit">Save</button>
+                            <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>
                         </div>
                     </form>
                 </div>
-                <div className="cell">
+                <div className="col-md-4">
                     <h5>Assigned subjects:</h5>
                     {inst.subjects.map(i => {
                         return (
-                            <p>{i.subject.course.name} - {i.name} <button onClick={() => this.unassign(i)} className="link">Delete</button></p>
+                            <p>{i.subject.course.name} - {i.name} <button onClick={() => this.unassign(i)} className="btn btn-link btn-sm">Delete</button></p>
                         )
                     })}
                 </div>

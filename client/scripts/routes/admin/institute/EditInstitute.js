@@ -40,13 +40,19 @@ export default class EditInstitute extends React.Component{
         //}
 
         return (
-            <div className="grid">
-                <div className="cell grid column">
-                    <Link to={`/admin/institute/manage/${this.props.params.id}`}>Basic details</Link>
-                    <Link to={`/admin/institute/manage/${this.props.params.id}/subjects`}>Assign Subjects</Link>
-                    <Link to={`/admin/institute/manage/${this.props.params.id}/branches`}>Branches</Link>
+            <div className="row">
+                <div className="col-md-3">
+                    <div>
+                        <Link to={`/admin/institute/manage/${this.props.params.id}`}>Basic details</Link>
+                    </div>
+                    <div>
+                        <Link to={`/admin/institute/manage/${this.props.params.id}/subjects`}>Assign Subjects</Link>
+                    </div>
+                    <div>
+                        <Link to={`/admin/institute/manage/${this.props.params.id}/branches`}>Branches</Link>
+                    </div>
                 </div>
-                <div className="cell-4">
+                <div className="col-md-9">
                     {this.props.children}
                 </div>
             </div>

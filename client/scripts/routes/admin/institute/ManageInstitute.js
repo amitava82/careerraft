@@ -81,15 +81,18 @@ export default class ManageInstitute extends React.Component{
 
         return (
             <div className="grid column">
-                <div className="cell">
+                <div>
                     <label>Search</label>
                     <div className="input-group">
-                        <input className="cell-span-3" type="text" ref="query" />
-                        <button className="sm cell-span-1" onClick={this.search}>Search</button>
+                        <input className="form-control" type="text" ref="query" />
+                        <span className="input-group-btn">
+                             <button className="btn btn-primary" onClick={this.search}>Search</button>
+                        </span>
+
                     </div>
                     {searchResults}
                 </div>
-                <div className="cell">
+                <div>
                     {this.props.children}
                 </div>
             </div>

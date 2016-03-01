@@ -97,7 +97,7 @@ export default class EditInstitute extends React.Component{
 
                     </div>
                     <div className="form-group">
-                        <button type="submit">Save</button>
+                        <button className="btn btn-primary" type="submit">Save</button>
                     </div>
                 </form>
             </div>

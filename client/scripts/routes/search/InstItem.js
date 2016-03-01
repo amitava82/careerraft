@@ -27,7 +27,7 @@ export default class InstItem extends React.Component {
         return (
             <div key={i._id} className="inst-item">
                 <h5 className="text-headline"><Link to={`/institute/${i._id}`}>{i.name}</Link></h5>
-                <p className="addr"><i className="fa fa-map-marker" /> {formatAddress(i.address)}</p>
+                <p className="addr text-subhead"><i className="fa fa-map-marker" /> {formatAddress(i.address)}</p>
                 <p className="desc">{desc}<Link to={`/institute/${i._id}`}>...more</Link></p>
                 <div className="m-bm">
                     <h5 className="text-subhead">
@@ -37,7 +37,7 @@ export default class InstItem extends React.Component {
                 <div className="categories pills">
                     <div><span className="strong">Listed under:</span> {uniq(categories).map(i => {
                         return (
-                            <div className="pill pill-default">
+                            <div className="label label-default">
                                 {i}
                             </div>
                         )

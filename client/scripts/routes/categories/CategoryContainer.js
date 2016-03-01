@@ -19,14 +19,14 @@ export default class CategoryContainer extends React.Component {
         if(catid){
             const cat = this.props.category_store.entities[catid];
             catHeader = (
-                <div className="cell-span-11">
+                <div className="col-xs-11 col-xs-offset-1">
                     <h3 className="text-display-2">{cat.name}</h3>
                     <p>{cat.description}</p>
                 </div>
             )
         }else {
             catHeader = (
-                <div className="cell-span-11">
+                <div className="col-xs-11 col-xs-offset-1">
                     <h3 className="text-display-2">Categories</h3>
                 </div>
             )
@@ -36,9 +36,10 @@ export default class CategoryContainer extends React.Component {
             <div className="course-page">
                 <Helmet title="Careerraft - Courses" />
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-1"></div>
-                        {catHeader}
+                    <div className="container">
+                        <div className="row">
+                            {catHeader}
+                        </div>
                     </div>
                 </div>
                 {this.props.children}

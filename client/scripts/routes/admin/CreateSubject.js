@@ -100,51 +100,51 @@ export default class CreateSubject extends React.Component{
                 memo.push(
                     <li key={c._id}>
                         <strong>{c.name}</strong>
-                        <button className="btn sm" onClick={() => this.edit(c._id)}>Edit</button>
+                        <button className="btn btn-link btn-sm" onClick={() => this.edit(c._id)}>Edit</button>
                     </li>
                 );
             return memo;
         }, []);
         return (
-            <div className="grid row">
-                <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
-                    <h4>Add Subject</h4>
-                    <div>
-                        <label>Select Category</label>
-                        <select value={this.state.category} onChange={this.selectCategory}>
-                            <option value="">Select</option>
-                            {category_store.ids.map(i => {
-                                const c = category_store.entities[i];
-                                return (<option value={c._id} key={c._id}>{c.name}</option>)
-                            })}
-                        </select>
-                    </div>
-                    <div>
-                        <label>Select Course</label>
-                        <select value={this.state.course} onChange={this.selectCourse}>
-                            <option value="">Select</option>
-                            {reduce(course_store.ids, (memo, c) => {
-                                const i = course_store.entities[c];
-                                if(i.category == this.state.category)
-                                    memo.push((<option value={i._id} key={i._id}>{i.name}</option>))
-                                return memo;
-                            }, [])}
-                        </select>
-                    </div>
-                    <div>
-                        <label>Name</label>
-                        <input type="text" {...name}/>
-                        {name.error && <div>{name.error}</div>}
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <textarea {...description} value={description.value || ''} />
-                    </div>
-                    <div>
-                        <button disabled={submitting} type="submit">Save</button>
-                    </div>
-                </form>
-                <div className="cell">
+            <div className="row">
+                <div className="col-xs-9">
+                    <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
+                        <h4>Add Subject</h4>
+                        <div className="form-group">
+                            <label>Select Category</label>
+                            <select className="form-control" value={this.state.category} onChange={this.selectCategory}>
+                                <option value="">Select</option>
+                                {category_store.ids.map(i => {
+                                    const c = category_store.entities[i];
+                                    return (<option value={c._id} key={c._id}>{c.name}</option>)
+                                })}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <select className="form-control" value={this.state.course} onChange={this.selectCourse}>
+                                <option value="">Select</option>
+                                {reduce(course_store.ids, (memo, c) => {
+                                    const i = course_store.entities[c];
+                                    if(i.category == this.state.category)
+                                        memo.push((<option value={i._id} key={i._id}>{i.name}</option>))
+                                    return memo;
+                                }, [])}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input type="text" {...name}/>
+                            {name.error && <div>{name.error}</div>}
+                        </div>
+                        <div className="form-group">
+                            <label>Description</label>
+                            <textarea className="form-control" {...description} value={description.value || ''} />
+                        </div>
+                        <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>
+                    </form>
+                </div>
+
+                <div className="col-xs-3">
                     <ul>
                         {subjects}
                     </ul>

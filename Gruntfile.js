@@ -7,9 +7,8 @@ module.exports = function(grunt){
         sass: {
             options: {
                 includePaths: [
-                    "build/public/lib/normalize-scss/sass",
-                    "build/public/lib/support-for/sass",
-                    "build/public/lib/font-awesome/scss"
+                    "build/public/lib/font-awesome/scss",
+                    "build/public/lib/bootstrap-sass/assets/stylesheets"
                 ],
                 sourceMap: process.env.NODE_ENV !== 'production',
                 outputStyle: 'compressed'

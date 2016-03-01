@@ -96,25 +96,25 @@ export default class CreateInstitute extends React.Component{
             }, error, handleSubmit, submitting} = this.props;
 
         return (
-            <div className="grid row create-int-page">
+            <div className="create-int-page">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
                     <h4>Create Institute</h4>
-                    <div>
+                    <div className="form-group">
                         <Input label="Name" type="text" field={name} />
                     </div>
-                    <div>
+                    <div className="form-group" >
                         <Select label="Institute type Type" field={type} options={[
                             {label: 'Institute', value: 'institute'},
                             {label: 'Individual', value: 'individual'}
                         ]} />
                     </div>
-                    <div>
-                        <Textarea label="Description" field={description} />
+                    <div className="form-group">
+                        <Textarea  label="Description" field={description} />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Textarea label="Short Description" field={short_description} />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Address</label>
                         <Input type="text" field={address.line1} placeholder="Address line 1" />
                         <Input type="text" field={address.line2} placeholder="Address line 2" />
@@ -124,24 +124,24 @@ export default class CreateInstitute extends React.Component{
 
                         <Input type="text" field={address.pincode} placeholder="Pin Code" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Location [Longitude, Latitude]</label>
-                        <input type="text" {...address.loc[0]} placeholder="Longitude"/>
-                        <input type="text" {...address.loc[1]} placeholder="Latitude"/>
+                        <input className="form-control" type="text" {...address.loc[0]} placeholder="Longitude"/>
+                        <input className="form-control" type="text" {...address.loc[1]} placeholder="Latitude"/>
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={logo} label="Logo URL" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={banner} label="Banner URL" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={website} label="Website address" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="email" field={email} label="Email address" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label>Telephones</label>
                         {telephones.map(p => {
                             return (
@@ -155,18 +155,17 @@ export default class CreateInstitute extends React.Component{
                             telephones.addField()
                         }}>Add more</a>
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={estd} label="Established in" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={student_count} label="Student count" />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <Input type="text" field={faculty_count} label="Faculty count" />
                     </div>
-
                     <div>
-                        <button disabled={submitting} type="submit">Save</button>
+                        <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>
                     </div>
                 </form>
             </div>

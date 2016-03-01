@@ -11,15 +11,16 @@ export default class Educator extends React.Component {
             <div className="educator-page">
                 <Helmet title="Careerraft :: Learn how Careerraft can help you." />
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">For Educators and Professional Institutes</h3>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <h3 className="text-display-2">For Educators and Professional Institutes</h3>
+                            </div>
                         </div>
-                        <div className="cell-span-3"></div>
                     </div>
                 </div>
-                <div className="content-body">
-                    <div className="page-inner">
+                <div className="content-body container">
+                    <div className="page-inner m-tl col-xs-12">
                         <h5 className="text-headline">Create your Careerraft profile and reach more students</h5>
                         <article>
                             A modern Institute needs a modern online presence to reach maximum students. Move beyond your
@@ -36,18 +37,18 @@ export default class Educator extends React.Component {
 
                             fill up quickly and you can focus on what you do best - teaching
                         </article>
-                        <div className="features grid row">
-                            <div className="cell">
+                        <div className="features row">
+                            <div className="col-md-4">
                                 <i className="fa fa-file-text" />
                                 <p className="lead">Create Institute Profile</p>
                                 <p>Get ready to be discovered and enhance your enrollment through your institute profile on Careerraft.</p>
                             </div>
-                            <div className="cell">
+                            <div className="col-md-4">
                                 <i className="fa fa-users" />
                                 <p className="lead">Connect with students and Parents</p>
                                 <p>We help you fill seats in your class with new students and help you generate additional revenue.</p>
                             </div>
-                            <div className="cell">
+                            <div className="col-md-4">
                                 <i className="fa fa-certificate" />
                                 <p className="lead">Get Featured</p>
                                 <p>Get featured on Careerraft and be visible to all those potential students looking for your expertise.</p>

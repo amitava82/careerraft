@@ -11,7 +11,8 @@
   "private": true,
   "dependencies": {
     "font-awesome": "~4.5.0",
-    "normalize-scss": "normalize.scss#~4.0.3"
+    "normalize-scss": "normalize.scss#~4.0.3",
+    "bootstrap-sass": "~3.3.6"
   },
   "ignore": [
     "**/.*",

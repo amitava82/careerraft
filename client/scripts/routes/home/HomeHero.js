@@ -21,7 +21,7 @@ export default class HomeHero extends React.Component {
     constructor(props, ctx){
         super(props, ctx);
         this.geoOptions = {
-            inputClassName: 'form-control',
+            inputClassName: 'form-control input-lg',
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
@@ -57,7 +57,7 @@ export default class HomeHero extends React.Component {
 
         const cats = HOME_CATEGORIES.map(i => {
             return (
-                <Link to={`/categories/${i.id}`} className="cell tile">
+                <Link to={`/categories/${i.id}`} className="tile col-sm-4">
                     <i className={`fa ${i.icon}`}/>
                     <h4>{i.name}</h4>
                 </Link>
@@ -66,25 +66,30 @@ export default class HomeHero extends React.Component {
 
         return (
             <div>
-                <div className="hero cell grid center justify-center">
+                <div className="hero">
                     <div className="overlay"></div>
-                    <div className="content">
+                    <div className="container content">
                         <h3 className="text-display-1">Find the best place to learn almost anything</h3>
-                        <form onSubmit={this.onSubmit} className="search grid cell justify-center">
-                            <Geosuggest {...this.geoOptions} />
-                            <div>
-                                <input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                        <form onSubmit={this.onSubmit} className="search form-inline">
+                            <Geosuggest {...this.geoOptions} className="form-group" />
+                            {' '}
+                            <div className="input-group">
+                                <input className="query form-control input-lg" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                                <span className="input-group-btn">
+                                    <button className="btn btn-default btn-lg" type="submit">SEARCH</button>
+                                </span>
                             </div>
-                            <button type="submit">SEARCH</button>
                         </form>
                     </div>
                 </div>
-                <div className="cell grid row tile-container">
-                    {cats}
-                    <Link to="/categories" className="cell tile">
-                        <i className="fa fa-ellipsis-h" />
-                        <h4>VIEW ALL</h4>
-                    </Link>
+                <div className="container">
+                    <div className="row tile-container">
+                        {cats}
+                        <Link to="/categories" className="tile col-sm-4">
+                            <i className="fa fa-ellipsis-h" />
+                            <h4>VIEW ALL</h4>
+                        </Link>
+                    </div>
                 </div>
             </div>
         )

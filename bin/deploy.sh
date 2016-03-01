@@ -3,6 +3,7 @@ echo "Pulling from git..."
 git pull
 echo "Installing dependencies..."
 npm install
+bower install
 echo "Building JS bundle..."
 webpack -p
 echo "Building CSS..."

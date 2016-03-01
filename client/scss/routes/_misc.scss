@@ -6,6 +6,10 @@
     .hero-unit{
         background-image: url("/images/board_bg.jpg");
     }
+
+    .page-inner{
+        margin: 20px auto;
+    }
 }
 
 .about-page{
@@ -16,7 +20,7 @@
 
 .team-page{
     .hero-unit{
-        background-image: url("/images/student_bg.jpg");
+        //background-image: url("/images/student_bg.jpg");
     }
 
     img{

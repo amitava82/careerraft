@@ -1,8 +1,9 @@
-@import "normalize/import-now";
+//@import "normalize/import-now";
 @import "font-awesome";
-
 @import "variables";
 @import "mixin";
+
+@import "bootstrap";
 
 @import "common/export";
 @import "components/export";

@@ -148,30 +148,31 @@ export default class SearchContainer extends React.Component {
             <div className="search-page">
                 <Helmet title={pageTitle}/>
                 <div className="hero-unit">
-                    <div className="page-inner grid">
-                        <div className="cell-span-3"></div>
-                        <div className="cell-span-7">
-                            <h3 className="text-display-2">{pageTitle}</h3>
-                            {search_store.location &&
-                            <p className="text-title">Searching around {search_store.location.label}</p>}
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-11 col-xs-offset-1 col-md-9 col-md-offset-3">
+                                <h3 className="text-display-2">{pageTitle}</h3>
+                                {search_store.location &&
+                                <p className="text-title">Searching around {search_store.location.label}</p>}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="content-body">
-                    <div className="page-inner grid">
-                        <div className="cell-span-3">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-4 col-md-3">
                             <FilterPanel filters={this.state.filters} toggleFilter={this.toggleFilter} resetFilters={this.resetFilters} />
                         </div>
-                        <div className="cell-span-8">
+                        <div className="col-sm-8 col-md-9">
                             {content}
-                            <div className="pager grid">
-                                <div className="cell-span-6 text-left">
-                                    <button disabled={this.isFirst()} onClick={this.previous} className="text-left">
+                            <div className="pager row">
+                                <div className="col-xs-6 text-left">
+                                    <button disabled={this.isFirst()} onClick={this.previous} className="btn btn-primary">
                                         Previous
                                     </button>
                                 </div>
-                                <div className="cell-span-6 text-right">
-                                    <button disabled={!this.hasMore()} onClick={this.next} className="text-right">Next
+                                <div className="col-xs-6 text-right">
+                                    <button disabled={!this.hasMore()} onClick={this.next} className="btn btn-primary">Next
                                     </button>
                                 </div>
                             </div>
