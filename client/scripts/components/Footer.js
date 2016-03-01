@@ -10,8 +10,8 @@ export default class Footer extends React.Component {
                         <Link to="/about">ABOUT</Link>
                         <Link to="/core-values">CORE VALUES</Link>
                         <Link to="/team">TEAM</Link>
-                        <Link to="/privacy">PRIVACY</Link>
-                        <Link to="/terms">TERMS & CONDITIONS</Link>
+                        <a href="/privacy">PRIVACY</a>
+                        <a href="/terms">TERMS & CONDITIONS</a>
                         <Link to="/contact-us">GET IN TOUCH</Link>
                     </p>
                     <p>Copyright &copy; {new Date().getFullYear()} Careerraft</p>

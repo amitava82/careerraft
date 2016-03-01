@@ -57,10 +57,12 @@ export default class HomeHero extends React.Component {
 
         const cats = HOME_CATEGORIES.map(i => {
             return (
-                <Link to={`/categories/${i.id}`} className="tile col-sm-4">
-                    <i className={`fa ${i.icon}`}/>
-                    <h4>{i.name}</h4>
-                </Link>
+                <div className="tile col-sm-4">
+                    <Link to={`/categories/${i.id}`}>
+                        <i className={`fa ${i.icon}`}/>
+                        <h4>{i.name}</h4>
+                    </Link>
+                </div>
             )
         });
 
@@ -85,10 +87,12 @@ export default class HomeHero extends React.Component {
                 <div className="container">
                     <div className="row tile-container">
                         {cats}
-                        <Link to="/categories" className="tile col-sm-4">
-                            <i className="fa fa-ellipsis-h" />
-                            <h4>VIEW ALL</h4>
-                        </Link>
+                        <div className="tile col-sm-4">
+                            <Link to="/categories" className="tile col-sm-4">
+                                <i className="fa fa-ellipsis-h" />
+                                <h4>VIEW ALL</h4>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

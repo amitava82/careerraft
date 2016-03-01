@@ -6,6 +6,16 @@
             "method": "post",
             "handler": "sendMail",
             "middleware": []
+        },
+        {
+            "path": "/terms",
+            "method": "get",
+            "handler": "renderTerms"
+        },
+        {
+            "path": "/privacy",
+            "method": "get",
+            "handler": "renderPrivacy"
         }
     ]
 }

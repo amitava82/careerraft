@@ -179,7 +179,7 @@ export default class SearchContainer extends React.Component {
                                         <a onClick={this.previous} href="#">
                                             Previous
                                         </a>
-                                    </li>
+                                    </li>{' '}
                                     <li className={!this.hasMore() && 'disabled'}>
                                         <a onClick={this.next} href="#">Next</a>
                                     </li>
