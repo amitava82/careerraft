@@ -47,15 +47,15 @@ export default class Header extends React.Component {
             onSuggestSelect: this.onGeoSelect,
             country: 'in',
             onChange: this.onValueChange,
-            initialValue: 'Bangalore'
+            //initialValue: 'Bangalore'
         };
     }
 
     componentDidMount(){
-        this.props.dispatch(setLocation({
-            location: {lat: 12.9667, lng: 77.5667},
-            label: 'Bangalore'
-        }));
+        //this.props.dispatch(setLocation({
+        //    location: {lat: 12.9667, lng: 77.5667},
+        //    label: 'Bangalore'
+        //}));
 
         const navBar = ReactDOM.findDOMNode(this);
         const collapsibleNav = navBar.querySelector('div.navbar-collapse');
@@ -161,7 +161,7 @@ export default class Header extends React.Component {
                 <form onSubmit={this.onSubmit} className="search">
                     <Geosuggest {...this.geoOptions} className="form-group" />{' '}
                     <div className="input-group">
-                        <Input className="query" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                        <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
                         <span className="input-group-btn">
                             <Button type="submit"><i className="fa fa-search" /></Button>
                         </span>

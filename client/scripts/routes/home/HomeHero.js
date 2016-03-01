@@ -27,7 +27,7 @@ export default class HomeHero extends React.Component {
             onSuggestSelect: this.onGeoSelect,
             country: 'in',
             onChange: this.onValueChange,
-            initialValue: 'Bangalore'
+            //initialValue: 'Bangalore'
         };
     }
 
