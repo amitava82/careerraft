@@ -171,7 +171,7 @@ export default class Header extends React.Component {
         );
 
         return (
-            <Navbar fixedTop>
+            <Navbar fixedTop fluid>
                 <Navbar.Header>
                     <Navbar.Brand className="brand">
                         <Link to="/">
