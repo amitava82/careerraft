@@ -46,20 +46,20 @@ export default class HomeContainer extends React.Component {
                 <div className="teach-hint">
                     Are you an individual or running a training center? <Link to="/educator">Learn how Careerraft can help you.</Link>
                 </div>
-                <div className="features container-fluid">
+                <div id="features" className="features container-fluid">
                     <div className="row">
                         <div className="col-md-4">
-                            <i className="fa fa-map-marker" />
+                            <i className="fa fa-map-marker bg-success-dark" />
                             <p className="lead">Location Based Listing</p>
                             <p>Search your institutes on the go, find the institute near your location.</p>
                         </div>
                         <div className="col-md-4">
-                            <i className="fa fa-gift" />
+                            <i className="fa fa-gift bg-danger-dark" />
                             <p className="lead">Offers for students</p>
                             <p>Get offers from institutes and surrounding retailers when you use our services.</p>
                         </div>
                         <div className="col-md-4">
-                            <i className="fa fa-tasks" />
+                            <i className="fa fa-tasks bg-info-dark" />
                             <p className="lead">Career Counseling</p>
                             <p>We provide free career counseling to help students make right career oriented decisions.</p>
                         </div>

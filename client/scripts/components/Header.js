@@ -99,6 +99,7 @@ export default class Header extends React.Component {
     }
 
     render () {
+        const nosearch = NOSEARCH[this.props.routing.location.pathname] === true;
 
         const results = this.state.suggestions;
         let items = [];
@@ -127,20 +128,13 @@ export default class Header extends React.Component {
                 <LinkContainer to="/admin">
                     <NavItem eventKey={10}>
                         {session.user.name}
-                        <i className="fa fa-cog" />
                     </NavItem>
-                </LinkContainer>
-            )
-        }else {
-            loginMenu = (
-                <LinkContainer to="/educator" ctiveClassName="active">
-                    <NavItem eventKey={9}>For Institutes</NavItem>
                 </LinkContainer>
             )
         }
 
         const staticLinks = (
-            <Nav>
+            <Nav pullRight>
                 <LinkContainer to="/about">
                     <NavItem eventKey={1}>About</NavItem>
                 </LinkContainer>
@@ -153,6 +147,10 @@ export default class Header extends React.Component {
                 <LinkContainer to="/contact-us">
                     <NavItem>Get in touch</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/educator" ctiveClassName="active">
+                    <NavItem eventKey={9}>For Institutes</NavItem>
+                </LinkContainer>
+                {loginMenu}
             </Nav>
         );
 
@@ -160,18 +158,19 @@ export default class Header extends React.Component {
             <Navbar.Form pullLeft>
                 <form onSubmit={this.onSubmit} className="search">
                     <Geosuggest {...this.geoOptions} className="form-group" />{' '}
-                    <div className="input-group">
-                        <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
-                        <span className="input-group-btn">
-                            <Button type="submit"><i className="fa fa-search" /></Button>
-                        </span>
-                    </div>
+                    <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                    <Button type="submit"><i className="fa fa-search" /></Button>
                 </form>
             </Navbar.Form>
         );
 
+        const navprops = {
+            inverse: !nosearch,
+            fixedTop: true
+        }
+
         return (
-            <Navbar fixedTop fluid>
+            <Navbar {...navprops}>
                 <Navbar.Header>
                     <Navbar.Brand className="brand">
                         <Link to="/">
@@ -181,10 +180,7 @@ export default class Header extends React.Component {
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    {NOSEARCH[this.props.routing.location.pathname] === true ? staticLinks : searchForm}
-                    <Nav pullRight className="hidden-sm">
-                        {loginMenu}
-                    </Nav>
+                    {nosearch ? staticLinks : searchForm}
                 </Navbar.Collapse>
             </Navbar>
         )

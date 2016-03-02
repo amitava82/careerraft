@@ -42,7 +42,8 @@ export default class App extends React.Component {
     search(q){
         const location = get(this.props.search_store, 'location.location', {});
         const query = merge({}, {...this.props.location.query, q, loc: location});
-        this.props.dispatch(push({...this.props.location, query, pathname: '/search'}));
+        const {hash, ...rest} = this.props.location;
+        this.props.dispatch(push({...rest, query, pathname: '/search'}));
     }
 
     render(){

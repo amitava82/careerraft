@@ -11,6 +11,7 @@ import {parse, stringify} from 'qs';
 import routes from './routes';
 import createStore from './redux/createStore';
 import apiClient from './helpers/api';
+var smoothScroll = require('smoothscroll');
 
 
 const createScrollHistory = useScroll(createBrowserHistory);

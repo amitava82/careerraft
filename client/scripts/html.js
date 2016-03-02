@@ -18,7 +18,7 @@ export default function html(markup, initialState, helmet){
             <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning." />
             <meta name="author" content="Careerraft" />
             <meta name="copyright" content="(c) 2016 Careerraft Inc." />
-            <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500,900' rel='stylesheet' type='text/css'>
             <link href='/static/css/client.css' rel='stylesheet' type='text/css'>
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${initialState};

@@ -21,7 +21,7 @@ export default class HomeHero extends React.Component {
     constructor(props, ctx){
         super(props, ctx);
         this.geoOptions = {
-            inputClassName: 'form-control input-md',
+            inputClassName: 'form-control input-lg',
             placeholder: 'Select a Location',
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
@@ -71,16 +71,19 @@ export default class HomeHero extends React.Component {
                 <div className="hero">
                     <div className="overlay"></div>
                     <div className="container content">
-                        <h3 className="text-display-1">Find the best place to learn almost anything</h3>
-                        <form onSubmit={this.onSubmit} className="search form-inline">
+                        <h3 className="text-display-3">Find the best place to learn almost anything</h3>
+                        <form onSubmit={this.onSubmit} className="search form-inline m-bl">
                             <Geosuggest {...this.geoOptions} className="form-group" />
-                            <div className="input-group">
-                                <input className="query form-control input-md" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                            <div className="input-group input-group-lg">
+                                <input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
                                 <span className="input-group-btn">
-                                    <button className="btn btn-primary btn-md" type="submit"><i className="fa fa-search" /> </button>
+                                    <button className="btn btn-primary" type="submit"><i className="fa fa-search" /> </button>
                                 </span>
                             </div>
                         </form>
+                        <div className="text-center">
+                            <a href="#features" className="text-display-1 btn-pill">Learn More</a>
+                        </div>
                     </div>
                 </div>
                 <div className="container">

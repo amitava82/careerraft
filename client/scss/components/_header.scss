@@ -5,7 +5,36 @@ $bgHighlight: #23b7e5;
 $colDefault: #ffffff;
 $colHighlight: #286073;
 $dropDown: false;
+
 .navbar-default {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+
+    .brand.navbar-brand {
+        > span:nth-child(2) {
+            color: $brand-primary;
+        }
+    }
+
+    .navbar-nav {
+        li:last-child {
+            margin-top: 4px;
+            padding: 0 10px;
+            a {
+                padding: 8px 15px;
+                color: $brand-primary;
+                border-radius: 60px;
+                border: 1px solid #2196f3;
+
+                &:hover{
+                    background: $brand-primary !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+}
+
+.navbar-inverse {
     background-color: $bgDefault;
     border-color: $bgHighlight;
     margin-bottom: 0;
@@ -115,7 +144,14 @@ $dropDown: false;
             border-color: transparent;
         }
     }
+
+    .brand.navbar-brand {
+        > span:nth-child(2) {
+            color: white;
+        }
+    }
 }
+
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu {
         > li > a {
@@ -133,25 +169,41 @@ $dropDown: false;
     }
 }
 
-.navbar-header {
+@media (min-width: 992px) {
+    .navbar-nav{
+        li:last-child{
+            margin-left: 60px;
+        }
+    }
+    .brand.navbar-brand{
+        margin-right: 80px;
+    }
+}
+
+nav.navbar{
+    font-size: 1.4rem;
+
     .brand.navbar-brand {
-        width: 150px;
-        margin-right: 50px;
+        padding-top: 15px;
+        text-transform: uppercase;
+        width: 200px;
         font-size: 24px;
-        font-weight: 700;
-        color: #F5FDFF;
+        font-weight: 900;
+        color: #444;
         -webkit-font-smoothing: antialiased;
         > span:nth-child(2) {
-            font-weight: 100;
+            font-weight: 300;
+            padding-left: 2px;
         }
         .beta-badge {
-            position: absolute;
+            position: relative;
             font-size: 1.2rem;
             font-weight: 500;
             padding-left: 5px;
             color: rgba(40, 96, 115, 0.91);
             text-shadow: 0 1px 0px rgba(255, 255, 255, .2);
-            top: 7px;
+            top: -15px;
+            right: 0;
 
         }
     }
