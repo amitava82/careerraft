@@ -41,6 +41,12 @@ export default class SearchContainer extends React.Component {
         super(props, ctx);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(this.props.params.id !== nextProps.params.id){
+            this.props.dispatch(getInstitute(nextProps.params.id));
+        }
+    }
+
     componentDidMount(){
         if(this.props.institute_store.entities[this.props.params.id]) return;
         this.props.dispatch(getInstitute(this.props.params.id));

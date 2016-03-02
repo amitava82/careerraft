@@ -22,13 +22,13 @@ export default class InstItem extends React.Component {
             )
         });
 
-        const desc = i.description.length >= 300 ? i.description.trim()  : i.description;
+        const desc = i.description.length >= 300 ? i.description.substr(0,300).trim()  : i.description;
 
         return (
             <div key={i._id} className="inst-item">
                 <h5 className="text-headline"><Link to={`/institute/${i._id}`}>{i.name}</Link></h5>
                 <p className="addr text-subhead"><i className="fa fa-map-marker" /> {formatAddress(i.address)}</p>
-                <p className="desc">{desc}<Link to={`/institute/${i._id}`}>...more</Link></p>
+                <p className="desc">{desc}{i.description.length >= 300 && <Link to={`/institute/${i._id}`}>...more</Link>}</p>
                 <div className="m-bm">
                     <h5 className="text-subhead">
                         <span className="strong">Specializes in:</span> {uniq(courses).join(', ')}

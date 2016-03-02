@@ -133,7 +133,7 @@ export default class CreateSubject extends React.Component{
                         </div>
                         <div className="form-group">
                             <label>Name</label>
-                            <input type="text" {...name}/>
+                            <input className="form-control" type="text" {...name}/>
                             {name.error && <div>{name.error}</div>}
                         </div>
                         <div className="form-group">

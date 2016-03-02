@@ -93,8 +93,15 @@ export default class InstituteDetails extends React.Component {
                                 <article>
                                     {inst.short_description}
                                 </article>
-                                <div className="inst-type text-subhead">
-                                    INSTITUTE TYPE: <span>{inst.type}</span>
+                                <div className="inst-type text-subhead clearfix">
+                                    <div className="col-xs-6">
+                                        INSTITUTE TYPE: <span>{inst.type}</span>
+                                    </div>
+                                    <div className="col-xs-6 text-right">
+                                        {inst.branches.length ? (
+                                            <a href="#branches">{inst.branches.length} Branch(es)</a>
+                                        ): null}
+                                    </div>
                                 </div>
                                 <div className="row text-center">
                                     <div className="col-md-4">
@@ -129,7 +136,24 @@ export default class InstituteDetails extends React.Component {
                                         {coursesList}
                                     </div>
                                 </div>
-
+                                {inst.branches.length ?
+                                <div id="branches" className="profile-section border-bottom-think">
+                                    <h3 className="text-display-1">Branches</h3>
+                                    <div className="profile-sub-section">
+                                        {inst.branches.map(i => {
+                                            return (
+                                                <div>
+                                                    <p><Link to={`/institute/${i._id}`}>{i.name}</Link></p>
+                                                    <address>
+                                                        <i className="fa fa-map-marker" />
+                                                        {formatAddress(i.address)}
+                                                    </address>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                                 : null}
                             </div>
                         </div>
                         <div className="cell-span-3">
