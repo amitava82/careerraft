@@ -93,7 +93,7 @@ export default class CreateSubject extends React.Component{
 
     render(){
         const {fields: {name, description}, error, handleSubmit, submitting,category_store, subject_store, course_store} = this.props;
-        
+
         const subjects = reduce(subject_store.ids, (memo, i) => {
             const c = subject_store.entities[i];
             if(c.course._id == this.state.course)
