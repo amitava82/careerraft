@@ -20,7 +20,7 @@ export default function html(markup, initialState, helmet){
             <meta name="copyright" content="(c) 2016 Careerraft Inc." />
             <meta name="google-site-verification" content="crKFLzwTjXhbwYDN0a6swogBz2mgXyZSPAu60iwd4rc" />
             <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500,900' rel='stylesheet' type='text/css'>
-            <link href='/static/css/client.css' rel='stylesheet' type='text/css'>
+            <link href='/static/css/client${process.env.NODE_ENV == 'production' ? '.min' : ''}.css' rel='stylesheet' type='text/css'>
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${initialState};
             </script>

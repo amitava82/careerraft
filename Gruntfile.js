@@ -31,6 +31,17 @@ module.exports = function(grunt){
             dist: {
                 src: 'build/public/css/client.css'
             }
+        },
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'build/public/css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'build/public/css/',
+                    ext: '.min.css'
+                }]
+            }
         }
     });
 
@@ -44,6 +55,6 @@ module.exports = function(grunt){
     });
 
     grunt.registerTask('css', ['sass', 'postcss']);
-    grunt.registerTask('prod', ['css', 'webpack'])
+    grunt.registerTask('prod', ['css', 'cssmin'])
 
 };

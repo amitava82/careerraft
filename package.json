@@ -79,6 +79,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.14.0",
     "grunt-postcss": "^0.7.1",
     "grunt-sass": "^1.1.0",
     "load-grunt-tasks": "^3.4.0",
