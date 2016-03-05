@@ -16,6 +16,11 @@
             "path": "/privacy",
             "method": "get",
             "handler": "renderPrivacy"
+        },
+        {
+            "path": "/sitemap.xml",
+            "method": "get",
+            "handler": "sitemap"
         }
     ]
 }

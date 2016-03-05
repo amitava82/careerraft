@@ -37,6 +37,11 @@ export default class SearchContainer extends React.Component {
     //    }
     //];
 
+    static fetchData(props, store){
+        return store.dispatch(search({...props.location.query}));
+    }
+
+
     constructor(props, ctx) {
         super(props, ctx);
 
@@ -46,7 +51,8 @@ export default class SearchContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.search(this.props);
+        if(this.props.search_store.results.length === 0)
+            this.search(this.props);
     }
 
     componentWillReceiveProps(nextPros) {

@@ -4,6 +4,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
+import find from 'lodash/find';
 
 import { getInstitute } from '../../redux/modules/institute';
 
@@ -57,7 +58,7 @@ export default class SearchContainer extends React.Component {
 
        // debugger;
 
-        const inst = institute_store.entities[params.id];
+        const inst = institute_store.entities[params.id] || find(institute_store.entities, {url_slug: params.id});
 
         if(institute_store.error) return <Error error={institute_store.error} />;
 
@@ -67,9 +68,11 @@ export default class SearchContainer extends React.Component {
             </div>
         );
 
+        const title = inst ? `${inst.name} - Careerraft` : 'Careerraft';
+
         return (
             <div className="inst-page">
-                <Helmet title={`${inst && inst.name} - Careerraft`} meta={[
+                <Helmet title={title} meta={[
                     {name: 'description', content: inst && inst.short_description}
                 ]}  />
                 {inst ? <InstituteDetails inst={inst} /> : <p className="text-title text-center">Nothing to display</p>}

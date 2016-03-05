@@ -10,7 +10,7 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 
 import createAction from '../createActions';
 
-const [SET_LOCATION, SEARCH, FILTERS] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS"]);
+const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP"]);
 
 
 const initialState = {
@@ -51,6 +51,18 @@ export default function(state = initialState, action = {}){
                 results: action.payload
             });
 
+        case resolve(GEO_LOOKUP):
+            const pay = action.payload;
+            if(pay.city && pay.longitude && pay.latitude){
+                return extend({}, state, {
+                    location: {
+                        label: pay.city,
+                        location: [pay.longitude, pay.latitude]
+                    }
+                });
+            }else
+                return state;
+
         default:
             return state;
     }
@@ -60,6 +72,15 @@ export function setLocation(loc){
     return {
         type: SET_LOCATION,
         payload: loc
+    }
+}
+
+export function geoIP(ip){
+    return {
+        type: GEO_LOOKUP,
+        payload: {
+            promise: api => api.get(`http://freegeoip.net/json/${ip}`)
+        }
     }
 }
 

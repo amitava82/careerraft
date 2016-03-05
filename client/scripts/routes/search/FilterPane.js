@@ -4,6 +4,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import get from 'lodash/get';
+
 import autobind from 'autobind-decorator';
 
 import {Collapse} from 'react-bootstrap';
@@ -18,23 +19,23 @@ export default class FilterPane extends React.Component {
     }
 
     render() {
-        const {category_store, routing, filters} = this.props;
+        const {routing, filters} = this.props;
         const query = routing.location.query;
 
-        const categories = get(filters, 'categories', []).map(i => {
+        const categories = get(filters, 'categories', []).sort().map(i => {
             const f = query['category'] || [];
 
-            return <Checkbox label={i} checked={f.indexOf(i) > -1} onChange={e => this.props.toggleFilter(i, 'category', !e.target.checked)} />
+            return <Checkbox key={i} label={i} checked={f.indexOf(i) > -1} onChange={e => this.props.toggleFilter(i, 'category', !e.target.checked)} />
         });
 
-        const courses = get(filters, 'courses', []).map(i => {
+        const courses = get(filters, 'courses', []).sort().map(i => {
             const f = query['course'] || [];
-            return <Checkbox checked={f.indexOf(i) > -1}  onChange={e => this.props.toggleFilter(i, 'course', !e.target.checked)} label={i} />
+            return <Checkbox key={i} checked={f.indexOf(i) > -1}  onChange={e => this.props.toggleFilter(i, 'course', !e.target.checked)} label={i} />
         });
 
-        const subjects = get(filters, 'subjects', []).map(i => {
+        const subjects = get(filters, 'subjects', []).sort().map(i => {
             const f = query['subject'] || [];
-            return <Checkbox checked={f.indexOf(i) > -1}  label={i} onChange={e => this.props.toggleFilter(i, 'subject', !e.target.checked)}/>
+            return <Checkbox key={i} checked={f.indexOf(i) > -1}  label={i} onChange={e => this.props.toggleFilter(i, 'subject', !e.target.checked)}/>
         });
 
         return (

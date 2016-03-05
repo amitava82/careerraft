@@ -17,6 +17,8 @@ Promise.config({
 class _ApiClient {
     constructor(req, config) {
         function formatUrl(path) {
+            if(path.indexOf('http') > -1) return path;
+
             const adjustedPath = path[0] !== '/' ? '/' + path : path;
             if (typeof window === 'undefined') {
                 // Prepend host and port of the API server to the path.
