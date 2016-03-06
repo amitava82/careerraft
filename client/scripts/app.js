@@ -15,6 +15,7 @@ import Toastr from './utils/toastr';
 
 import getUserLocation from './utils/location';
 import {loadCategories} from './redux/modules/category';
+import {reset} from './redux/modules/search';
 
 
 @connect(state => state)
@@ -44,6 +45,7 @@ export default class App extends React.Component {
 
         const query = {q, loc: location};
         const {hash, ...rest} = this.props.location;
+        this.props.dispatch(reset());
         this.props.dispatch(push({...rest, query, pathname: '/search'}));
     }
 

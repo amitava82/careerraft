@@ -20,6 +20,7 @@ import { setLocation } from '../redux/modules/search';
 import getUserLocation from '../utils/location';
 import Dropdown from './Dropdown';
 
+
 const NOSEARCH = {
     "/about": true,
     "/core-values": true,
@@ -40,7 +41,7 @@ export default class Header extends React.Component {
         super(props, ctx);
 
         this.state = {
-          suggestions: []
+          query: get(props.search_store, 'query.q')
         };
 
         this.geoOptions = {
@@ -54,10 +55,6 @@ export default class Header extends React.Component {
     }
 
     componentDidMount(){
-        //this.props.dispatch(setLocation({
-        //    location: {lat: 12.9667, lng: 77.5667},
-        //    label: 'Bangalore'
-        //}));
 
         const navBar = ReactDOM.findDOMNode(this);
         const collapsibleNav = navBar.querySelector('div.navbar-collapse');
@@ -72,20 +69,19 @@ export default class Header extends React.Component {
             btnToggle.click();
         }, false);
 
+        //const q = get(search_store, 'query.q');
 
-        //this.geosuggest && this.props.search_store.location && this.geosuggest.update(this.props.search_store.location.label);
-        //getUserLocation(loc => {
-        //    this.props.dispatch(setLocation({
-        //        location: [loc.lng, loc.lat]
-        //    }));
-        //});
+        //this.setState({query: })
+
     }
-    //
-    //componentWillReceiveProps(nextProps){
-    //
-    //    if(this.geosuggest &&  !isEqual(nextProps.search_store.location, this.props.search_store.location))
-    //        nextProps.search_store.location && this.geosuggest.update(nextProps.search_store.location.label);
-    //}
+
+    componentWillReceiveProps(nextProps){
+
+        if(isEqual(nextProps.search_store.query, this.props.search_store.query)) return;
+
+        this.setState({query: nextProps.search_store.query.q});
+
+    }
 
     @autobind
     onGeoSelect(data){
@@ -116,7 +112,10 @@ export default class Header extends React.Component {
     }
 
     render () {
-        const nosearch = NOSEARCH[this.props.routing.location.pathname] === true;
+
+        const {routing, search_store, session_store} = this.props;
+
+        const nosearch = NOSEARCH[routing.location.pathname] === true;
 
         const results = this.state.suggestions;
         let items = [];
@@ -137,14 +136,13 @@ export default class Header extends React.Component {
             });
         });
 
-        const session = this.props.session_store;
 
         let loginMenu = null;
-        if(session.isLoggedIn){
+        if(session_store.isLoggedIn){
             loginMenu = (
                 <LinkContainer to="/admin">
                     <NavItem eventKey={10}>
-                        {session.user.name}
+                        {session_store.user.name}
                     </NavItem>
                 </LinkContainer>
             )
@@ -171,13 +169,14 @@ export default class Header extends React.Component {
             </Nav>
         );
 
-        const initialValue = get(this.props.search_store, 'location.label', '');
+        const initialValue = get(search_store, 'location.label', '');
+        const q = get(search_store, 'query.q');
 
         const searchForm = (
             <Navbar.Form pullLeft>
                 <form onSubmit={this.onSubmit} className="search">
                     <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />{' '}
-                    <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                    <input value={this.state.query} onChange={e => this.setState({query: e.target.value})} className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
                     <Button type="submit"><i className="fa fa-search" /></Button>
                 </form>
             </Navbar.Form>
