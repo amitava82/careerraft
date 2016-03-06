@@ -11,7 +11,7 @@ import simpleStore from '../../utils/simpleStore';
 
 import createAction from '../createActions';
 
-const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP"]);
+const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET"]);
 
 
 const initialState = {
@@ -28,7 +28,7 @@ export default function(state = initialState, action = {}){
 
     switch (action.type) {
         case SEARCH:
-            return merge({}, state, {
+            return extend({}, state, {
                 loading: true,
                 results: [],
                 filters: {},
@@ -37,21 +37,28 @@ export default function(state = initialState, action = {}){
 
         case _reject(SEARCH):
         case _reject(FILTERS):
-            return merge({}, state, {
+            return extend({}, state, {
                 loading: false,
                 error: action.payload
             });
 
         case SET_LOCATION:
             simpleStore('user_location', action.payload);
-            return merge({}, state, {
+            return extend({}, state, {
                 location: action.payload
             });
 
         case resolve(SEARCH):
             return extend({}, state, {
                 loading: false,
-                results: action.payload
+                results: action.payload,
+                query: action.meta.query
+            });
+
+        case RESET:
+            return extend({}, state, {
+                results: [],
+                filters: {}
             });
 
         case resolve(FILTERS):
@@ -97,7 +104,8 @@ export function search(query){
     return {
         type: SEARCH,
         payload: {
-            promise: api => api.get('search', {params: query})
+            promise: api => api.get('search', {params: query}),
+            query: query
         }
     }
 }
@@ -108,5 +116,12 @@ export function filters(params){
         payload: {
             promise: api => api.get('search/filters', {params})
         }
+    }
+}
+
+export function reset(){
+    return {
+        type: RESET,
+        payload: null
     }
 }

@@ -27,6 +27,7 @@ export default (function(){
         if(window.localStorage){
             try{
                 localStorage.setItem(testKey, 'test');
+                localStorage.removeItem(testKey);
                 lsSupport = true;
             }catch (e){
                 lsSupport = false;

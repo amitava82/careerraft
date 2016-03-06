@@ -12,7 +12,6 @@
             "path": "/", "httpOnly": true, "secure": false, "maxAge": 604800000
         },
         "name": "sid"
-
     },
 
     "redis": {

@@ -5,6 +5,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import reduce from 'lodash/reduce';
+import union from 'lodash/union';
+import uniqBy from 'lodash/uniqBy';
 import Select from 'react-select';
 
 import {loadCategories} from '../../../redux/modules/category';
@@ -26,7 +28,8 @@ export default class AssignSubject extends React.Component {
         super(props, ctx);
 
         this.state = {
-            values: null
+            values: null,
+            courses: null
         }
     }
 
@@ -54,7 +57,7 @@ export default class AssignSubject extends React.Component {
 
         return this.props.dispatch(addSubject(this.props.params.id, {subjects: subs})).then(
             r => this.props.dispatch(createToast('Saved!')),
-            e => console.log(e)
+            e => this.props.dispatch(createToast(e))
         )
     }
 
@@ -77,14 +80,56 @@ export default class AssignSubject extends React.Component {
                         value: i._id
                     }
                 });
-                callback(null, {options: options});
+                callback(null, {options});
             }
         );
     }
 
     @autobind
+    loadCourses(str, callback){
+        api.get('courses', {
+            params: {name: str}
+        }).then(
+            r => {
+                const options = r.map(i => {
+                    return {
+                        label: i.name,
+                        value: i._id
+                    }
+                });
+                callback(null, {options});
+            }
+        )
+    }
+
+    @autobind
     handleSelectChange(values){
+        console.log(values);
         this.setState({values})
+    }
+
+    @autobind
+    handleCourseChange(v){
+        api.get('subjects', {
+            params: {course: v.value}
+        }).then(
+            r => {
+                const subjects = r.map(i => {
+
+                    return {
+                        value: i._id,
+                        label: i.course.name +' - '+i.name
+                    }
+                });
+
+                Array.prototype.push.apply(subjects, this.state.values);
+
+                this.setState({
+                    values: uniqBy(subjects, 'value')
+                })
+            },
+            e => this.props.dispatch(createToast(e))
+        )
     }
 
     render(){
@@ -97,6 +142,17 @@ export default class AssignSubject extends React.Component {
                 <div className="col-md-12">
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
+                            <label>Assign all subjects from course:</label>
+                            <Select.Async
+                                value={this.state.courses}
+                                clearable={false}
+                                loadOptions={this.loadCourses}
+                                name="courses"
+                                onChange={this.handleCourseChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Selected subjects</label>
                             <Select.Async
                                 value={this.state.values}
                                 multi={true}

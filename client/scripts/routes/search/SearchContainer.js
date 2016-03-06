@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import autobind from 'autobind-decorator';
+import Promise from 'bluebird';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import {push} from 'react-router-redux';
@@ -39,7 +40,7 @@ export default class SearchContainer extends React.Component {
     //];
 
     static fetchData(props, store){
-        return store.dispatch(search({...props.location.query}));
+        return Promise.all([store.dispatch(search({...props.location.query})), store.dispatch(filters({...props.location.query}))]);
     }
 
 
@@ -79,10 +80,7 @@ export default class SearchContainer extends React.Component {
                 r => {
                     return props.dispatch(filters({...props.location.query}))
                 }
-            ).then(
-            f => {
-                this.setState({filters: f});
-            },
+            ).error(
             e => {
                 this.props.dispatch(createToast(e))
             }
