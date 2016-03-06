@@ -157,6 +157,7 @@ export default class SearchContainer extends React.Component {
             )
         }
 
+
         return (
             <div className="search-page">
                 <Helmet title={pageTitle}/>
@@ -165,8 +166,8 @@ export default class SearchContainer extends React.Component {
                         <div className="row">
                             <div className="col-xs-11 col-xs-offset-1 col-md-9 col-md-offset-3">
                                 <h3 className="text-display-2">{pageTitle}</h3>
-                                {search_store.location &&
-                                <p className="text-title">Searching around {search_store.location.label}</p>}
+                                {search_store.search_location &&
+                                <p className="text-title">Searching around {search_store.search_location}</p>}
                             </div>
                         </div>
                     </div>

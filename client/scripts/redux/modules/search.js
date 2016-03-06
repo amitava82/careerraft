@@ -6,6 +6,7 @@ import reject from 'lodash/reject';
 import merge from 'lodash/merge';
 import union from 'lodash/union';
 import extend from 'lodash/extend';
+import get from 'lodash/get';
 import { resolve, reject as _reject } from '../middleware/simple-promise';
 import simpleStore from '../../utils/simpleStore';
 
@@ -13,13 +14,14 @@ import createAction from '../createActions';
 
 const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET"]);
 
-
+const loc = simpleStore('user_location');
 const initialState = {
     query: null,
-    location: simpleStore('user_location'),
+    location: loc,
     results: [],
     filters: {},
     loading: false,
+    search_location: get(loc, 'label'), //for ui
     error: null,
     recent_search: {} // not used
 };
@@ -52,13 +54,15 @@ export default function(state = initialState, action = {}){
             return extend({}, state, {
                 loading: false,
                 results: action.payload,
-                query: action.meta.query
+                query: action.meta.query,
+                search_location: get(state.location, 'label')
             });
 
         case RESET:
             return extend({}, state, {
                 results: [],
-                filters: {}
+                filters: {},
+                search_location: get(state.location, 'label')
             });
 
         case resolve(FILTERS):
