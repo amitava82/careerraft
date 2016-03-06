@@ -7,6 +7,7 @@ import merge from 'lodash/merge';
 import union from 'lodash/union';
 import extend from 'lodash/extend';
 import { resolve, reject as _reject } from '../middleware/simple-promise';
+import simpleStore from '../../utils/simpleStore';
 
 import createAction from '../createActions';
 
@@ -15,7 +16,7 @@ const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP] = createAction('search', ["SET
 
 const initialState = {
     query: null,
-    location: null,
+    location: simpleStore('user_location'),
     results: [],
     filters: {},
     loading: false,
@@ -41,6 +42,7 @@ export default function(state = initialState, action = {}){
             });
 
         case SET_LOCATION:
+            simpleStore('user_location', action.payload);
             return merge({}, state, {
                 location: action.payload
             });

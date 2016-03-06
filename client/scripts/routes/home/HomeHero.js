@@ -5,6 +5,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
+import get from 'lodash/get';
 import { routeActions } from 'react-router-redux';
 var Geosuggest = require('react-geosuggest');
 
@@ -34,6 +35,12 @@ export default class HomeHero extends React.Component {
     @autobind
     onSubmit(e){
         e.preventDefault();
+
+        if(!this.props.search_store.location){
+            this.geosuggest.focus();
+            return;
+        }
+
         const q = this.refs.query.value;
         this.context.search(q);
     }
@@ -66,6 +73,8 @@ export default class HomeHero extends React.Component {
             )
         });
 
+        const initialValue = get(this.props.search_store, 'location.label', '');
+
         return (
             <div>
                 <div className="hero">
@@ -73,7 +82,7 @@ export default class HomeHero extends React.Component {
                     <div className="container content">
                         <h3 className="text-display-3">Find the best place to learn almost anything</h3>
                         <form onSubmit={this.onSubmit} className="search form-inline m-bl">
-                            <Geosuggest {...this.geoOptions} className="form-group" />
+                            <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />
                             <div className="input-group input-group-lg">
                                 <input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
                                 <span className="input-group-btn">

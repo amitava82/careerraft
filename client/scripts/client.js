@@ -13,6 +13,8 @@ import createStore from './redux/createStore';
 import apiClient from './helpers/api';
 var smoothScroll = require('smoothscroll');
 
+import simpleStore from './utils/simpleStore';
+import {setLocation} from './redux/modules/search';
 
 const createScrollHistory = useScroll(createBrowserHistory);
 const appHistory = useRouterHistory(createScrollHistory)({
@@ -25,6 +27,13 @@ const store = createStore(window.__INITIAL_STATE__, appHistory, new apiClient())
 const _routes = routes(store);
 
 class Client extends React.Component {
+
+    componentWillMount(){
+        const loc = simpleStore('user_location');
+        if(loc){
+            store.dispatch(setLocation(loc))
+        }
+    }
 
     render() {
 

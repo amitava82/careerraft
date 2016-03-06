@@ -5,8 +5,11 @@ import {Link} from 'react-router';
 import { push } from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import each from 'lodash/each';
+import get from 'lodash/get';
 import reduce from 'lodash/reduce';
 import throttle from 'lodash/throttle';
+import isEqual from 'lodash/isEqual';
+
 var Geosuggest = require('react-geosuggest');
 
 import {Navbar, Nav, NavItem, Button, Input} from 'react-bootstrap';
@@ -46,8 +49,7 @@ export default class Header extends React.Component {
             fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
             onSuggestSelect: this.onGeoSelect,
             country: 'in',
-            onChange: this.onValueChange,
-            //initialValue: 'Bangalore'
+            onChange: this.onValueChange
         };
     }
 
@@ -61,6 +63,7 @@ export default class Header extends React.Component {
         const collapsibleNav = navBar.querySelector('div.navbar-collapse');
         const btnToggle = navBar.querySelector('button.navbar-toggle');
 
+        //hack to collapse navbar
         navBar.addEventListener('click', (evt) => {
             if (evt.target.tagName !== 'A' || evt.target.classList.contains('dropdown-toggle') || ! collapsibleNav.classList.contains('in')) {
                 return;
@@ -69,12 +72,20 @@ export default class Header extends React.Component {
             btnToggle.click();
         }, false);
 
+
+        //this.geosuggest && this.props.search_store.location && this.geosuggest.update(this.props.search_store.location.label);
         //getUserLocation(loc => {
         //    this.props.dispatch(setLocation({
         //        location: [loc.lng, loc.lat]
         //    }));
         //});
     }
+    //
+    //componentWillReceiveProps(nextProps){
+    //
+    //    if(this.geosuggest &&  !isEqual(nextProps.search_store.location, this.props.search_store.location))
+    //        nextProps.search_store.location && this.geosuggest.update(nextProps.search_store.location.label);
+    //}
 
     @autobind
     onGeoSelect(data){
@@ -88,6 +99,12 @@ export default class Header extends React.Component {
     @autobind
     onSubmit(e){
         e.preventDefault();
+
+        if(!this.props.search_store.location){
+            this.geosuggest.focus();
+            return;
+        }
+
         const q = this.refs.query.value;
         this.context.search(q);
     }
@@ -154,10 +171,12 @@ export default class Header extends React.Component {
             </Nav>
         );
 
+        const initialValue = get(this.props.search_store, 'location.label', '');
+
         const searchForm = (
             <Navbar.Form pullLeft>
                 <form onSubmit={this.onSubmit} className="search">
-                    <Geosuggest {...this.geoOptions} className="form-group" />{' '}
+                    <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />{' '}
                     <input className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
                     <Button type="submit"><i className="fa fa-search" /></Button>
                 </form>
@@ -167,7 +186,7 @@ export default class Header extends React.Component {
         const navprops = {
             inverse: !nosearch,
             fixedTop: true
-        }
+        };
 
         return (
             <Navbar {...navprops}>
