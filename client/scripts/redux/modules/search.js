@@ -21,9 +21,7 @@ const initialState = {
     filters: {},
     loading: false,
     error: null,
-    recent_search: {},
-    limit: 10,
-    page: 1
+    recent_search: {} // not used
 };
 
 export default function(state = initialState, action = {}){
@@ -32,10 +30,13 @@ export default function(state = initialState, action = {}){
         case SEARCH:
             return merge({}, state, {
                 loading: true,
+                results: [],
+                filters: {},
                 error: null
             });
 
         case _reject(SEARCH):
+        case _reject(FILTERS):
             return merge({}, state, {
                 loading: false,
                 error: action.payload
@@ -51,6 +52,12 @@ export default function(state = initialState, action = {}){
             return extend({}, state, {
                 loading: false,
                 results: action.payload
+            });
+
+        case resolve(FILTERS):
+            return extend({}, state, {
+                loading: false,
+                filters: action.payload
             });
 
         case resolve(GEO_LOOKUP):

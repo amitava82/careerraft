@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import {push} from 'react-router-redux';
 import isEqual from 'lodash/isEqual';
+import cloneDeep from 'lodash/cloneDeep'
 import Helmet from 'react-helmet';
 import merge from 'lodash/merge';
 import pull from 'lodash/pull';
@@ -90,7 +91,7 @@ export default class SearchContainer extends React.Component {
 
     @autobind
     toggleFilter(val, type, rm) {
-        const query = {...this.props.location.query};
+        const query = cloneDeep(this.props.location.query);
         delete query.page;
         let q = query[type];
         if (q) {
@@ -175,7 +176,7 @@ export default class SearchContainer extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4 col-md-3">
-                            <FilterPanel filters={this.state.filters} toggleFilter={this.toggleFilter} resetFilters={this.resetFilters} />
+                            <FilterPanel filters={search_store.filters} toggleFilter={this.toggleFilter} resetFilters={this.resetFilters} />
                         </div>
                         <div className="col-sm-8 col-md-9">
                             {content}

@@ -41,7 +41,8 @@ export default class App extends React.Component {
     @autobind
     search(q){
         const location = get(this.props.search_store, 'location.location', {});
-        const query = merge({}, {...this.props.location.query, q, loc: location});
+
+        const query = {q, loc: location};
         const {hash, ...rest} = this.props.location;
         this.props.dispatch(push({...rest, query, pathname: '/search'}));
     }
