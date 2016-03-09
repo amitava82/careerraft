@@ -1,0 +1,42 @@
+.login-modal {
+
+    $fb: #2b4988;
+    $google: #C24736;
+
+    .modal-title {
+        font-size: 1.6rem;
+    }
+
+    .modal-body{
+      .social{
+          color: white;
+          height: 35px;
+          border-radius: 3px;
+          display: block;
+          >div {
+              padding-top: 6px;
+              text-align: center;
+          }
+          &.fb{
+              background-color: lighten($fb, 20%);
+              .icon-f{
+                  background-color: $fb;
+              }
+          }
+
+          &.google{
+              background-color: lighten($google, 20%);
+              .icon-g{
+                  background-color: $google;
+              }
+          }
+
+          >div:first-child {
+            height: 100%;
+            width: 40px;
+            float: left;
+            border-radius: 3px 0 0 3px;
+          }
+      }
+    }
+}

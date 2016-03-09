@@ -3,8 +3,10 @@
  */
 import InstituteContainer from './InstituteContainer';
 import InstituteDetails from './InstituteDetails';
+import ContactModal from './ContactModal';
 
 export  {
     InstituteContainer,
-    InstituteDetails
+    InstituteDetails,
+    ContactModal
 }

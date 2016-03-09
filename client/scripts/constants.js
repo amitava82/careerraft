@@ -10,7 +10,7 @@ export const LANGUAGES = [
     'Telegu'
 ];
 
-export const ALLOWED_ACCOUNTS = [
+export const SUPER_ADMINS = [
     'amitava82@gmail.com',
     'atultiwari89@gmail.com'
 ];

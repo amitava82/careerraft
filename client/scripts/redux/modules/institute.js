@@ -10,8 +10,8 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES] = createAction('institute',
-    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES"]);
+const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES, SEND_QUERY] = createAction('institute',
+    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES", "SEND_QUERY"]);
 
 
 const initialState = {
@@ -139,6 +139,15 @@ export function updateBranches(id, branches){
         type: UPDATE_BRANCHES,
         payload: {
             promise: api => api.put(`institutes/${id}/branches`, {data: branches, schema: Schemas.Institute})
+        }
+    }
+}
+
+export function sendQuery(id, data){
+    return {
+        type: SEND_QUERY,
+        payload: {
+            promise: api => api.post(`institutes/${id}/contact`, {data})
         }
     }
 }

@@ -9,7 +9,12 @@ import {
 } from './routes/home'
 
 import {
-    InstituteContainer
+    DashboardContainer
+} from './routes/dashboard';
+
+import {
+    InstituteContainer,
+    ContactModal
 } from './routes/institute';
 
 import {
@@ -42,11 +47,14 @@ import {
 
 import NotFound from './routes/misc/404';
 import ServerError from './routes/misc/501';
+import Error from './routes/misc/Error';
 import AboutUs from './routes/misc/about';
 import Team from './routes/misc/team';
 import CoreValues from './routes/misc/values';
 import Contact from './routes/misc/contact';
 import Educator from './routes/misc/educator';
+
+import Login from './components/LoginModal';
 
 import App from './app';
 
@@ -55,11 +63,18 @@ export default (store) => {
 
     function ensureLoggedIn(nextState, replace, cb){
         const {session_store: {isLoggedIn}} = store.getState();
-        if(!isLoggedIn) replace('/');
-
+        if(!isLoggedIn) replace({pathname: '/login', state: {modal: true, returnTo: routing.location.pathname}});
         cb();
     }
 
+    function ensureAdmin(nextState, replace, cb){
+        const {session_store: {isLoggedIn, user}} = store.getState();
+        if(!isLoggedIn)  replace({pathname: '/login', state: {modal: true, returnTo: routing.location.pathname}});
+
+        else if(user.role !== 'ADMIN') replace('/error');
+
+        cb();
+    }
 
     return (
         <Route path="/" component={App}>
@@ -71,9 +86,9 @@ export default (store) => {
             <Route path="search" component={SearchContainer}>
             </Route>
             <Route path="institute/:id" component={InstituteContainer}>
-                <Route path="contact" />
+                <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} />
             </Route>
-            <Route path="admin" component={AdminContainer} onEnter={ensureLoggedIn}>
+            <Route path="admin" component={AdminContainer} onEnter={ensureAdmin}>
                 <Route path="institute/add" component={CreateInstitute} />
                 <Route path="institute/add" component={CreateInstitute} />
                 <Route path="institute/manage" >
@@ -90,12 +105,17 @@ export default (store) => {
                 <Route path="subject/add" component={CreateSubject} />
             </Route>
 
+            <Route path="dashboard" component={DashboardContainer} onEnter={ensureLoggedIn} />
+
+            <Route path="login(/:mode)" component={Login} />
             <Route path="/about" component={AboutUs}  />
             <Route path="/team" component={Team} />
             <Route path="/core-values" component={CoreValues} />
             <Route path="/contact-us" component={Contact} />
             <Route path="/educator" component={Educator} />
+
+            <Route path="/error" component={Error} status="400" />
             <Route path="*" component={NotFound} status="404" />
         </Route>
     );
-}
+};
