@@ -102,6 +102,7 @@ export default class Header extends React.Component {
         }
 
         const q = this.refs.query.value;
+
         this.context.search(q);
     }
 
