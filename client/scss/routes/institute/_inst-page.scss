@@ -37,6 +37,7 @@
         margin: 20px auto;
         .pull-up{
             top: -80px;
+            margin-bottom: -80px;
             position: relative;
         }
         .inst-avatar{
@@ -84,6 +85,35 @@
     .label {
         margin-right: 5px;
         padding: 5px 10px;
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .social-share {
+        width: 100px;
+        height: 32px;
+        background: lighten(#3B5998, 20%);
+        float: right;
+
+        .SocialMediaShareButton, .SocialMediaShareCount{
+            display: inline-table;
+            vertical-align: middle;
+            height: 100%;
+        }
+        .SocialMediaShareButton{
+            cursor: pointer;
+        }
+        .SocialMediaShareCount{
+            font-size: 1.2rem;
+            line-height: 2.4rem;
+            text-shadow: none;
+            padding-left: 10px;
+        }
+    }
+
+    .link-save{
+
     }
 
 }

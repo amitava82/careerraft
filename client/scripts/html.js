@@ -15,7 +15,6 @@ export default function html(markup, initialState, helmet){
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="keywords" content="${KEYWORDS}">
             ${helmet.meta.toString()}
-            <meta name="description" content="Careerraft is an education site, providing learners with everything they need to find the right match. Through unbiased data and real-world advice, Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft is the best way to discover and compare educational opportunities at any stage of learning.">
             <meta name="author" content="Careerraft">
             <meta name="copyright" content="(c) 2016 Careerraft Inc.">
             <meta name="google-site-verification" content="crKFLzwTjXhbwYDN0a6swogBz2mgXyZSPAu60iwd4rc">

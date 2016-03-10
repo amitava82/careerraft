@@ -6,6 +6,11 @@ import {connect} from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
+import { FacebookButton, FacebookCount } from "react-social";
+import {
+    ShareButtons,
+    ShareCounts,
+    generateShareIcon} from 'react-share';
 
 import each from 'lodash/each';
 import isEmpty from 'lodash/isEmpty';
@@ -13,9 +18,17 @@ import isEmpty from 'lodash/isEmpty';
 import formatAddress from '../../utils/format-address';
 import Avatar from '../../components/Avatar';
 
+const {FacebookShareButton} = ShareButtons;
+const {FacebookShareCount} = ShareCounts;
+const FacebookIcon = generateShareIcon('facebook');
+
+import {saveItem, removeSavedItem} from '../../redux/modules/user';
+
 @connect(state => {
     return {
-        category_store: state.category_store
+        category_store: state.category_store,
+        user_store: state.user_store,
+        routing: state.routing
     }
 })
 export default class InstituteDetails extends React.Component {
@@ -25,9 +38,20 @@ export default class InstituteDetails extends React.Component {
             this.props.dispatch(routeActions.goBack());
     }
 
+    @autobind
+    removeFromList(){
+        this.props.dispatch(removeSavedItem(this.props.inst._id));
+    }
+
+    @autobind
+    saveToList(){
+        this.props.dispatch(saveItem(this.props.inst._id));
+    }
+
     render(){
 
         const inst = this.props.inst;
+        const selected = !!this.props.user_store.savedItems[inst._id];
 
         let courses = {}, categories = [];
 
@@ -62,6 +86,8 @@ export default class InstituteDetails extends React.Component {
             )
         });
 
+        const _url = 'https://www.careerraft.com'+this.props.routing.location.pathname;
+
         return (
             <div className="inst-profile">
                 <div className="inst-profile-header">
@@ -76,26 +102,44 @@ export default class InstituteDetails extends React.Component {
                                     <i className="fa fa-map-marker" />
                                     {formatAddress(inst.address)}
                                 </address>
+                                <div className="social-share">
+                                    <FacebookShareButton
+                                        url={_url}
+                                        title="Share on Facebook" >
+                                        <FacebookIcon
+                                            size={32} />
+                                    </FacebookShareButton>
+                                    <FacebookShareCount
+                                        url={_url}>
+                                        {count => count + ' shares'}
+                                    </FacebookShareCount>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="inst-profile-content container">
                     <div className="page-inner row">
-                        <div className="col-sm-2 col-md-2 pull-up visible-lg-block visible-md-block">
-                            <div className="inst-avatar">
+                        <div className="col-sm-2 col-md-2 pull-up">
+                            <div className="inst-avatar m-bm">
                                 <Avatar width="130" height="120" name={inst.name} />
                             </div>
-
+                            <div className="text-center">
+                                {selected ? (
+                                    <button onClick={this.removeFromList} className="btn btn-link link-save item-list-added"><i className="fa fa-check-circle" /> Saved</button>
+                                ) : (
+                                    <button onClick={this.saveToList} className="btn btn-link link-save"><i className="fa fa-bookmark" /> Save</button>
+                                )}
+                            </div>
                         </div>
-                        <div className="col-sm-8 col-md-9">
+                        <div className="col-sm-8 col-md-10">
                             <div className="profile-header">
                                 <article>
                                     {inst.short_description}
                                 </article>
                                 <div className="inst-type text-subhead clearfix">
                                     <div className="col-xs-6">
-                                        INSTITUTE TYPE: <span>{inst.type}</span>
+                                        INSTITUTE TYPE: <span className="case-title">{inst.type}</span>
                                     </div>
                                     <div className="col-xs-6 text-right">
                                         {inst.branches.length ? (
@@ -105,7 +149,6 @@ export default class InstituteDetails extends React.Component {
                                 </div>
                                 <div className="row text-center">
                                     <div className="col-md-4">
-                                        <div className="pull-left"><i className="fa fa-phone" /></div>
                                         <div className="">
                                             {inst.telephones.map(i => {
                                                 if(isEmpty(i)) return null;
@@ -118,7 +161,8 @@ export default class InstituteDetails extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-md-4 text-center">
-                                        {' '}<a href={`mailto:${inst.email}`}><i className="fa fa-envelope" /> Email</a>
+                                        {' '}
+                                        <Link to={`/institute/${inst._id}/contact`}><i className="fa fa-envelope" /> Contact</Link>
                                     </div>
                                     <div className="col-md-4 text-center">
                                         {inst.website ? <a href={formatUrl(inst.website)} target="_blank"><i className="fa fa-external-link" /> Website</a> : null}

@@ -15,29 +15,16 @@ import pull from 'lodash/pull';
 
 import { search, filters } from '../../redux/modules/search';
 import {createToast} from '../../redux/modules/toast';
+import {promptLogin} from '../../redux/modules/session';
+import {saveItem} from '../../redux/modules/user';
 
 import SearchResults from './SearchResuts';
 import FilterPanel from './FilterPane';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 
-@connect(state => {
-    return {
-        search_store: state.search_store,
-        routing: state.routing
-    }
-})
+@connect(state => state)
 export default class SearchContainer extends React.Component {
-
-    //TODO ssr;
-    //static needs = [
-    //    function search(props, dispatch){
-    //        console.log("SEARCH")
-    //        dispatch(search({
-    //            ...props.location.query
-    //        }))
-    //    }
-    //];
 
     static fetchData(props, store){
         return Promise.all([store.dispatch(search({...props.location.query})), store.dispatch(filters({...props.location.query}))]);
@@ -135,9 +122,10 @@ export default class SearchContainer extends React.Component {
         this.props.dispatch(push({...this.props.location, query: q}));
     }
 
+
     render() {
         const query = this.props.location.query.q;
-        const pageTitle = query ? `Search for ${query}` : "Search for institutes, classes, courses, subjects";
+        const pageTitle = query ? `Search for ${query} - Careerraft` : "Careerraft - Search for institutes, classes, courses, subjects";
 
         const {search_store} = this.props;
 
@@ -148,7 +136,7 @@ export default class SearchContainer extends React.Component {
         } else if (search_store.loading) {
             content = <div className="text-center text-title"><Loading /></div>
         } else if (search_store.results.length) {
-            content = <SearchResults results={search_store.results}/>
+            content = <SearchResults results={search_store.results}  />
         } else {
             content = (
                 <div className="text-center">
@@ -177,7 +165,7 @@ export default class SearchContainer extends React.Component {
                         <div className="col-sm-4 col-md-3">
                             <FilterPanel filters={search_store.filters} toggleFilter={this.toggleFilter} resetFilters={this.resetFilters} />
                         </div>
-                        <div className="col-sm-8 col-md-9">
+                        <div className="col-sm-8 col-md-8">
                             {content}
                             <nav>
                                 <ul className="pager">

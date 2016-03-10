@@ -7,6 +7,8 @@ import {push} from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import merge from 'lodash/merge';
 import get from 'lodash/get';
+import Helmet from 'react-helmet';
+
 var GoogleAnalytics = require('react-g-analytics');
 
 import Header from './components/Header';
@@ -49,12 +51,48 @@ export default class App extends React.Component {
         this.props.dispatch(push({...rest, query, pathname: '/search'}));
     }
 
+    componentWillReceiveProps(nextProps) {
+        // if we changed routes...
+        if ((
+                nextProps.location.key !== this.props.location.key &&
+                nextProps.location.state &&
+                nextProps.location.state.modal
+            )) {
+            // save the old children (just like animation)
+            this.previousChildren = this.props.children
+        }
+    }
+
     render(){
+
+        let { location } = this.props;
+
+        let isModal = (
+            location.state &&
+            location.state.modal &&
+            this.previousChildren
+        );
+
         return (
             <main>
+                <Helmet title="Careerraft" meta={[
+                    {
+                        name: 'description',
+                        content: 'Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft provides learners with everything they need to find the right match. Discover and compare educational opportunities at any stage of learning.'
+                    }
+                ]} />
                 <Header />
                 <div id="main">
-                    {this.props.children}
+
+                    {isModal ?
+                        this.previousChildren :
+                        this.props.children
+                    }
+
+                    {isModal && (
+                        this.props.children
+                    )}
+
                 </div>
                 <Footer />
                 <Toastr />

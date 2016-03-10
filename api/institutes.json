@@ -47,6 +47,12 @@
             "method": "post",
             "handler": "upload",
             "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/institutes/:id/contact",
+            "method": "post",
+            "handler": "sendQuery",
+            "middleware": ["ensureLoggedIn"]
         }
     ]
 }

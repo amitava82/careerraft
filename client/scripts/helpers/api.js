@@ -16,20 +16,24 @@ Promise.config({
 
 class _ApiClient {
     constructor(req, config) {
-        function formatUrl(path) {
+        function formatUrl(path, prefix) {
             if(path.indexOf('http') > -1) return path;
+
+            const _prefix = prefix === false ? '' : '/api';
 
             const adjustedPath = path[0] !== '/' ? '/' + path : path;
             if (typeof window === 'undefined') {
                 // Prepend host and port of the API server to the path.
-                return 'http://' + config.get('host') + ':' + config.get('port') + '/api'+adjustedPath;
+                return 'http://' + config.get('host') + ':' + config.get('port') + _prefix + adjustedPath;
             }
             // Prepend `/api` to relative URL, to proxy to API server.
-            return '/api' + adjustedPath;
+            return _prefix + adjustedPath;
         }
         methods.forEach((method) =>
-            this[method] = (path, {params, data, schema} = {}) => new Promise((resolve,reject,onCancel) => {
-                const request = superagent[method](formatUrl(path));
+            this[method] = (path, {params, data, schema, prefix} = {}) => new Promise((resolve,reject,onCancel) => {
+
+                const url = formatUrl(path, prefix);
+                const request = superagent[method](url);
 
                 if(method != 'get' && !data){
                     data = params;

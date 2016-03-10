@@ -12,13 +12,13 @@ import isEqual from 'lodash/isEqual';
 
 var Geosuggest = require('react-geosuggest');
 
-import {Navbar, Nav, NavItem, Button, Input} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, Button, Input, NavDropdown, MenuItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import Avatar from './Avatar';
 
 
 import { setLocation } from '../redux/modules/search';
 import getUserLocation from '../utils/location';
-import Dropdown from './Dropdown';
 
 
 const NOSEARCH = {
@@ -139,10 +139,38 @@ export default class Header extends React.Component {
 
         let loginMenu = null;
         if(session_store.isLoggedIn){
+            const titletar = (
+                <span>
+                    <Avatar url={session_store.user.photo} width="42" height="42" />
+                    <span className="strong">{session_store.user.name}</span>
+                </span>
+            );
+
             loginMenu = (
-                <LinkContainer to="/admin">
-                    <NavItem eventKey={10}>
-                        {session_store.user.name}
+                <NavDropdown bsStyle="link" title={titletar} id="user-logged-in-menu" className="spaced">
+                    <LinkContainer to="/dashboard">
+                        <MenuItem>
+                            Dashboard
+                        </MenuItem>
+                    </LinkContainer>
+                    {session_store.user.role === 'ADMIN' && (
+                        <LinkContainer to="/admin">
+                            <MenuItem>
+                                Admin console
+                            </MenuItem>
+                        </LinkContainer>
+                    )}
+                    <MenuItem divider />
+                    <MenuItem href="/auth/logout" >
+                        <i className="fa fa-sign-out" /> Logout
+                    </MenuItem>
+                </NavDropdown>
+            )
+        }else {
+            loginMenu = (
+                <LinkContainer to={{pathname: '/login', state: { modal: true, returnTo: routing.location.pathname }}}>
+                    <NavItem eventKey={10} className="strong">
+                        LOGIN
                     </NavItem>
                 </LinkContainer>
             )
@@ -162,7 +190,7 @@ export default class Header extends React.Component {
                 <LinkContainer to="/contact-us">
                     <NavItem>Get in touch</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/educator" ctiveClassName="active">
+                <LinkContainer to="/educator" activeClassName="active" className="rounded">
                     <NavItem eventKey={9}>For Institutes</NavItem>
                 </LinkContainer>
                 {loginMenu}
@@ -173,13 +201,18 @@ export default class Header extends React.Component {
         const q = get(search_store, 'query.q');
 
         const searchForm = (
-            <Navbar.Form pullLeft>
-                <form onSubmit={this.onSubmit} className="search">
-                    <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />{' '}
-                    <input value={this.state.query} onChange={e => this.setState({query: e.target.value})} className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
-                    <Button type="submit"><i className="fa fa-search" /></Button>
-                </form>
-            </Navbar.Form>
+            <span>
+                <Navbar.Form pullLeft>
+                    <form onSubmit={this.onSubmit} className="search">
+                        <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />{' '}
+                        <input value={this.state.query} onChange={e => this.setState({query: e.target.value})} className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
+                        <Button type="submit"><i className="fa fa-search" /></Button>
+                    </form>
+                </Navbar.Form>
+                <Nav pullRight>
+                    {loginMenu}
+                </Nav>
+            </span>
         );
 
         const navprops = {

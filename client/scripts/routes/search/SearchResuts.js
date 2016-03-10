@@ -13,7 +13,7 @@ export default class SearchResuts extends React.Component{
         const results = this.props.results || [];
 
         const resultList = results.map(i => {
-           return <InstItem inst={i} key={i._id}  />
+           return <InstItem inst={i} key={i._id} />
         });
 
         return(

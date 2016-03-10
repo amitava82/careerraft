@@ -41,7 +41,7 @@ export default class HomeContainer extends React.Component {
     render(){
 
         return (
-            <div className="admin-page grid row">
+            <div className="admin-page">
                 <Helmet title="Careerraft admin page" />
                 <div className="container">
                     <div className="row">

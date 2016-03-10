@@ -40,8 +40,14 @@
         "fb": {
             "clientId": "382582555193921",
             "clientSecret": "85f16c3473fb0fac13e6da7e5215031c"
+        },
+        "google": {
+            "clientId": "126096930103-v40hifckot8507umsd4st4oc09bmr42o.apps.googleusercontent.com",
+            "clientSecret": "oN6xKESg6RReGVG-0FbC45o0"
         }
     },
+
+    "sendGrid": "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",
 
     "uploadDir": "/Users/amitava/Documents/uploads/"
 }

@@ -6,19 +6,28 @@ import React from 'react';
 export default class Avatar extends React.Component {
 
     render(){
-        const {name, width=130, height=120} = this.props;
-        const parts = name.split(' ');
-        let sub = "";
-        if(parts.length >1){
-            sub = parts[0][0] + parts[1][0];
-        }else{
-            sub = name.substr(0, 2);
-        }
+        const {name, width=130, height=120, url} = this.props;
 
-        const idx = Math.min(name.length % 6, 6);
+        const style = {width: width, height: height};
+        let text = "";
+        if(url){
+            style.backgroundImage = `url(${url})`;
+            style.backgroundRepeat = 'no-repeat';
+            style.backgroundSize = 'cover';
+            style.backgroundPosition = ' 50%';
+        }else if(name) {
+            const idx = Math.min(name.length % 6, 6);
+            style.backgroundColor = colors[idx];
+            const parts = name.split(' ');
+            if(parts.length >1){
+                text = parts[0][0] + parts[1][0];
+            }else{
+                text = name.substr(0, 2);
+            }
+        }
         return (
-            <div className="avatar" style={{backgroundColor: colors[idx], width: width, height: height}}>
-                {sub.toUpperCase()}
+            <div className="avatar" style={style}>
+                { url ? '' : text.toUpperCase()}
             </div>
         )
 

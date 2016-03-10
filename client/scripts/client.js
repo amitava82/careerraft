@@ -11,10 +11,10 @@ import {parse, stringify} from 'qs';
 import routes from './routes';
 import createStore from './redux/createStore';
 import apiClient from './helpers/api';
-var smoothScroll = require('smoothscroll');
 
 import simpleStore from './utils/simpleStore';
 import {setLocation} from './redux/modules/search';
+import {loadSavedList} from './redux/modules/user';
 
 const createScrollHistory = useScroll(createBrowserHistory);
 const appHistory = useRouterHistory(createScrollHistory)({
@@ -32,6 +32,9 @@ class Client extends React.Component {
         const loc = simpleStore('user_location');
         if(loc){
             store.dispatch(setLocation(loc))
+        }
+        if(store.getState().session_store.isLoggedIn){
+            store.dispatch(loadSavedList());
         }
     }
 
