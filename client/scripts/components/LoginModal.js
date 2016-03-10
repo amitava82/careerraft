@@ -66,7 +66,7 @@ export default class LoginModal extends React.Component {
 
     @autobind
     resetPassword(data){
-        this.props.dispatch(resetPassword(data.email)).then(
+        return this.props.dispatch(resetPassword(data.email)).then(
             r => this.setState({success: true, login: false, signup: false, message: 'We have sent you password reset instruction to your registered email address.'})
         )
     }
