@@ -3,7 +3,8 @@
  */
 import { resolve, reject as _reject } from '../middleware/simple-promise';
 import extend from 'lodash/extend';
-import {push, goBack} from 'react-router-redux';
+import get from 'lodash/get';
+import {push, goBack, replace, } from 'react-router-redux';
 
 import createAction from '../createActions';
 
@@ -122,8 +123,14 @@ export function promptLogin(message){
 }
 
 export function closeLogin(){
-    return function (dispatch){
-        dispatch(goBack());
+    return function (dispatch, getState){
+        const path = get(getState(), 'routing.location.state.returnURL', null);
+        //hack
+        if(path){
+            dispatch(goBack());
+        }else{
+            dispatch(push('/'));
+        }
         dispatch({
             type: CLOSE_LOGIN
         })
