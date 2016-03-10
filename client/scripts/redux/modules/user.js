@@ -45,7 +45,7 @@ export default function(state = initialState, action){
             return extend({}, state, {
                loading: false,
                 savedItemsIds: action.payload.result,
-                savedItems: action.payload.entities.saved_items
+                savedItems: extend({},action.payload.entities.saved_items)
             });
 
         default:
