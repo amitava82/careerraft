@@ -1,0 +1,14 @@
+.link-save{
+    transition: background-color $base-duration $base-timing;
+    border-radius: 6px;
+    &:hover{
+        background-color: $brand-primary;
+        color: white;
+    }
+
+    &.item-list-added{
+        background-color: $brand-primary;
+        color: white;
+    }
+}
+

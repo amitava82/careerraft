@@ -37,6 +37,7 @@
         margin: 20px auto;
         .pull-up{
             top: -80px;
+            margin-bottom: -80px;
             position: relative;
         }
         .inst-avatar{
@@ -109,6 +110,10 @@
             text-shadow: none;
             padding-left: 10px;
         }
+    }
+
+    .link-save{
+
     }
 
 }

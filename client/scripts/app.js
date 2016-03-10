@@ -78,7 +78,7 @@ export default class App extends React.Component {
                 <Helmet title="Careerraft" meta={[
                     {
                         name: 'description',
-                        content: 'Connecting students with Institutes, programs, resources, experts and more. Careerraft provides learners with everything they need to find the right match. Discover and compare educational opportunities at any stage of learning.'
+                        content: 'Careerraft connects students with Institutes, programs, resources, experts and more. Careerraft provides learners with everything they need to find the right match. Discover and compare educational opportunities at any stage of learning.'
                     }
                 ]} />
                 <Header />

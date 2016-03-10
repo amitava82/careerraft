@@ -9,7 +9,10 @@ import map from 'lodash/map';
 import Helmet from 'react-helmet';
 import {Image} from 'react-bootstrap';
 
+import reduce from 'lodash/reduce';
+
 import {createToast} from '../../redux/modules/toast';
+import {removeSavedItem} from '../../redux/modules/user';
 
 @connect(state => state)
 //@middleware([
@@ -30,8 +33,24 @@ export default class HomeContainer extends React.Component {
 
     }
 
+    removeItem(id){
+        this.props.dispatch(removeSavedItem(id));
+    }
+
     render(){
-        const {session_store: {user}} = this.props;
+        const {session_store: {user}, user_store} = this.props;
+
+        const selectedList = reduce(user_store.savedItemsIds, (memo, id) => {
+            const i = user_store.savedItems[id];
+            memo.push(
+                <div key={id} className="text-title">
+                    <Link to={`/institute/${id}`}>{i.name}</Link>
+                    <button onClick={() => this.removeItem(id)} className="btn btn-link btn sm">remove</button>
+                </div>
+            );
+            return memo;
+        }, []);
+
         return (
             <div className="dashboard-page">
                 <Helmet title="Dashboard - Careerraft" />
@@ -44,7 +63,8 @@ export default class HomeContainer extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-9">
-
+                            <h4 className="text-display-1">My saved items</h4>
+                            {selectedList}
                         </div>
                     </div>
                 </div>

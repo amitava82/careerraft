@@ -22,9 +22,12 @@ const {FacebookShareButton} = ShareButtons;
 const {FacebookShareCount} = ShareCounts;
 const FacebookIcon = generateShareIcon('facebook');
 
+import {saveItem, removeSavedItem} from '../../redux/modules/user';
+
 @connect(state => {
     return {
         category_store: state.category_store,
+        user_store: state.user_store,
         routing: state.routing
     }
 })
@@ -35,9 +38,20 @@ export default class InstituteDetails extends React.Component {
             this.props.dispatch(routeActions.goBack());
     }
 
+    @autobind
+    removeFromList(){
+        this.props.dispatch(removeSavedItem(this.props.inst._id));
+    }
+
+    @autobind
+    saveToList(){
+        this.props.dispatch(saveItem(this.props.inst._id));
+    }
+
     render(){
 
         const inst = this.props.inst;
+        const selected = !!this.props.user_store.savedItems[inst._id];
 
         let courses = {}, categories = [];
 
@@ -106,11 +120,17 @@ export default class InstituteDetails extends React.Component {
                 </div>
                 <div className="inst-profile-content container">
                     <div className="page-inner row">
-                        <div className="col-sm-2 col-md-2 pull-up visible-lg-block visible-md-block">
-                            <div className="inst-avatar">
+                        <div className="col-sm-2 col-md-2 pull-up">
+                            <div className="inst-avatar m-bm">
                                 <Avatar width="130" height="120" name={inst.name} />
                             </div>
-
+                            <div className="text-center">
+                                {selected ? (
+                                    <button onClick={this.removeFromList} className="btn btn-link link-save item-list-added"><i className="fa fa-check-circle" /> Saved</button>
+                                ) : (
+                                    <button onClick={this.saveToList} className="btn btn-link link-save"><i className="fa fa-bookmark" /> Save</button>
+                                )}
+                            </div>
                         </div>
                         <div className="col-sm-8 col-md-10">
                             <div className="profile-header">

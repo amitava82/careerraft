@@ -1,0 +1,20 @@
+{
+    "middleware": ["apiRequest", "ensureLoggedIn"],
+    "routes": [
+        {
+            "path": "/api/user/lists",
+            "method": "post",
+            "handler": "addToList"
+        },
+        {
+            "path": "/api/user/lists/:id",
+            "method": "delete",
+            "handler": "removeFromList"
+        },
+        {
+            "path": "/api/user/lists",
+            "method": "get",
+            "handler": "getSavedList"
+        }
+    ]
+}

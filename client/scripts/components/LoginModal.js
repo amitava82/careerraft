@@ -12,7 +12,9 @@ import {Link} from 'react-router';
 
 import Input from './PureInput';
 import {createValidator, required, email, minLength} from '../utils/validator';
-import { signup, login, resetPassword } from '../redux/modules/session';
+import { signup, login, resetPassword, closeLogin } from '../redux/modules/session';
+import {loadSavedList} from '../redux/modules/user';
+import {createToast} from '../redux/modules/toast';
 
 const loginValidator = createValidator({
     email: required,
@@ -41,13 +43,17 @@ export default class LoginModal extends React.Component {
 
     @autobind
     close() {
-        this.props.dispatch(goBack())
+        this.props.dispatch(closeLogin());
     }
 
     @autobind
     login(data){
         return this.props.dispatch(login(data.email, data.password)).then(
-            r => this.close()
+            r => {
+                this.props.dispatch(loadSavedList());
+                this.props.dispatch(closeLogin());
+                this.props.dispatch(createToast({text: 'You have been successfully logged in!', type: 'success'}));
+            }
         )
     }
 
@@ -107,16 +113,23 @@ export default class LoginModal extends React.Component {
                 </div>
             )
         }else {
+            const msg = session_store.loginMessage;
+            const returnPath = this.props.routing.location.state.returnURL || '';
             content = (
-                <div className="row">
+                <div className="row m-bl">
                     <Helmet title="Careerraft - Login" />
                     <div className="col-xs-12">
-                        <a href="/auth/login/facebook" className="social fb m-bm">
+                        {msg ? (
+                            <div className="alert alert-info">
+                                {msg}
+                            </div>
+                        ): null}
+                        <a href={`/auth/login/facebook?return=${returnPath}`} className="social fb m-bm">
                             <div className="icon-f"><i className="fa fa-facebook"></i></div>
                             <div>LOGIN WITH FACEBOOK</div>
                         </a>
                         <p className="text-subhead text-center m-bl">One click Login. We will never post anything without your permission.</p>
-                        <a href="/auth/login/google" className="social google m-bl">
+                        <a href={`/auth/login/google?return=${returnPath}`} className="social google m-bl">
                             <div className="icon-g"><i className="fa fa-google"></i></div>
                             <div>LOGIN WITH GOOGLE</div>
                         </a>

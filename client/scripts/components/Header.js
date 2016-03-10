@@ -162,7 +162,7 @@ export default class Header extends React.Component {
                     )}
                     <MenuItem divider />
                     <MenuItem href="/auth/logout" >
-                        Logout
+                        <i className="fa fa-sign-out" /> Logout
                     </MenuItem>
                 </NavDropdown>
             )
@@ -190,7 +190,7 @@ export default class Header extends React.Component {
                 <LinkContainer to="/contact-us">
                     <NavItem>Get in touch</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/educator" ctiveClassName="active rounded">
+                <LinkContainer to="/educator" activeClassName="active" className="rounded">
                     <NavItem eventKey={9}>For Institutes</NavItem>
                 </LinkContainer>
                 {loginMenu}

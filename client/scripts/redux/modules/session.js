@@ -3,10 +3,12 @@
  */
 import { resolve, reject as _reject } from '../middleware/simple-promise';
 import extend from 'lodash/extend';
+import {push, goBack} from 'react-router-redux';
 
 import createAction from '../createActions';
 
-const [STORE_SESSION, SIGNUP, LOGIN, RESET_PASSWORD] = createAction('session', ["STORE_SESSION", "SIGNUP", "LOGIN", "RESET_PASSWORD"]);
+const [STORE_SESSION, SIGNUP, LOGIN, RESET_PASSWORD, PROMPT_LOGIN, CLOSE_LOGIN] = createAction('session',
+    ["STORE_SESSION", "SIGNUP", "LOGIN", "RESET_PASSWORD", "PROMPT_LOGIN", "CLOSE_LOGIN"]);
 
 
 
@@ -14,7 +16,8 @@ const initialState = {
     user: null,
     isLoggedIn: false,
     loading: false,
-    error: null
+    error: null,
+    loginMessage: ''
 };
 
 export default function(state = initialState, action = {}){
@@ -58,6 +61,16 @@ export default function(state = initialState, action = {}){
                 user: null
             });
 
+        case PROMPT_LOGIN:
+            return extend({}, state, {
+                loginMessage: action.payload
+            });
+
+        case CLOSE_LOGIN:
+            return extend({}, state, {
+                loginMessage: null
+            });
+
         default:
             return state;
     }
@@ -94,5 +107,25 @@ export function resetPassword(email){
         payload: {
             promise: api => api.post('auth/reset', {data: {email}, prefix: false})
         }
+    }
+}
+
+export function promptLogin(message){
+    return function(dispatch, getState){
+        const path = getState().routing.location.pathname;
+        dispatch(push({pathname: '/login', state: {modal: true, returnURL: path}}));
+        dispatch({
+            type: PROMPT_LOGIN,
+            payload: message
+        });
+    };
+}
+
+export function closeLogin(){
+    return function (dispatch){
+        dispatch(goBack());
+        dispatch({
+            type: CLOSE_LOGIN
+        })
     }
 }
