@@ -16,7 +16,8 @@
         {
             "path": "/api/institutes/:id",
             "method": "get",
-            "handler": "get"
+            "handler": "get",
+            "middleware": []
         },
         {
             "path": "/api/institutes/:id",

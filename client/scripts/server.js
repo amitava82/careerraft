@@ -17,27 +17,6 @@ import { storeSession } from './redux/modules/session';
 import {fetchComponentData, fetchData} from './helpers/fetchComponentData';
 
 
-function hydrate(props, store){
-    const InitialComponent = (
-        <Provider store={store}>
-            <RouterContext {...props} />
-        </Provider>
-    );
-
-    //TODO server side render
-    const _state = JSON.stringify(store.getState());
-
-    let renderedHtml = '';
-    try {
-        renderedHtml = renderToString(InitialComponent);
-    }catch(e){
-        deps.log.error(e);
-        throw e;
-    }
-    const head = Helmet.rewind();
-    return HTML(renderedHtml, _state, head);
-}
-
 module.exports = function (deps, app, callback) {
 
     app.use(handleRender);
@@ -66,17 +45,36 @@ module.exports = function (deps, app, callback) {
                 res.send(hydrate(props, store));
             }else{
                 //hydrate(props);
-                fetchData(props.components, store, props).then(
+                return fetchData(props.components, store, props).then(
                     r => {
                         res.send(hydrate(props, store));
-                    },
-                    e => {
-                        deps.log.error(e);
-                        res.status(500).send(e);
                     }
-                );
+                ).catch(e => {
+                    deps.log.error(e);
+                    res.render('error', {error: 'Something broke :(', title: 'Error'})
+                });
             }
         });
+    }
+
+    function hydrate(props, store){
+        const InitialComponent = (
+            <Provider store={store}>
+                <RouterContext {...props} />
+            </Provider>
+        );
+
+        //TODO server side render
+        const _state = JSON.stringify(store.getState());
+
+        let renderedHtml = '';
+        try {
+            renderedHtml = renderToString(InitialComponent);
+        }catch(e){
+            throw e;
+        }
+        const head = Helmet.rewind();
+        return HTML(renderedHtml, _state, head);
     }
 
 };

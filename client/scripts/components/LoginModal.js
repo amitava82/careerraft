@@ -9,6 +9,7 @@ import autobind from 'autobind-decorator';
 import {Modal, Button} from 'react-bootstrap';
 import {goBack, push} from 'react-router-redux';
 import {Link} from 'react-router';
+import get from 'lodash/get';
 
 import Input from './PureInput';
 import {createValidator, required, email, minLength} from '../utils/validator';
@@ -114,7 +115,7 @@ export default class LoginModal extends React.Component {
             )
         }else {
             const msg = session_store.loginMessage;
-            const returnPath = this.props.routing.location.state.returnURL || '';
+            const returnPath = get(this.props.routing, 'location.state.returnURL', '');
             content = (
                 <div className="row m-bl">
                     <Helmet title="Careerraft - Login" />
