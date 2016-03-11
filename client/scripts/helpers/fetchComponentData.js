@@ -2,6 +2,7 @@
  * Created by amitava on 10/02/16.
  */
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 export function fetchComponentData(dispatch, components, props) {
     var _components = _.compact(components);

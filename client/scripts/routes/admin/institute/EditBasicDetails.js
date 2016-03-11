@@ -6,9 +6,13 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {reduxForm, initialize} from 'redux-form';
 import autobind from 'autobind-decorator';
-import map from '../../../../../node_modules/lodash/map';
+import map from 'lodash/map';
+import merge from 'lodash/merge';
+import values from 'lodash/values';
+import compact from 'lodash/compact';
 
 import STATES from '../../../utils/states';
+import {addressToGeo} from '../../../utils/google-geo';
 
 import Input from '../../../components/PureInput';
 import Select from '../../../components/Select';
@@ -70,6 +74,30 @@ export default class EditInstitute extends React.Component{
         this.props.dispatch(update(this.props.params.id, data));
     }
 
+    @autobind
+    fetchAddress(val){
+        let query = '';
+        if(typeof val === 'object'){
+            query = compact(values({a: val.line1, b: val.line2, c: val.locality, d: val.city})).join(', ');
+        }else{
+            query = val;
+        }
+
+        if(!query) return;
+
+        addressToGeo(query, (err, data) =>{
+            if(!err){
+                this.props.initializeForm(merge({}, this.props.values, {
+                    address: {
+                        city: data.city,
+                        state: data.state,
+                        loc: data.geo
+                    }
+                }));
+            }
+        })
+    }
+
     render(){
 
         const {handleSubmit, fields} =  this.props;
@@ -82,13 +110,12 @@ export default class EditInstitute extends React.Component{
                         <Textarea field={fields.short_description} label="Short description" />
                         <Textarea field={fields.description} label="Description" />
                         <label>Address</label>
+                        <Input type="text" field={fields.address.pincode} onBlur={(e) => this.fetchAddress(e.target.value)} placeholder="Pin Code" />
                         <Input type="text" field={fields.address.line1} placeholder="Line 1"/>
                         <Input type="text" field={fields.address.line2} placeholder="Line 2"/>
                         <Input type="text" field={fields.address.locality} placeholder="Locality"/>
                         <Input type="text" field={fields.address.city} placeholder="City" />
                         <Select field={fields.address.state} options={map(STATES, (v,k) => ({label: v, value: k}))} />
-
-                        <Input type="text" field={fields.address.pincode} placeholder="Pin Code" />
                         <Input type="text" field={fields.address.loc[0]} placeholder="Longitude"/>
                         <Input type="text" field={fields.address.loc[1]} placeholder="Latitude"/>
 
