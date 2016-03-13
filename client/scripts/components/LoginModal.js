@@ -115,7 +115,7 @@ export default class LoginModal extends React.Component {
             )
         }else {
             const msg = session_store.loginMessage;
-            const returnPath = get(this.props.routing, 'location.state.returnURL', '');
+            const returnPath = get(this.props.session_store, 'previousLocation.pathname', '');
             content = (
                 <div className="row m-bl">
                     <Helmet title="Careerraft - Login" />

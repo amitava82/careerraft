@@ -86,7 +86,8 @@ export default class InstituteDetails extends React.Component {
             )
         });
 
-        const _url = 'https://www.careerraft.com'+this.props.routing.location.pathname;
+        const pathname = this.props.routing.location.pathname;
+        const _url = 'https://www.careerraft.com'+ pathname
 
         return (
             <div className="inst-profile">
@@ -162,7 +163,7 @@ export default class InstituteDetails extends React.Component {
                                     </div>
                                     <div className="col-md-4 text-center">
                                         {' '}
-                                        <Link to={`/institute/${inst._id}/contact`}><i className="fa fa-envelope" /> Contact</Link>
+                                        <Link to={`${pathname}/contact`}><i className="fa fa-envelope" /> Contact</Link>
                                     </div>
                                     <div className="col-md-4 text-center">
                                         {inst.website ? <a href={formatUrl(inst.website)} target="_blank"><i className="fa fa-external-link" /> Website</a> : null}

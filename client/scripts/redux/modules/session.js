@@ -8,8 +8,8 @@ import {push, goBack, replace, } from 'react-router-redux';
 
 import createAction from '../createActions';
 
-const [STORE_SESSION, SIGNUP, LOGIN, RESET_PASSWORD, PROMPT_LOGIN, CLOSE_LOGIN] = createAction('session',
-    ["STORE_SESSION", "SIGNUP", "LOGIN", "RESET_PASSWORD", "PROMPT_LOGIN", "CLOSE_LOGIN"]);
+const [STORE_SESSION, SIGNUP, LOGIN, RESET_PASSWORD, PROMPT_LOGIN, CLOSE_LOGIN, PREVIOUS_LOC] = createAction('session',
+    ["STORE_SESSION", "SIGNUP", "LOGIN", "RESET_PASSWORD", "PROMPT_LOGIN", "CLOSE_LOGIN", "PREVIOUS_LOC"]);
 
 
 
@@ -18,7 +18,8 @@ const initialState = {
     isLoggedIn: false,
     loading: false,
     error: null,
-    loginMessage: ''
+    loginMessage: '',
+    previousLocation: null
 };
 
 export default function(state = initialState, action = {}){
@@ -70,6 +71,11 @@ export default function(state = initialState, action = {}){
         case CLOSE_LOGIN:
             return extend({}, state, {
                 loginMessage: null
+            });
+
+        case PREVIOUS_LOC:
+            return extend({}, state, {
+                previousLocation: action.payload
             });
 
         default:
@@ -124,7 +130,7 @@ export function promptLogin(message){
 
 export function closeLogin(){
     return function (dispatch, getState){
-        const path = get(getState(), 'routing.location.state.returnURL', null);
+        const path = getState().session_store.previousLocation;
         //hack
         if(path){
             dispatch(goBack());
@@ -134,5 +140,12 @@ export function closeLogin(){
         dispatch({
             type: CLOSE_LOGIN
         })
+    }
+}
+
+export function setPreviousLocation(loc){
+    return {
+        type: PREVIOUS_LOC,
+        payload: loc
     }
 }
