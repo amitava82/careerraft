@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
+import get from 'lodash/get';
 
 import {
     HomeContainer
@@ -62,14 +63,14 @@ import App from './app';
 export default (store) => {
 
     function ensureLoggedIn(nextState, replace, cb){
-        const {session_store: {isLoggedIn}} = store.getState();
-        if(!isLoggedIn) replace({pathname: '/login', state: {modal: true, returnTo: routing.location.pathname}});
+        const {session_store: {isLoggedIn, previousLocation}} = store.getState();
+        if(!isLoggedIn) replace({pathname: '/login', state: {modal: true, returnTo: get(previousLocation, 'pathname', '')}});
         cb();
     }
 
     function ensureAdmin(nextState, replace, cb){
-        const {session_store: {isLoggedIn, user}} = store.getState();
-        if(!isLoggedIn)  replace({pathname: '/login', state: {modal: true, returnTo: routing.location.pathname}});
+        const {session_store: {isLoggedIn, user, previousLocation}} = store.getState();
+        if(!isLoggedIn)  replace({pathname: '/login', state: {modal: true, returnTo: get(previousLocation, 'pathname', '')}});
 
         else if(user.role !== 'ADMIN') replace('/error');
 
@@ -86,7 +87,7 @@ export default (store) => {
             <Route path="search" component={SearchContainer}>
             </Route>
             <Route path="institute/:id" component={InstituteContainer}>
-                <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} />
+                <Route path="contact" component={ContactModal} onEnter1={ensureLoggedIn} />
             </Route>
             <Route path="admin" component={AdminContainer} onEnter={ensureAdmin}>
                 <Route path="institute/add" component={CreateInstitute} />

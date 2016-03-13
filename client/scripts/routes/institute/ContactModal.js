@@ -34,7 +34,9 @@ export default class ContactModal extends React.Component{
 
     constructor(...args){
         super(...args);
-        this.state = {};
+        this.state = {
+            success: false
+        };
     }
 
     @autobind
@@ -71,18 +73,21 @@ export default class ContactModal extends React.Component{
                                     <strong>Thank you!</strong> Your query has been submitted.
                                 </div>
                             ) : (
-                                <p className="text-subhead">
-                                    We will send your query to the institute. Institute will get back to you to answer your questions.
-                                </p>
+                                <div>
+                                    <p className="text-subhead">
+                                        We will send your query to the institute. Institute will get back to you to answer your questions.
+                                    </p>
+                                    <form onSubmit={handleSubmit(this.sumbitForm)}>
+                                        <Input field={name} placeholder="Your name" />
+                                        <Input field={email} type="email" placeholder="Your email address" />
+                                        <Input field={phone} placeholder="Your mobile number" />
+                                        <Textarea field={message} label="Enter your questions" rows="5" />
+                                        <Button bsStyle="primary" type="submit" disabled={submitting}>Send</Button>
+                                    </form>
+                                </div>
                             )}
 
-                            <form onSubmit={handleSubmit(this.sumbitForm)}>
-                                <Input field={name} placeholder="Your name" />
-                                <Input field={email} type="email" placeholder="Your email address" />
-                                <Input field={phone} placeholder="Your email mobile number" />
-                                <Textarea field={message} label="Enter your questions" rows="5" />
-                                <Button bsStyle="primary" type="submit" disabled={submitting}>Send</Button>
-                            </form>
+
                         </div>
                     </div>
                 </Modal.Body>

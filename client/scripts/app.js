@@ -18,6 +18,7 @@ import Toastr from './utils/toastr';
 import getUserLocation from './utils/location';
 import {loadCategories} from './redux/modules/category';
 import {reset} from './redux/modules/search';
+import { setPreviousLocation } from './redux/modules/session';
 
 
 @connect(state => state)
@@ -60,6 +61,11 @@ export default class App extends React.Component {
             )) {
             // save the old children (just like animation)
             this.previousChildren = this.props.children
+        }
+
+        //saving previous location for modal close
+        if(this.props.location != nextProps.location){
+            this.props.dispatch(setPreviousLocation(this.props.location))
         }
     }
 
