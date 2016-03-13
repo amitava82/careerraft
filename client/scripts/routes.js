@@ -5,6 +5,9 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import get from 'lodash/get';
 
+import {ROUTE_MESSAGES} from './constants';
+import {setLoginMessage} from './redux/modules/session';
+
 import {
     HomeContainer
 } from './routes/home'
@@ -64,7 +67,12 @@ export default (store) => {
 
     function ensureLoggedIn(nextState, replace, cb){
         const {session_store: {isLoggedIn, previousLocation}} = store.getState();
-        if(!isLoggedIn) replace({pathname: '/login', state: {modal: true, returnTo: get(previousLocation, 'pathname', '')}});
+        if(!isLoggedIn){
+            const lastRoute =nextState.routes[nextState.routes.length - 1];
+            lastRoute && lastRoute.message &&  store.dispatch(setLoginMessage(lastRoute.message));
+
+            replace({pathname: '/login', state: {modal: true, returnTo: get(previousLocation, 'pathname', '')}});
+        }
         cb();
     }
 
@@ -87,7 +95,7 @@ export default (store) => {
             <Route path="search" component={SearchContainer}>
             </Route>
             <Route path="institute/:id" component={InstituteContainer}>
-                <Route path="contact" component={ContactModal} onEnter1={ensureLoggedIn} />
+                <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} message={ROUTE_MESSAGES['contact']} />
             </Route>
             <Route path="admin" component={AdminContainer} onEnter={ensureAdmin}>
                 <Route path="institute/add" component={CreateInstitute} />

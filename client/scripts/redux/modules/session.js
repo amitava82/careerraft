@@ -128,6 +128,13 @@ export function promptLogin(message){
     };
 }
 
+export function setLoginMessage(message){
+    return {
+        type: PROMPT_LOGIN,
+        payload: message
+    }
+}
+
 export function closeLogin(){
     return function (dispatch, getState){
         const path = getState().session_store.previousLocation;
