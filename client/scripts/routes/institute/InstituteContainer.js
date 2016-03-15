@@ -3,10 +3,12 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
+import autobind from 'autobind-decorator';
 import Helmet from 'react-helmet';
 import find from 'lodash/find';
 
 import { getInstitute } from '../../redux/modules/institute';
+import {loadGallery} from '../../redux/modules/gallery';
 
 import InstituteDetails from './InstituteDetails';
 import Loading from '../../components/Loading';
@@ -40,17 +42,36 @@ export default class SearchContainer extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
+        this.state = {
+            images: []
+        }
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.params.id !== nextProps.params.id){
-            this.props.dispatch(getInstitute(nextProps.params.id));
+        const id = nextProps.params.id;
+        if(this.props.params.id !== id){
+            this.props.dispatch(getInstitute(id)).then(this.loadImages);
         }
     }
 
     componentDidMount(){
-        if(this.props.institute_store.entities[this.props.params.id]) return;
-        this.props.dispatch(getInstitute(this.props.params.id));
+        const id = this.props.params.id;
+        const inst = this.props.institute_store.entities[id];
+        if(inst){
+            this.loadImages(inst)
+        }else
+            this.props.dispatch(getInstitute(id)).then(this.loadImages);
+    }
+
+    @autobind
+    loadImages(inst){
+        this.props.dispatch(loadGallery(inst.result)).then(
+            r => {
+                if(r.files.length){
+                    this.setState({images: r.files});
+                }
+            }
+        )
     }
 
     render (){
@@ -75,7 +96,7 @@ export default class SearchContainer extends React.Component {
                 <Helmet title={title} meta={[
                     {name: 'description', content: inst && inst.short_description}
                 ]}  />
-                {inst ? <InstituteDetails inst={inst} /> : <p className="text-title text-center">Nothing to display</p>}
+                {inst ? <InstituteDetails inst={inst} images={this.state.images} /> : <p className="text-title text-center">Nothing to display</p>}
                 {this.props.children}
             </div>
         )

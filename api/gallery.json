@@ -1,0 +1,29 @@
+{
+    "middleware": ["apiRequest"],
+    "routes": [
+        {
+            "path": "/api/gallery/:org",
+            "method": "get",
+            "handler": "list",
+            "middleware": []
+        },
+        {
+            "path": "/api/gallery/:org/:file",
+            "method": "get",
+            "handler": "show",
+            "middleware": []
+        },
+        {
+            "path": "/api/gallery/:org",
+            "method": "post",
+            "handler": "save",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/gallery/:org/:file",
+            "method": "delete",
+            "handler": "delete",
+            "middleware": ["ensureLoggedIn"]
+        }
+    ]
+}

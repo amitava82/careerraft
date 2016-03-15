@@ -46,7 +46,8 @@ import {
     EditInstituteSubject,
     EditBasicDetails,
     AssignSubject,
-    ManageBranches
+    ManageBranches,
+    ManageGallery
 } from './routes/admin'
 
 import NotFound from './routes/misc/404';
@@ -106,6 +107,7 @@ export default (store) => {
                         <IndexRoute component={EditBasicDetails} />
                         <Route path="subjects" component={AssignSubject} />
                         <Route path="branches" component={ManageBranches} />
+                        <Route path="gallery" component={ManageGallery} />
                     </Route>
                 </Route>
                 <Route path="category/add" component={CreateCategory} />

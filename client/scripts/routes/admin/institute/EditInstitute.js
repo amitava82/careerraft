@@ -51,6 +51,9 @@ export default class EditInstitute extends React.Component{
                     <div>
                         <Link to={`/admin/institute/manage/${this.props.params.id}/branches`}>Branches</Link>
                     </div>
+                    <div>
+                        <Link to={`/admin/institute/manage/${this.props.params.id}/gallery`}>Image Gallery</Link>
+                    </div>
                 </div>
                 <div className="col-md-9">
                     {this.props.children}

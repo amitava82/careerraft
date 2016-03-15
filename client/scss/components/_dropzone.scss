@@ -1,0 +1,11 @@
+.drop-zone{
+    border: 2px dotted black;
+    min-height: 200px;
+    transition: all 0.5s;
+    padding: 30px;
+    text-align: center;
+
+    > div {
+        margin-top: 10%;
+    }
+}
