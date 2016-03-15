@@ -49,5 +49,11 @@
 
     "sendGrid": "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",
 
-    "uploadDir": "/Users/amitava/Documents/uploads/"
+    "uploadDir": "/Users/amitava/Documents/uploads/",
+
+    "gallery_key": "YbJFVJ&588bjksan%%$@#$^shbsBFGHYRjashdbNM87K95BJ*^%^886",
+
+    "gallery": {
+        "host": "http://dev.careerraft.com:8888/"
+    }
 }

@@ -121,7 +121,7 @@ export default class LoginModal extends React.Component {
                     <Helmet title="Careerraft - Login" />
                     <div className="col-xs-12">
                         {msg ? (
-                            <div className="alert alert-info">
+                            <div className="alert alert-info sm">
                                 {msg}
                             </div>
                         ): null}

@@ -39,4 +39,8 @@ export const HOME_CATEGORIES = [
     }
 ];
 
+export const ROUTE_MESSAGES = {
+    contact: 'Please log in to contact the institute.'
+};
+
 export const KEYWORDS = " Education, Online education, Education center, Medical Education, Engineering,Education, IITJEE, MBA, Entrance,  Examination, Student, Classes, Training institute, Institute, Coaching center, Coaching Institute, Course, Careerraft, Career, Tuition, Classroom, Admission, Teaching,";

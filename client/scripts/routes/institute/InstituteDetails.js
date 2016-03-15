@@ -17,6 +17,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import formatAddress from '../../utils/format-address';
 import Avatar from '../../components/Avatar';
+import ImageGallery from '../../components/ImageGallery';
 
 const {FacebookShareButton} = ShareButtons;
 const {FacebookShareCount} = ShareCounts;
@@ -181,6 +182,14 @@ export default class InstituteDetails extends React.Component {
                                         {coursesList}
                                     </div>
                                 </div>
+                                {this.props.images.length ? (
+                                    <div className="profile-section border-bottom-think">
+                                        <h3 className="text-display-1">Photo gallery</h3>
+                                        <div className="profile-sub-section">
+                                            <ImageGallery files={this.props.images} />
+                                        </div>
+                                    </div>
+                                ) : null}
                                 {inst.branches.length ?
                                 <div id="branches" className="profile-section border-bottom-think">
                                     <h3 className="text-display-1">Branches</h3>

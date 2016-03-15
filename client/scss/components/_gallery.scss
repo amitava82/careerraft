@@ -1,0 +1,16 @@
+.image-gallery{
+
+    .gallery-img{
+        margin-bottom: 20px;
+    }
+
+    .gallery-thumbs {
+        white-space: nowrap;
+        overflow-y: hidden;
+        overflow-x: auto;
+        > div {
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
+}
