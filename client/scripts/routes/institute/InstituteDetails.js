@@ -124,7 +124,7 @@ export default class InstituteDetails extends React.Component {
                     <div className="page-inner row">
                         <div className="col-sm-2 col-md-2 pull-up">
                             <div className="inst-avatar m-bm">
-                                <Avatar width="130" height="120" name={inst.name} />
+                                <Avatar width="130" height="120" name={inst.name} url={inst.logo} />
                             </div>
                             <div className="text-center">
                                 {selected ? (
@@ -186,7 +186,10 @@ export default class InstituteDetails extends React.Component {
                                     <div className="profile-section border-bottom-think">
                                         <h3 className="text-display-1">Photo gallery</h3>
                                         <div className="profile-sub-section">
-                                            <ImageGallery files={this.props.images} />
+                                            <ImageGallery
+                                                files={this.props.images}
+                                                autoSelect={false}
+                                            />
                                         </div>
                                     </div>
                                 ) : null}
@@ -222,7 +225,7 @@ export default class InstituteDetails extends React.Component {
 function formatUrl(url){
     if(url){
         url = url.trim();
-        return url.indexOf('http://') !== 0 ?  'http://' + url : url;
+        return url.indexOf('http') !== 0 ?  ('http://' + url) : url;
     }
     return url;
 }

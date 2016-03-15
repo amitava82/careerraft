@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import Helmet from 'react-helmet';
 import find from 'lodash/find';
+import noop from 'lodash/noop';
 
 import { getInstitute } from '../../redux/modules/institute';
 import {loadGallery} from '../../redux/modules/gallery';
@@ -70,8 +71,10 @@ export default class SearchContainer extends React.Component {
                 if(r.files.length){
                     this.setState({images: r.files});
                 }
-            }
-        )
+            },
+            noop
+        );
+        return null; //suppress promise warning
     }
 
     render (){
