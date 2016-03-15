@@ -11,6 +11,7 @@ import reject from 'lodash/reject';
 
 import ImageGallery from '../../../components/ImageGallery';
 
+import {update} from '../../../redux/modules/institute';
 import {upload, loadGallery, deleteImage} from '../../../redux/modules/gallery';
 import {createToast} from '../../../redux/modules/toast';
 
@@ -62,6 +63,11 @@ export default class ManageGallery extends React.Component{
     }
 
     @autobind
+    onImageSelect(file){
+        this.setState({selected: file});
+    }
+
+    @autobind
     submit(data){
         if(data.images && data.images.length){
             var body = new FormData();
@@ -92,6 +98,14 @@ export default class ManageGallery extends React.Component{
     remove(file){
         const files = without(this.props.fields.images.value, file);
         this.props.initializeForm({images: files})
+    }
+
+    @autobind
+    setLogo(){
+        const url = this.state.selected.url;
+        this.props.dispatch(update(this.props.params.id, {
+            logo: url
+        })).then(null, e => this.props.dispatch(createToast(e)));
     }
 
     render(){
@@ -140,9 +154,18 @@ export default class ManageGallery extends React.Component{
                     </div>
                 </form>
                 <h3>Uploaded Photos</h3>
+                {this.state.selected ?
+                    <div>
+                        <button onClick={this.setLogo} className="btn btn-link" type="button">Use this image as logo</button>
+                        <span className="sm"><i className="fa fa-info-circle" /> Recommended dimension for logo is 130px width and 120px height</span>
+                    </div>
+                    : null
+                }
                 <ImageGallery
                     files={this.state.images}
                     onDelete={this.onImageDelete}
+                    onSelect={this.onImageSelect}
+                    autoSelect={true}
                     allowDelete={true} />
             </div>
         )
