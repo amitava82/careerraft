@@ -55,22 +55,22 @@ export default class About extends React.Component {
                             </article>
                             <article>
                                 <h5 className="text-headline">How we do it?</h5>
-                                <div className="features grid">
-                                    <div className="cell">
+                                <div className="features row">
+                                    <div className="col-md-4">
                                         <i className="fa">1</i>
                                         <p className="lead">We Dream (with open eyes)</p>
                                         <p> We see the world differently. We aim higher, dream bigger and explore deeper. We try to make
 
                                             anything better than anything ever done before.</p>
                                     </div>
-                                    <div className="cell">
+                                    <div className="col-md-4">
                                         <i className="fa">2</i>
                                         <p className="lead">We Think (out of box)</p>
                                         <p>We solve problems differently. With knowledge, passion and technology combined together, we drive
 
                                             innovation and set new benchmarks for excellence.</p>
                                     </div>
-                                    <div className="cell">
+                                    <div className="col-md-4">
                                         <i className="fa">3</i>
                                         <p className="lead">We Work (to make the best)</p>
                                         <p>We do things differently. We don’t stop at success, we always ask ‘what next?’ so we can change the

@@ -1,31 +1,31 @@
 /**
- * Created by amitava on 11/02/16.
+ * Created by amitava on 16/03/16.
  */
-import AdminContainer from './AdminContainer';
-import CreateCategory from './CreateCategory';
-import CreateSubject from './CreateSubject';
-import CreateCourse from './CreateCourse';
-import CreateInstitute from './institute/CreateInstitute';
-import ManageInstitute from './institute/ManageInstitute';
-import InstituteDetails from './institute/InstituteDetails';
 
-import EditInstitute from './institute/EditInstitute';
-import EditBasicDetails from './institute/EditBasicDetails';
-import AssignSubject from './institute/AssignSubject';
-import ManageBranches from './institute/ManageBranches';
-import ManageGallery from './institute/ManageGallery';
+if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require);
 
-export {
-    AdminContainer,
-    CreateCategory,
-    CreateCourse,
-    CreateInstitute,
-    ManageInstitute,
-    CreateSubject,
-    InstituteDetails,
-    EditInstitute,
-    EditBasicDetails,
-    AssignSubject,
-    ManageBranches,
-    ManageGallery
+function asyncRequire(module){
+    return function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require(module).default);
+        });
+    }
 }
+
+
+const modules = {
+    AdminContainer: asyncRequire('./AdminContainer'),
+    CreateCategory: asyncRequire('./CreateCategory'),
+    CreateCourse: asyncRequire('./CreateCourse'),
+    CreateSubject: asyncRequire('./CreateSubject'),
+    CreateInstitute: asyncRequire('./institute/CreateInstitute'),
+    ManageInstitute: asyncRequire('./institute/ManageInstitute'),
+    InstituteDetails: asyncRequire('./institute/InstituteDetails'),
+    EditInstitute: asyncRequire('./institute/EditInstitute'),
+    EditBasicDetails: asyncRequire('./institute/EditBasicDetails'),
+    AssignSubject: asyncRequire('./institute/AssignSubject'),
+    ManageBranches: asyncRequire('./institute/ManageBranches'),
+    ManageGallery: asyncRequire('./institute/ManageGallery')
+};
+
+export default modules;

@@ -29,7 +29,7 @@ export default function html(markup, initialState, helmet){
             <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500,900' rel='stylesheet' type='text/css'>
             <script src="https://maps.googleapis.com/maps/api/js?key=${config.get('google.browser')}&libraries=places&types=geocode"></script>
             <script src="/static/vendor.js" type="text/javascript"></script>
-            <script src="/static/bundle.js" type="text/javascript"></script>
+            <script src="/static/app.js" type="text/javascript"></script>
             <script async src='https://www.google-analytics.com/analytics.js'></script>
         </body>
     </html>
