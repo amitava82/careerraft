@@ -18,6 +18,7 @@ import isEmpty from 'lodash/isEmpty';
 import formatAddress from '../../utils/format-address';
 import Avatar from '../../components/Avatar';
 import ImageGallery from '../../components/ImageGallery';
+import QnAComponent from './QnAComponent';
 
 const {FacebookShareButton} = ShareButtons;
 const {FacebookShareCount} = ShareCounts;
@@ -211,6 +212,13 @@ export default class InstituteDetails extends React.Component {
                                     </div>
                                 </div>
                                  : null}
+                                <div className="profile-section border-bottom-think">
+                                    <h3 className="text-display-1">Questions about {inst.name}</h3>
+                                    <p>Want more info about {inst.name}?</p>
+                                    <div className="profile-sub-section">
+                                        <QnAComponent org={inst._id} />
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                         <div className="cell-span-3">
