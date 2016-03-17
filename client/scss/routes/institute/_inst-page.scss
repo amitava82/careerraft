@@ -72,6 +72,14 @@
 
     .profile-title{
         color: white;
+        
+    }
+    
+    address a {
+        color: white;
+        &:hover{
+            text-decoration: underline;
+        }
     }
 
     .profile-section {

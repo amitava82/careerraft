@@ -101,9 +101,12 @@ export default class InstituteDetails extends React.Component {
                             </div>
                             <div className="col-md-10">
                                 <h3 className="text-display-2 profile-title">{inst.name}</h3>
-                                <address>
+                                <address title="Get direction">
+                                    <a href={`https://www.google.com/maps?daddr=${formatAddress(inst.address)}`} target="_blank">
                                     <i className="fa fa-map-marker" />
+                                    {' '}
                                     {formatAddress(inst.address)}
+                                    </a>
                                 </address>
                                 <div className="social-share">
                                     <FacebookShareButton
