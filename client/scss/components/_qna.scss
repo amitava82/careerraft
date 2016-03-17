@@ -1,0 +1,61 @@
+.qna-component{
+
+    .qna-editor {
+        margin: 10px 0;    
+    }
+    
+    .qna-item{
+        margin-bottom: 20px;
+        
+        .qna-answer-block{
+            margin-bottom: 20px;
+        }
+        
+        .qna-answers {
+            
+            .qna-answer{
+                //margin-bottom: 30px;
+                //border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+                
+                .qna-text{
+                    padding-left: 5px;
+                }
+                .qna-author{
+                    
+                }
+                
+                .avatar {
+                    width: 50px;
+                    //margin-right: 15px;
+                    float: left;
+                }
+            }
+            
+            .qna-replies {
+                margin-left: 30px;
+                .qna-reply{
+                    //border-top: 1px solid #ddd;
+                    //padding: 5px 0;
+                    //border: 1px solid #eee;
+                    margin-bottom: 5px;
+                    border-radius: 3px;
+                }
+                
+                .reply-action{
+                    width: 20px;
+                    display: inline-block;
+                }
+                .reply-text {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+    
+    .qna-author{
+        
+    }
+    
+    
+}

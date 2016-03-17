@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import {reduxForm} from 'redux-form';
-import {sendMail} from '../../redux/modules/misc';
-import {createToast} from '../../redux/modules/toast';
+import {sendMail} from '../../../redux/modules/misc';
+import {createToast} from '../../../redux/modules/toast';
 import autobind from 'autobind-decorator';
 import Helmet from 'react-helmet';
 

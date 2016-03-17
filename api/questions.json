@@ -1,0 +1,28 @@
+{
+    "middleware": ["apiRequest"],
+    "routes": [
+        {
+            "path": "/api/questions/:org",
+            "method": "get",
+            "handler": "list"
+        },
+        {
+            "path": "/api/questions/:org",
+            "method": "post",
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/questions/:q/answers",
+            "method": "post",
+            "handler": "createAnswer",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/questions/:q/answers/:a/reply",
+            "method": "post",
+            "handler": "createReply",
+            "middleware": ["ensureLoggedIn"]
+        }
+    ]
+}

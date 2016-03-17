@@ -23,6 +23,9 @@ const savedItemSchema = new Schema('saved_items', {
     idAttribute: '_id'
 });
 
+const questionsSchema = new Schema('questions', {
+    idAttribute: '_id'
+});
 //courseSchema.define({
 //    category: categorySchema
 //});
@@ -42,5 +45,7 @@ export default {
     Subject: subjectSchema,
     SubjectArray: arrayOf(subjectSchema),
     SavedItem: savedItemSchema,
-    SavedItemArray: arrayOf(savedItemSchema)
+    SavedItemArray: arrayOf(savedItemSchema),
+    Question: questionsSchema,
+    QuestionsArray: arrayOf(questionsSchema)
 };

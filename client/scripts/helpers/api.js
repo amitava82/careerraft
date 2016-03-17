@@ -41,8 +41,11 @@ class _ApiClient {
                 }
 
                 if (params) {
-                    params._ = new Date().getTime();
                     request.query(stringify(params, { arrayFormat: 'brackets' }));
+                }else{
+                    params = {};
+                    params._ = new Date().getTime();
+                    request.query(params);
                 }
 
                 if (typeof window === 'undefined' && req && req.get('cookie')) {

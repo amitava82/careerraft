@@ -3,6 +3,7 @@ var path = require('path');
 
 var projectRoot = process.env.PWD; // Absolute path to the project root
 var resolveRoot = path.join(projectRoot, 'node_modules'); // project root/node_modules
+var publicPath = './build/public';
 
 
 var envPlugin = new webpack.DefinePlugin({
@@ -17,19 +18,28 @@ var env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('prod
 
 var plugins = [commonsPlugin];
 
-if(process.env.NODE_ENV == 'production') plugins.push(env);
+if(process.env.NODE_ENV == 'production'){
+    plugins.push(new webpack.optimize.OccurenceOrderPlugin());
+    plugins.push(new webpack.optimize.DedupePlugin());
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compressor: { warnings: false }
+    }));
+    plugins.push(env);
+}
 
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
         vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history', 'lodash', 'scroll-behavior', 'qs',
             'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest',
-            'react-bootstrap', 'react-router-bootstrap', 'react-select']
+            'react-bootstrap', 'react-router-bootstrap', 'react-select', 'react-helmet']
     },
     //devtool: 'source-map',
     output: {
-        filename: 'bundle.js',
-        path: './build/public'
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js',
+        path: publicPath,
+        publicPath: '/static/'
     },
     module: {
         loaders: [

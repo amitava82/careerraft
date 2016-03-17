@@ -13,6 +13,7 @@ import category from './category';
 import course from './course';
 import subject from './subject';
 import toast from './toast';
+import qna from './qna';
 
 
 export default combineReducers({
@@ -23,6 +24,7 @@ export default combineReducers({
     category_store: category,
     course_store: course,
     subject_store: subject,
+    qna,
     toast,
     routing: routeReducer,
     form: formReducer
