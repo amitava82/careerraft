@@ -158,9 +158,9 @@ export default class QnAComponent extends React.Component {
                             <div className="qna-replies">
                                 {replies}
                                 <div className="qna-replies-add">
-                                    <Collapse in={replying == a._id}>
+                                    <Collapse in={replying == a._id} unmountOnExit={true}>
                                         <div className="form-group">
-                                            <textarea value={replyText} onChange={this.onReplyChange} className="form-control m-bm"  placeholder="Compose your reply..."></textarea>
+                                            <textarea autofocus value={replyText} onChange={this.onReplyChange} className="form-control m-bm"  placeholder="Compose your reply..."></textarea>
                                             <button disabled={loading} onClick={() => this.saveReply(i, a._id)} className="btn btn-primary btn-sm">Save</button>
                                             <button onClick={() => this.toggleAddReply(null)} className="btn btn-link btn-sm">Cancel</button>
                                         </div>
@@ -190,9 +190,9 @@ export default class QnAComponent extends React.Component {
                                         {canReply ? <button onClick={()=>this.toggleAnswer(ent._id)} className="btn btn-link">Answer</button> : null}
                                     </p>
                                   
-                                    <Collapse in={showAnswerPane} className="qna-answer-editor">
+                                    <Collapse in={showAnswerPane} className="qna-answer-editor" unmountOnExit={true}>
                                         <div className="form-group">
-                                            <textarea value={answer} className="form-control m-bm" onChange={this.onAnswerChange} placeholder="Please write your answer here in maximun 4000 characters"></textarea> 
+                                            <textarea autofocus value={answer} className="form-control m-bm" onChange={this.onAnswerChange} placeholder="Please write your answer here in maximun 4000 characters"></textarea> 
                                             <button disabled={loading} onClick={() => this.saveAnswer(ent._id)} className="btn btn-primary">Submit</button>       
                                             <button onClick={()=>this.toggleAnswer(null)} className="btn btn-link">Cancel</button>    
                                         </div> 
@@ -215,7 +215,7 @@ export default class QnAComponent extends React.Component {
                     <button onClick={this.toggleAsk} className="btn btn-default"><i className="fa fa-comment" /> Ask a question</button>
                 </div>
                 }
-                <Collapse in={asking} className="qna-editor">
+                <Collapse in={asking} className="qna-editor" unmountOnExit={true}>
                     <div className="form-group">
                         <textarea value={question} className="form-control m-bm" onChange={this.onQuestionChange} placeholder="Please write your question here in maximun 200 characters"></textarea> 
                         <button disabled={loading} onClick={this.saveQuestion} className="btn btn-primary">Submit</button>       

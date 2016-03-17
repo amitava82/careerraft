@@ -215,7 +215,7 @@ export default class InstituteDetails extends React.Component {
                                     </div>
                                 </div>
                                  : null}
-                                <div className="profile-section border-bottom-think">
+                                <div id="qna" className="profile-section border-bottom-think">
                                     <h3 className="text-display-1">Questions about {inst.name}</h3>
                                     <p>Want more info about {inst.name}?</p>
                                     <div className="profile-sub-section">

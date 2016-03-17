@@ -48,8 +48,14 @@ export default function(state = initialState, action = {}){
        case resolve(SAVE_ANSWER):
        case resolve(SAVE_QUESTION):
        case resolve(SAVE_REPLY):    
+            let ids = null;
+            if (action.type == resolve(SAVE_QUESTION)){
+                ids = union([action.payload.result], state.ids);
+            }else{
+                ids = union(state.ids, [action.payload.result])
+            }
             return extend({}, state, {
-               ids: union(state.ids, [action.payload.result]),
+               ids,
                entities: extend(state.entities, action.payload.entities.questions),
                loading: false 
             });        
