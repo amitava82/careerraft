@@ -34,6 +34,8 @@ export default class ManageInstitute extends React.Component{
 
     @autobind
     search(e){
+        e.preventDefault();
+
         const q = this.refs.query.value;
         const query = {};
         if(q) query.name = q;
@@ -62,9 +64,6 @@ export default class ManageInstitute extends React.Component{
         this.setState({[model]: val}, () => console.log(this.state));
     }
 
-    onSubmit(data){
-        console.log(data)
-    }
 
     render (){
 
@@ -73,7 +72,7 @@ export default class ManageInstitute extends React.Component{
         const searchResults = this.state.institutes.map(i => {
             return (
                 <div>
-                    <p><Link to={`/admin/institute/manage/${i._id}`}>{i.name}</Link></p>
+                    <p><Link to={`/admin/institute/manage/${i._id}`}>{i.name} {i.parent_id ? ' - Branch' : null}</Link></p>
 
                 </div>
             )
@@ -83,13 +82,14 @@ export default class ManageInstitute extends React.Component{
             <div className="grid column">
                 <div>
                     <label>Search</label>
-                    <div className="input-group">
-                        <input className="form-control" type="text" ref="query" />
-                        <span className="input-group-btn">
-                             <button className="btn btn-primary" onClick={this.search}>Search</button>
-                        </span>
-
-                    </div>
+                    <form onSubmit={this.search} className="m-bm">
+                        <div className="input-group">
+                            <input className="form-control" type="text" ref="query" />
+                            <span className="input-group-btn">
+                                 <button className="btn btn-primary">Search</button>
+                            </span>
+                        </div>
+                    </form>
                     {searchResults}
                 </div>
                 <div>

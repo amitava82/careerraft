@@ -43,15 +43,13 @@
         },
         {
             "path": "/api/institutes/:id/branches",
-            "method": "post",
-            "handler": "createBranch",
-            "middleware": ["ensureLoggedIn"],
-            "role": "ADMIN"
+            "method": "get",
+            "handler": "getBranches"
         },
         {
             "path": "/api/institutes/:id/branches",
-            "method": "put",
-            "handler": "updateBranches",
+            "method": "post",
+            "handler": "createBranch",
             "middleware": ["ensureLoggedIn"],
             "role": "ADMIN"
         },

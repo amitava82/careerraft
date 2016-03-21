@@ -22,6 +22,7 @@ import Loading from '../../../components/Loading';
 import AssignSubject from './AssignSubject';
 
 import {getInstitute, update} from '../../../redux/modules/institute';
+import {createToast} from '../../../redux/modules/toast';
 
 
 @reduxForm({
@@ -71,7 +72,8 @@ export default class EditInstitute extends React.Component{
 
     @autobind
     onSubmit(data){
-        this.props.dispatch(update(this.props.params.id, data));
+        return this.props.dispatch(update(this.props.params.id, data))
+            .tap(this.props.dispatch(createToast('Saved.')));
     }
 
     @autobind

@@ -4,28 +4,20 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import {reduxForm, initialize} from 'redux-form';
 import autobind from 'autobind-decorator';
 import reduce from '../../../../../node_modules/lodash/reduce';
 import find from 'lodash/find';
 
 import Checkbox from '../../../components/Checkbox';
 
-import {loadInstitutes, updateBranches} from '../../../redux/modules/institute';
+import {loadBranch} from '../../../redux/modules/institute';
 import formatAddress from '../../../utils/format-address';
 
 import Api from '../../../helpers/api';
 
 const api = new Api();
 
-@reduxForm({
-    form: 'assign_branches',
-    fields: ['institutes']
-}, state=> {
-    return {
-        institute_store: state.institute_store
-    }
-})
+@connect(state => state)
 export default class ManageBranches extends React.Component{
 
     constructor(props, ctx){
@@ -37,107 +29,42 @@ export default class ManageBranches extends React.Component{
     }
 
     componentDidMount(){
-        const inst = this.props.institute_store.entities[this.props.params.id];
-        this.props.initializeForm({institutes: inst.branches.map(i => i._id)});
-    }
-
-    @autobind
-    search(e){
-        const q = this.refs.query.value;
-        const query = {};
-        if(q) query.name = q;
-        api.get('institutes', {params: query}).then(
-            r => {
-                this.setState({institutes: r});
-            },
-            e => console.log(e)
-        );
-    }
-
-    @autobind
-    onSave(data){
-        return this.props.dispatch(updateBranches(this.props.params.id, [...data.institutes]))
-    }
-
-    @autobind
-    handleChange(e, val){
-        const checked = e.target.checked;
-        const s = this.props.fields.institutes;
-
-        if (s.value !== undefined) {
-            const idx = s.value.indexOf(val);
-            if (checked) {
-                if(idx === -1)
-                    s.onChange(s.value.concat(val));
-            } else {
-                const valuesCopy = [...s.value];
-                valuesCopy.splice(idx, 1);
-                s.onChange(valuesCopy);
-            }
-        } else {
-            //first item
-            if (checked) {
-                s.onChange([val]);
-            }
-        }
+        this.props.dispatch(loadBranch(this.props.params.id));
+        //const inst = this.props.institute_store.entities[this.props.params.id];
+        //this.props.initializeForm({institutes: inst.branches.map(i => i._id)});
     }
 
     render(){
-        const {fields: {institutes}, handleSubmit, submitting, institute_store, params} = this.props;
+        const {institute_store, params} = this.props;
 
         const inst = institute_store.entities[params.id];
-        const searchResults = reduce(this.state.institutes, (memo,i) => {
-            const exists = find(inst.branches, {_id: i._id});
-            if(i._id !== params.id && !exists){
-                const isChecked = (institutes.value && institutes.value.indexOf(i._id) > -1);
-                memo.push(
-                    <Checkbox key={i._id}
-                              checked={isChecked}
-                              className="input-horizontal"
-                              value={isChecked}
-                              type="checkbox"
-                              label={i.name + ' ' + formatAddress(i.address)}
-                              onChange={e => this.handleChange(e, i._id)}  />
-                );
 
-            }
-            return memo;
-        }, []);
+        if(inst.parent_id){
+            return (
+                <div>
+                    This is a branch institute.
+                </div>
+            )
+        }
 
-        const existingBranches = inst.branches.map(i => {
-            const isChecked = (institutes.value && institutes.value.indexOf(i._id) > -1);
+        const branches = inst.branches || [];
+
+        const existingBranches = branches.map(i => {
+            const _edit =  <Link to={`/admin/institute/manage/${i._id}`}>Edit</Link>;
+            const label = i.name + ' ' + formatAddress(i.address);
+            const linkLabel = <span>{label} {_edit}</span>;
             return(
-                <Checkbox key={i._id}
-                          checked={isChecked}
-                          className="input-horizontal"
-                          value={isChecked}
-                          type="checkbox"
-                          label={i.name + ' ' + formatAddress(i.address)}
-                          onChange={e => this.handleChange(e, i._id)}  />
+                <p key={i._id}>{linkLabel}</p>
             )
         });
 
         return (
             <div>
                 <div className="m-bl">
-                    {existingBranches.length && <p>Current branches</p>}
+                    {existingBranches.length ? <p>Current branches</p> : null}
                     {existingBranches}
                 </div>
-                <form onSubmit={handleSubmit(this.onSave)}>
-                    <label>Search & assign existing institute as branch or <Link to={`/admin/institute/manage/${inst._id}/create-branch`}>Create Branch</Link></label>
-                    <div className="input-group">
-                        <input className="form-control" type="text" ref="query" />
-                        <div className="input-group-btn">
-                            <button type="button" className="btn btn-primary" onClick={this.search}>Search</button>
-                        </div>
-                    </div>
-                    <hr />
-                    <p className="text-subhead">Select institutes to assign as branches for <strong>{inst.name}</strong></p>
-                    {searchResults}
-                    <div>
-                        <button className="btn btn-primary" disabled={submitting || !institutes.value}>Save</button>
-                    </div>
-                </form>
+                <Link to={`/admin/institute/manage/${inst._id}/create-branch`}>Create Branch</Link>
             </div>
         )
     }

@@ -8,8 +8,9 @@ import Helmet from 'react-helmet';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
 
-import { getInstitute } from '../../redux/modules/institute';
+import { getInstitute, loadBranch } from '../../redux/modules/institute';
 import {loadGallery} from '../../redux/modules/gallery';
+import {createToast} from '../../redux/modules/toast';
 
 import InstituteDetails from './InstituteDetails';
 import Loading from '../../components/Loading';
@@ -51,22 +52,37 @@ export default class SearchContainer extends React.Component {
     componentWillReceiveProps(nextProps){
         const id = nextProps.params.id;
         if(this.props.params.id !== id){
-            this.props.dispatch(getInstitute(id)).then(this.loadImages);
+            this.loadInstituteData(nextProps);
         }
     }
 
     componentDidMount(){
-        const id = this.props.params.id;
-        const inst = this.props.institute_store.entities[id];
+        this.loadInstituteData(this.props);
+    }
+
+    @autobind
+    loadInstituteData(props){
+        const {institute_store, params: {id}, dispatch} = props;
+        const inst = institute_store.entities[id] || find(institute_store.entities, {url_slug: id});
         if(inst){
-            this.loadImages(inst)
-        }else
-            this.props.dispatch(getInstitute(id)).then(this.loadImages);
+            this.loadImages(inst);
+            this.loadBranches(inst);
+        }else{
+            dispatch(getInstitute(id)).tap(
+                resp => {
+                    const inst = resp.entities.institutes[resp.result];
+                    this.loadImages(inst);
+                    this.loadBranches(inst);
+                }
+            ).error(
+                e => dispatch(createToast(e))
+            );
+        }
     }
 
     @autobind
     loadImages(inst){
-        this.props.dispatch(loadGallery(inst.result)).then(
+        this.props.dispatch(loadGallery(inst._id)).then(
             r => {
                 if(r.files.length){
                     this.setState({images: r.files});
@@ -75,6 +91,12 @@ export default class SearchContainer extends React.Component {
             noop
         );
         return null; //suppress promise warning
+    }
+
+    @autobind
+    loadBranches(inst){
+        if(!inst.parent_id)
+            this.props.dispatch(loadBranch(inst._id));
     }
 
     render (){

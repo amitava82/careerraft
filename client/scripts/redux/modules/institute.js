@@ -10,8 +10,8 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES, SEND_QUERY, CREATE_BRANCH] = createAction('institute',
-    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES", "SEND_QUERY", 'CREATE_BRANCH']);
+const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES, SEND_QUERY, CREATE_BRANCH, LOAD_BRANCHES] = createAction('institute',
+    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES", "SEND_QUERY", 'CREATE_BRANCH', "LOAD_BRANCHES"]);
 
 
 const initialState = {
@@ -33,6 +33,7 @@ export default function(state = initialState, action = {}){
         case REMOVE_SUBJECT:
         case UPDATE_BRANCHES:
         case CREATE_BRANCH:
+        //case LOAD_BRANCHES:
             return merge({}, state, {
                 loading: true,
                  error: null
@@ -47,6 +48,7 @@ export default function(state = initialState, action = {}){
         case _reject(REMOVE_SUBJECT):
         case _reject(UPDATE_BRANCHES):
         case _reject(CREATE_BRANCH):
+        //case _reject(LOAD_BRANCHES):
             return merge({}, state, {
                 loading: false,
                 error: action.payload
@@ -69,6 +71,16 @@ export default function(state = initialState, action = {}){
             return extend({}, state, {
                 ids: union(state.ids, [action.payload.result]),
                 entities: action.payload.entities.institutes,
+                loading: false
+            });
+
+        case resolve(LOAD_BRANCHES):
+            const id= action.meta.id;
+            const inst = state.entities[id];
+            const ent = extend({}, inst, {branches: action.payload});
+
+            return extend({}, state, {
+                entities: extend({}, state.entities, {[id]: ent}),
                 loading: false
             });
 
@@ -160,6 +172,16 @@ export function createBranch(id, data){
         type: CREATE_BRANCH,
         payload: {
             promise: api => api.post(`institutes/${id}/branches`, {data, schema: Schemas.Institute})
+        }
+    }
+}
+
+export function loadBranch(id){
+    return {
+        type: LOAD_BRANCHES,
+        payload: {
+            promise: api => api.get(`institutes/${id}/branches`),
+            id
         }
     }
 }

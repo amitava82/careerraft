@@ -11,6 +11,8 @@ import Loading from '../../../components/Loading';
 
 import {getInstitute, loadInstitutes} from '../../../redux/modules/institute';
 
+import formatAddress from '../../../utils/format-address';
+
 
 @connect(store => store)
 export default class EditInstitute extends React.Component{
@@ -24,7 +26,11 @@ export default class EditInstitute extends React.Component{
         this.props.dispatch(getInstitute(this.props.params.id));
     }
 
-
+    componentWillReceiveProps(nextProps){
+        if(this.props.params.id != nextProps.params.id){
+            this.props.dispatch(getInstitute(nextProps.params.id));
+        }
+    }
 
     render(){
 
@@ -56,6 +62,11 @@ export default class EditInstitute extends React.Component{
                     </div>
                 </div>
                 <div className="col-md-9">
+                    <div>
+                        <p className="text-title">{inst.name} {inst.parent_id ? ' - Branch ' : null}</p>
+                        <address>{formatAddress(inst.address)}</address>
+                    </div>
+                    <hr />
                     {this.props.children}
                 </div>
             </div>
