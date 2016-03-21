@@ -31,7 +31,7 @@ export default class EditInstitute extends React.Component{
         const {institute_store, params} =  this.props;
         const inst = institute_store.entities[params.id];
 
-        if(institute_store.loading || !inst) return <Loading />;
+        if(!inst) return <Loading />;
         //
         //if(inst.branches){
         //    this.props.dispatch(loadInstitutes({

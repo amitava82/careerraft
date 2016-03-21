@@ -10,8 +10,8 @@ import { resolve, reject as _reject } from '../middleware/simple-promise';
 import Schemas from '../../helpers/schema';
 import createAction from '../createActions';
 
-const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES, SEND_QUERY] = createAction('institute',
-    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES", "SEND_QUERY"]);
+const [LOAD, CREATE, UPDATE, DELETE, GET, ADD_SUBJECT, REMOVE_SUBJECT, UPDATE_BRANCHES, SEND_QUERY, CREATE_BRANCH] = createAction('institute',
+    ["LOAD", "CREATE", "UPDATE", "DELETE", "GET", "ADD_SUBJECT", "REMOVE_SUBJECT", "UPDATE_BRANCHES", "SEND_QUERY", 'CREATE_BRANCH']);
 
 
 const initialState = {
@@ -32,6 +32,7 @@ export default function(state = initialState, action = {}){
         case ADD_SUBJECT:
         case REMOVE_SUBJECT:
         case UPDATE_BRANCHES:
+        case CREATE_BRANCH:
             return merge({}, state, {
                 loading: true,
                  error: null
@@ -45,6 +46,7 @@ export default function(state = initialState, action = {}){
         case _reject(ADD_SUBJECT):
         case _reject(REMOVE_SUBJECT):
         case _reject(UPDATE_BRANCHES):
+        case _reject(CREATE_BRANCH):
             return merge({}, state, {
                 loading: false,
                 error: action.payload
@@ -61,6 +63,7 @@ export default function(state = initialState, action = {}){
         case resolve(ADD_SUBJECT):
         case resolve(REMOVE_SUBJECT):
         case resolve(UPDATE_BRANCHES):
+        case resolve(CREATE_BRANCH):
         case resolve(CREATE):
         case resolve(UPDATE):
             return extend({}, state, {
@@ -148,6 +151,15 @@ export function sendQuery(id, data){
         type: SEND_QUERY,
         payload: {
             promise: api => api.post(`institutes/${id}/contact`, {data})
+        }
+    }
+}
+
+export function createBranch(id, data){
+    return {
+        type: CREATE_BRANCH,
+        payload: {
+            promise: api => api.post(`institutes/${id}/branches`, {data, schema: Schemas.Institute})
         }
     }
 }

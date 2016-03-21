@@ -14,18 +14,71 @@ function asyncRequire(module){
 
 
 const modules = {
-    AdminContainer: asyncRequire('./AdminContainer'),
-    CreateCategory: asyncRequire('./CreateCategory'),
-    CreateCourse: asyncRequire('./CreateCourse'),
-    CreateSubject: asyncRequire('./CreateSubject'),
-    CreateInstitute: asyncRequire('./institute/CreateInstitute'),
-    ManageInstitute: asyncRequire('./institute/ManageInstitute'),
-    InstituteDetails: asyncRequire('./institute/InstituteDetails'),
-    EditInstitute: asyncRequire('./institute/EditInstitute'),
-    EditBasicDetails: asyncRequire('./institute/EditBasicDetails'),
-    AssignSubject: asyncRequire('./institute/AssignSubject'),
-    ManageBranches: asyncRequire('./institute/ManageBranches'),
-    ManageGallery: asyncRequire('./institute/ManageGallery')
+    AdminContainer: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./AdminContainer').default);
+        });
+    },
+    CreateCategory: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./CreateCategory').default);
+        });
+    },
+    CreateCourse: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./CreateCourse').default);
+        });
+    },
+    CreateSubject: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./CreateSubject').default);
+        });
+    },
+    CreateInstitute: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/CreateInstitute').default);
+        });
+    },
+    ManageInstitute: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/ManageInstitute').default);
+        });
+    },
+    InstituteDetails: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/InstituteDetails').default);
+        });
+    },
+    EditInstitute: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/EditInstitute').default);
+        });
+    },
+    EditBasicDetails: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/EditBasicDetails').default);
+        });
+    },
+    AssignSubject:  function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/AssignSubject').default);
+        });
+    },
+    ManageBranches: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/ManageBranches').default);
+        });
+    },
+    ManageGallery: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/ManageGallery').default);
+        });
+    },
+    CreateBranch: function (loc, cb) {
+        require.ensure([], require => {
+            cb(null, require('./institute/CreateBranch').default);
+        });
+    }
 };
 
 export default modules;

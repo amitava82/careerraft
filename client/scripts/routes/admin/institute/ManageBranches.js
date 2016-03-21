@@ -12,6 +12,7 @@ import find from 'lodash/find';
 import Checkbox from '../../../components/Checkbox';
 
 import {loadInstitutes, updateBranches} from '../../../redux/modules/institute';
+import formatAddress from '../../../utils/format-address';
 
 import Api from '../../../helpers/api';
 
@@ -95,7 +96,7 @@ export default class ManageBranches extends React.Component{
                               className="input-horizontal"
                               value={isChecked}
                               type="checkbox"
-                              label={i.name}
+                              label={i.name + ' ' + formatAddress(i.address)}
                               onChange={e => this.handleChange(e, i._id)}  />
                 );
 
@@ -111,24 +112,24 @@ export default class ManageBranches extends React.Component{
                           className="input-horizontal"
                           value={isChecked}
                           type="checkbox"
-                          label={i.name}
+                          label={i.name + ' ' + formatAddress(i.address)}
                           onChange={e => this.handleChange(e, i._id)}  />
             )
         });
 
         return (
             <div>
+                <div className="m-bl">
+                    {existingBranches.length && <p>Current branches</p>}
+                    {existingBranches}
+                </div>
                 <form onSubmit={handleSubmit(this.onSave)}>
-                    <label>Search</label>
+                    <label>Search & assign existing institute as branch or <Link to={`/admin/institute/manage/${inst._id}/create-branch`}>Create Branch</Link></label>
                     <div className="input-group">
                         <input className="form-control" type="text" ref="query" />
                         <div className="input-group-btn">
                             <button type="button" className="btn btn-primary" onClick={this.search}>Search</button>
                         </div>
-                    </div>
-                    <div>
-                        {existingBranches.length && <p>Current branches</p>}
-                        {existingBranches}
                     </div>
                     <hr />
                     <p className="text-subhead">Select institutes to assign as branches for <strong>{inst.name}</strong></p>

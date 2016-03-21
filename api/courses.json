@@ -5,7 +5,8 @@
             "path": "/api/courses",
             "method": "post",
             "handler": "create",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/courses",
@@ -21,13 +22,15 @@
             "path": "/api/courses/:id",
             "method": "put",
             "handler": "update",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/courses/:id",
             "method": "delete",
             "handler": "delete",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         }
     ]
 }
