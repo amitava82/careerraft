@@ -17,13 +17,15 @@
             "path": "/api/gallery/:org",
             "method": "post",
             "handler": "save",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/gallery/:org/:file",
             "method": "delete",
             "handler": "delete",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         }
     ]
 }

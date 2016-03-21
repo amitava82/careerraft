@@ -5,7 +5,8 @@
             "path": "/api/subjects",
             "method": "post",
             "handler": "create",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/subjects",
@@ -21,7 +22,8 @@
             "path": "/api/subjects/:id",
             "method": "put",
             "handler": "update",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         }
     ]
 }

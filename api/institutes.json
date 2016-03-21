@@ -11,7 +11,8 @@
             "path": "/api/institutes",
             "method": "post",
             "handler": "create",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id",
@@ -23,31 +24,41 @@
             "path": "/api/institutes/:id",
             "method": "put",
             "handler": "update",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id/subjects",
             "method": "put",
             "handler": "addSubjects",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id/subjects/:subject",
             "method": "delete",
             "handler": "deleteSubject",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id/branches",
-            "method": "put",
-            "handler": "updateBranches",
-            "middleware": ["ensureLoggedIn"]
+            "method": "get",
+            "handler": "getBranches"
+        },
+        {
+            "path": "/api/institutes/:id/branches",
+            "method": "post",
+            "handler": "createBranch",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id/upload/:type",
             "method": "post",
             "handler": "upload",
-            "middleware": ["ensureLoggedIn"]
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
         },
         {
             "path": "/api/institutes/:id/contact",

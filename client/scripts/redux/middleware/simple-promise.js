@@ -1,4 +1,5 @@
 import { isFSA } from 'flux-standard-action';
+import Promise from 'bluebird';
 
 function isPromise(val) {
     return val && typeof val.then === 'function';

@@ -86,6 +86,7 @@ export default (store) => {
                         <IndexRoute getComponent={AdminModules.EditBasicDetails} />
                         <Route path="subjects" getComponent={AdminModules.AssignSubject} />
                         <Route path="branches" getComponent={AdminModules.ManageBranches} />
+                        <Route path="create-branch" getComponent={AdminModules.CreateBranch} />
                         <Route path="gallery" getComponent={AdminModules.ManageGallery} />
                     </Route>
                 </Route>

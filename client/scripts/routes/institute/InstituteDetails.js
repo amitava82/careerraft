@@ -204,7 +204,7 @@ export default class InstituteDetails extends React.Component {
                                         {inst.branches.map(i => {
                                             return (
                                                 <div>
-                                                    <p><Link to={`/institute/${i._id}`}>{i.name}</Link></p>
+                                                    <p className="text-title"><Link to={`/institute/${i._id}`}>{i.name}</Link></p>
                                                     <address>
                                                         <i className="fa fa-map-marker" />
                                                         {formatAddress(i.address)}
