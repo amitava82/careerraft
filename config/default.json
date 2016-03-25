@@ -55,5 +55,10 @@
 
     "gallery": {
         "host": "http://dev.careerraft.com:8888/"
+    },
+
+    "locatorhq": {
+        "user": "Amitava8849",
+        "key": "ff22f46712e0e89257c24febe7c34b9bf4372c3a"
     }
 }

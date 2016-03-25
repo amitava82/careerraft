@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import { push } from 'react-router-redux';
 import autobind from 'autobind-decorator';
 import each from 'lodash/each';
 import get from 'lodash/get';
 import reduce from 'lodash/reduce';
-import throttle from 'lodash/throttle';
+import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
 
 var Geosuggest = require('react-geosuggest');
@@ -18,7 +17,7 @@ import Avatar from './Avatar';
 
 
 import { setLocation } from '../redux/modules/search';
-import getUserLocation from '../utils/location';
+import {GEO_OPTIONS} from '../constants';
 
 
 const NOSEARCH = {
@@ -44,14 +43,10 @@ export default class Header extends React.Component {
           query: get(props.search_store, 'query.q')
         };
 
-        this.geoOptions = {
-            inputClassName: 'form-control',
-            placeholder: 'Select a Location',
-            fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
+        this.geoOptions = extend({}, GEO_OPTIONS, {
             onSuggestSelect: this.onGeoSelect,
-            country: 'in',
             onChange: this.onValueChange
-        };
+        });
     }
 
     componentDidMount(){

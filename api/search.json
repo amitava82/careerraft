@@ -12,6 +12,11 @@
             "method": "get",
             "handler": "filters",
             "middleware": []
+        },
+        {
+            "path": "/api/search/suggestions",
+            "method": "get",
+            "handler": "suggestions"
         }
     ]
 }

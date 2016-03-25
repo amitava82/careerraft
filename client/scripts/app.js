@@ -41,6 +41,7 @@ export default class App extends React.Component {
             search: this.search
         }
     }
+    
 
     @autobind
     search(q){

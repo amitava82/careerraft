@@ -6,11 +6,13 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import get from 'lodash/get';
-import { routeActions } from 'react-router-redux';
+import extend from 'lodash/extend';
+
 var Geosuggest = require('react-geosuggest');
 
-import { setLocation } from '../../redux/modules/search';
-import {HOME_CATEGORIES} from '../../constants';
+import Autocomplete from '../../components/Autocomplete';
+import { setLocation, getSuggestions } from '../../redux/modules/search';
+import {HOME_CATEGORIES, GEO_OPTIONS} from '../../constants';
 
 @connect(state => state)
 export default class HomeHero extends React.Component {
@@ -21,15 +23,18 @@ export default class HomeHero extends React.Component {
 
     constructor(props, ctx){
         super(props, ctx);
-        this.geoOptions = {
-            inputClassName: 'form-control input-lg',
-            placeholder: 'Select a Location',
-            fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
-            onSuggestSelect: this.onGeoSelect,
-            country: 'in',
-            onChange: this.onValueChange,
-            //initialValue: 'Bangalore'
+        
+        this.state = {
+            suggestions: [],
+            search: {},
+            searchText: ''
         };
+        
+        this.geoOptions = extend({}, GEO_OPTIONS, {
+            inputClassName: 'form-control input-lg',
+            onSuggestSelect: this.onGeoSelect,
+            onChange: this.onValueChange
+        });
     }
 
     @autobind
@@ -50,7 +55,8 @@ export default class HomeHero extends React.Component {
         const p = data.location;
         this.props.dispatch(setLocation({
             label: data.label,
-            location: p
+            location: p,
+            city:data.city
         }));
     }
 
@@ -58,6 +64,26 @@ export default class HomeHero extends React.Component {
     onValueChange(val){
         if(!val)
             this.props.dispatch(setLocation(null));
+    }
+
+    @autobind
+    onAutoSelect(val){
+        this.setState({search: val, searchText: val.displayname});
+    }
+    
+    @autobind
+    onInputChange(e){
+        const val = e.target.value;
+        this.props.dispatch(getSuggestions(val, val.length < 3 ? 5 : 10)).then(
+            r => this.setState({suggestions: r}),
+            e => console.log(e)
+        );
+        this.setState({searchText: val});
+    }
+
+    @autobind
+    onSearchFocus(){
+        this.setState({showAutoComplete: true})
     }
 
     render(){
@@ -80,11 +106,12 @@ export default class HomeHero extends React.Component {
                 <div className="hero">
                     <div className="overlay"></div>
                     <div className="container content">
-                        <h3 className="text-display-3">Find the best place to learn almost anything</h3>
-                        <form onSubmit={this.onSubmit} className="search form-inline m-bl">
+                        <h3 className="text-display-3 text-center">Find the best place to learn almost anything</h3>
+                        <form onSubmit={this.onSubmit} className="search form-inline m-bl text-center">
                             <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />
-                            <div className="input-group input-group-lg">
-                                <input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                            <div className="input-group input-group-lg text-left">
+                                <input value={this.state.searchText} onFocus={this.onSearchFocus} onChange={this.onInputChange} className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Subject" />
+                                <Autocomplete className="lg" show={this.state.showAutoComplete} onSelect={this.onAutoSelect} items={this.state.suggestions} />
                                 <span className="input-group-btn">
                                     <button className="btn btn-primary" type="submit"><i className="fa fa-search" /> </button>
                                 </span>

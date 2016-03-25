@@ -44,3 +44,12 @@ export const ROUTE_MESSAGES = {
 };
 
 export const KEYWORDS = " Education, Online education, Education center, Medical Education, Engineering,Education, IITJEE, MBA, Entrance,  Examination, Student, Classes, Training institute, Institute, Coaching center, Coaching Institute, Course, Careerraft, Career, Tuition, Classroom, Admission, Teaching,";
+
+export const GEO_OPTIONS = {
+    inputClassName: 'form-control',
+    placeholder: 'Select a Location',
+    fixtures: [{label: 'Bangalore', location: {lat: 12.9667, lng: 77.5667}}],
+    country: 'in',
+    types: ['(regions)'],
+    skipSuggest: i => i.types && i.types.indexOf('sublocality_level_1') === -1
+};

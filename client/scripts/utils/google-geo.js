@@ -35,6 +35,18 @@ export function addressToGeo(address, callback) {
     });
 }
 
+export function cordsToAddress(lng, lat, callback) {
+    var latlng = new google.maps.LatLng(lat, lng);
+    var geocoder = geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                alert("Location: " + results[1].formatted_address);
+            }
+        }
+    });
+}
+
 export function zipToAddress(zip){
 
 }

@@ -1,0 +1,29 @@
+.autocomplete{
+    position: absolute;
+    background: #FFF;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    width: 100%;
+    display: none;
+    margin-top: -1px;
+    &.show{
+        display: block;
+    }
+
+    &.lg{
+        top: 55px;
+    }
+
+    .dd-item {
+        font-size: 1.4rem;
+        padding: 5px 10px;
+        //margin-bottom: 5px;
+        cursor: pointer;
+        strong{
+            text-transform: capitalize;
+        }
+
+        &:hover, .hover {
+            background-color: #eee;
+        }
+    }
+}

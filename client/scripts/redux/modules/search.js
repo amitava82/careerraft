@@ -12,7 +12,8 @@ import simpleStore from '../../utils/simpleStore';
 
 import createAction from '../createActions';
 
-const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET"]);
+const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET] =
+    createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET"]);
 
 const loc = simpleStore('user_location');
 const initialState = {
@@ -127,5 +128,14 @@ export function reset(){
     return {
         type: RESET,
         payload: null
+    }
+}
+
+export function getSuggestions(q, limit) {
+    return {
+        type: 'LOAD_SUGGESTIONS',
+        payload: {
+            promise: api => api.get('search/suggestions', {params: {q, limit}})
+        }
     }
 }

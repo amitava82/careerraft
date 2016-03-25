@@ -31,6 +31,9 @@ import {
     SearchContainer
 } from './routes/search';
 
+import {
+    IndexContainer
+} from './routes/city';
 
 import AdminModules from './routes/admin';
 
@@ -65,19 +68,11 @@ export default (store) => {
 
         cb();
     }
+    
 
     return (
         <Route path="/" component={App}>
             <IndexRoute component={HomeContainer} isHome={true} />
-            <Route path="categories" component={CategoryContainer}>
-                <IndexRoute component={CategoriesList} />
-                <Route path=":id" component={CategoryDetails} />
-            </Route>
-            <Route path="search" component={SearchContainer}>
-            </Route>
-            <Route path="institute/:id" component={InstituteContainer}>
-                <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} message={ROUTE_MESSAGES['contact']} />
-            </Route>
             <Route path="admin" getComponent={AdminModules.AdminContainer} onEnter={ensureAdmin}>
                 <Route path="institute/add" getComponent={AdminModules.CreateInstitute} />
                 <Route path="institute/manage" >
@@ -104,6 +99,20 @@ export default (store) => {
             <Route path="/core-values" getComponent={StaticRoutes.Values}  />
             <Route path="/contact-us" getComponent={StaticRoutes.Contact} />
             <Route path="/educator" getComponent={StaticRoutes.Educator}  />
+
+            <Route path=":city" conponent={IndexContainer}>
+                <Route path="categories" component={CategoryContainer}>
+                    <IndexRoute component={CategoriesList} />
+                    <Route path=":id" component={CategoryDetails} />
+                </Route>
+                <Route path="search" component={SearchContainer}>
+                </Route>
+                <Route path="institute/:id" component={InstituteContainer}>
+                    <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} message={ROUTE_MESSAGES['contact']} />
+                </Route>
+                
+                <Route path=":slug" />
+            </Route>
 
             <Route path="/error" component={Error} status="400" />
             <Route path="*" component={NotFound} status="404" />
