@@ -4,16 +4,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import map from 'lodash/map';
 import Helmet from 'react-helmet';
 
-import middleware from '../../utils/middleware';
-import formatAddress from '../../utils/format-address';
-
-import * as instActions from '../../redux/modules/institute';
-import * as categoryActions from '../../redux/modules/category';
-import * as categorySearch from '../../redux/modules/search';
-import {createToast} from '../../redux/modules/toast';
 
 import InstItem from './../search/InstItem';
 import Hero from './HomeHero';
@@ -28,7 +20,7 @@ import Hero from './HomeHero';
 //    {
 //        key: '$institutes',
 //        watch: (props) => props.params.id,
-//        handler: (props, instId) => props.dispatch(instActions.loadInstitutes())
+//        handler: (props, instId) => props.dispatch(instActions.loadProfiles())
 //    }
 //])
 export default class HomeContainer extends React.Component {

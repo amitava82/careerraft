@@ -12,7 +12,8 @@ import simpleStore from '../../utils/simpleStore';
 
 import createAction from '../createActions';
 
-const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET] = createAction('search', ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET"]);
+const [SET_LOCATION, SEARCH, FILTERS, GEO_LOOKUP, RESET, SUGGESTIONS] = createAction('search',
+    ["SET_LOCATION", "SEARCH", "DELETE", "GET", "FILTERS", "GEO_LOOKUP", "RESET", "SUGGESTIONS"]);
 
 const loc = simpleStore('user_location');
 const initialState = {
@@ -20,6 +21,9 @@ const initialState = {
     location: loc,
     results: [],
     filters: {},
+    limit: 10,
+    offset: 0,
+    total: 0,
     loading: false,
     search_location: get(loc, 'label'), //for ui
     error: null,
@@ -53,7 +57,8 @@ export default function(state = initialState, action = {}){
         case resolve(SEARCH):
             return extend({}, state, {
                 loading: false,
-                results: action.payload,
+                results: action.payload.results,
+                filters: action.payload.aggs,
                 query: action.meta.query,
                 search_location: get(state.location, 'label')
             });
@@ -104,11 +109,20 @@ export function geoIP(ip){
     }
 }
 
+export function loadSuggestions(input){
+    return {
+        type: SUGGESTIONS,
+        payload: {
+            promise: api => api.get('search/suggestions', {params: {q: input}})
+        }
+    }
+}
+
 export function search(query){
     return {
         type: SEARCH,
         payload: {
-            promise: api => api.get('search', {params: query}),
+            promise: api => api.get('v2/search', {params: query}),
             query: query
         }
     }

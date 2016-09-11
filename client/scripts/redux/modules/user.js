@@ -10,13 +10,15 @@ import createAction from '../createActions';
 
 import {promptLogin} from './session';
 
-const [SAVE_ITEM, REMOVE_ITEM, LOAD_LIST] = createAction('user', ["SAVE_ITEM", "REMOVE_ITEM", "LOAD_LIST"]);
+const [SAVE_ITEM, REMOVE_ITEM, LOAD_LIST, CREATE_PROFILE] = 
+    createAction('user', ["SAVE_ITEM", "REMOVE_ITEM", "LOAD_LIST", "CREATE_PROFILE"]);
 
 const initialState = {
     savedItemsIds: [],
     savedItems: {},
     loading: false,
-    error: null
+    error: null,
+    org: null
 };
 
 export default function(state = initialState, action){
@@ -84,6 +86,15 @@ export function saveItem(id){
             })
         }else{
             dispatch(promptLogin('Please login to save.'));
+        }
+    }
+}
+
+export function createProfile(data){
+    return {
+        type: CREATE_PROFILE,
+        payload: {
+            promise: api => api.post(`user/createProfile`, {data})
         }
     }
 }

@@ -1,0 +1,37 @@
+{
+    "middleware": ["apiRequest"],
+    "path": "/api/collections",
+    "routes": [
+        {
+            "path": "",
+            "method": "post",
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": "",
+            "method": "get",
+            "handler": "list"
+        },
+        {
+            "path": ":id",
+            "method": "get",
+            "handler": "get"
+        },
+        {
+            "path": ":id",
+            "method": "put",
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": ":id",
+            "method": "delete",
+            "handler": "delete",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        }
+    ]
+}

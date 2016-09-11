@@ -22,7 +22,6 @@ export default function html(markup, initialState, helmet){
             <script type="application/javascript">
               window.__INITIAL_STATE__ = ${initialState};
             </script>
-
         </head>
         <body>
             <div id="app-root">${markup}</div>

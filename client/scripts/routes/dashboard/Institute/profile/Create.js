@@ -1,27 +1,22 @@
 /**
- * Created by amitava on 11/02/16.
+ * Created by amitava on 11/04/16.
  */
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import autobind from 'autobind-decorator';
+import ReactSelect from 'react-select';
 import map from 'lodash/map';
 import merge from 'lodash/merge';
-import values from 'lodash/values';
-import compact from 'lodash/compact';
 
-import {createInstitute} from '../../../redux/modules/institute';
-import {loadCourses} from '../../../redux/modules/course';
-import {loadCategories} from '../../../redux/modules/category';
-import {getSubjects} from '../../../redux/modules/subject';
-import {createToast} from '../../../redux/modules/toast';
+import {createToast} from '../../../../redux/modules/toast';
+import {createProfile} from '../../../../redux/modules/user';
 
-import Input from '../../../components/PureInput';
-import Select from '../../../components/Select';
-import Textarea from '../../../components/Textarea';
-import STATES from '../../../utils/states';
-import {addressToGeo} from '../../../utils/google-geo';
+import Input from '../../../../components/PureInput';
+import Select from '../../../../components/Select';
+import Textarea from '../../../../components/Textarea';
+import STATES from '../../../../utils/states';
+import {addressToGeo} from '../../../../utils/google-geo';
 
 @reduxForm({
     form: 'institute_create',
@@ -36,16 +31,11 @@ import {addressToGeo} from '../../../utils/google-geo';
         'address.state',
         'address.pincode',
         'address.loc[]',
-        'logo',
-        'banner',
         'website',
         'email',
         'type',
         'telephones[].name',
-        'telephones[].number',
-        'estd',
-        'student_count',
-        'faculty_count'
+        'telephones[].number'
     ],
     initialValues: {
         address: {
@@ -61,26 +51,7 @@ import {addressToGeo} from '../../../utils/google-geo';
         course: state.course_store
     }
 })
-export default class CreateInstitute extends React.Component{
-
-    static displayName = 'CreateInstituteFrom';
-
-    @autobind
-    onSubmit(data){
-        return this.props.dispatch(createInstitute(data)).then(
-            d => {
-                this.props.dispatch(routeActions.push(`/admin/institute/manage/${d.result}`));
-                this.props.dispatch(createToast('Institute created.'));
-            },
-            e => {
-                this.props.dispatch(createToast({
-                    text: e._error,
-                    type: 'error'
-                }));
-                return Promise.reject(e);
-            }
-        )
-    }
+export default class CreateProfile extends React.Component {
 
     @autobind
     fetchAddress(val){
@@ -106,25 +77,37 @@ export default class CreateInstitute extends React.Component{
         })
     }
 
+    @autobind
+    onSubmit(data){
+        return this.props.dispatch(createProfile(data)).then(
+            d => {
+                this.props.dispatch(createToast('Institute created.'));
+                this.props.dispatch(push('/dashboard/profile'));
+            },
+            e => {
+                this.props.dispatch(createToast({
+                    text: e._error,
+                    type: 'error'
+                }));
+                return Promise.reject(e);
+            }
+        )
+    }
+
     render(){
         const {fields: {
             name,
             description,
             short_description,
             address,
-            logo,
-            banner,
             website,
             email,
             type,
-            telephones,
-            estd,
-            student_count,
-            faculty_count
-            }, error, handleSubmit, submitting} = this.props;
+            telephones
+        }, error, handleSubmit, submitting} = this.props;
 
         return (
-            <div className="create-int-page">
+            <div>
                 <form onSubmit={handleSubmit(this.onSubmit)} className="form cell-2">
                     <h4>Create Institute</h4>
                     <div className="form-group">
@@ -152,17 +135,6 @@ export default class CreateInstitute extends React.Component{
                         <Select field={address.state} options={map(STATES, (v,k) => ({label: v, value: k}))} />
                     </div>
                     <div className="form-group">
-                        <label>Location [Longitude, Latitude]</label>
-                        <input className="form-control" type="text" {...address.loc[0]} placeholder="Longitude"/>
-                        <input className="form-control" type="text" {...address.loc[1]} placeholder="Latitude"/>
-                    </div>
-                    <div className="form-group">
-                        <Input type="text" field={logo} label="Logo URL" />
-                    </div>
-                    <div className="form-group">
-                        <Input type="text" field={banner} label="Banner URL" />
-                    </div>
-                    <div className="form-group">
                         <Input type="text" field={website} label="Website address" />
                     </div>
                     <div className="form-group">
@@ -181,15 +153,6 @@ export default class CreateInstitute extends React.Component{
                         <a onClick={e => {
                             telephones.addField()
                         }}>Add more</a>
-                    </div>
-                    <div className="form-group">
-                        <Input type="text" field={estd} label="Established in" />
-                    </div>
-                    <div className="form-group">
-                        <Input type="text" field={student_count} label="Student count" />
-                    </div>
-                    <div className="form-group">
-                        <Input type="text" field={faculty_count} label="Faculty count" />
                     </div>
                     <div>
                         <button className="btn btn-primary" disabled={submitting} type="submit">Save</button>

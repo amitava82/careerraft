@@ -1,0 +1,72 @@
+{
+    "middleware": ["apiRequest"],
+    "path": "/api/profiles",
+    "routes": [
+        {
+            "path": "",
+            "method": "get",
+            "handler": "getProfiles"
+        },
+        {
+            "path": "",
+            "method": "post",
+            "handler": "createProfile",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": ":id",
+            "method": "get",
+            "handler": "getProfile"
+        },
+        {
+            "path": ":id",
+            "method": "put",
+            "handler": "updateProfile",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": ":id",
+            "method": "delete",
+            "handler": "deleteProfile",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": ":id/courses",
+            "method": "put",
+            "handler": "updateCourses",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": ":id/courses/:course",
+            "method": "delete",
+            "handler": "deleteCourse",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/providers",
+            "method": "get",
+            "handler": "getProviders",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": "/api/providers",
+            "method": "post",
+            "handler": "createProvider",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": "/api/providers/:id",
+            "method": "get",
+            "handler": "getProvider",
+            "middleware": ["ensureLoggedIn"]
+        },
+        {
+            "path": "/api/providers/:id",
+            "method": "put",
+            "handler": "updateProvider",
+            "middleware": ["ensureLoggedIn"]
+        }
+    ]
+}

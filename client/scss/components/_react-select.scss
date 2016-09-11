@@ -332,3 +332,26 @@
         -webkit-transform: rotate(1turn);
     }
 }
+
+.Select-lg{
+    font-size: 20px;
+    min-width: 200px;
+    //line-height: 1.6;
+    .Select-control{
+        height: 54px;
+        //padding: 10px 16px;
+        font-size: 20px;
+        border-radius: 0;
+
+        .Select-value, .Select-placeholder, .Select-input{
+            padding: 10px;
+        }
+
+        .Select-input{
+            height: 52px;
+        }
+        .Select-value{
+            padding-right: 45px;
+        }
+    }
+}

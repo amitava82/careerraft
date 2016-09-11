@@ -11,7 +11,7 @@ import Input from '../../components/PureInput';
 import Textarea from '../../components/Textarea';
 import {createValidator, required, email, integer, minLength, maxLength} from '../../utils/validator';
 
-import {sendQuery} from '../../redux/modules/institute';
+import {sendQuery} from '../../redux/modules/profile';
 import {createToast} from '../../redux/modules/toast';
 
 const formValidator = createValidator({
@@ -40,7 +40,7 @@ export default class ContactModal extends React.Component{
     }
 
     @autobind
-    sumbitForm(data){
+    submitForm(data){
         return this.props.dispatch(sendQuery(this.props.params.id, data)).then(
             s => {
                 this.setState({success: true});
@@ -77,7 +77,7 @@ export default class ContactModal extends React.Component{
                                     <p className="text-subhead">
                                         We will send your query to the institute. Institute will get back to you to answer your questions.
                                     </p>
-                                    <form onSubmit={handleSubmit(this.sumbitForm)}>
+                                    <form onSubmit={handleSubmit(this.submitForm)}>
                                         <Input field={name} placeholder="Your name" />
                                         <Input field={email} type="email" placeholder="Your email address" />
                                         <Input field={phone} placeholder="Your mobile number" />

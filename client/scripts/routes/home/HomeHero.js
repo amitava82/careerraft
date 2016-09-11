@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import get from 'lodash/get';
 import { routeActions } from 'react-router-redux';
-var Geosuggest = require('react-geosuggest');
+import Geosuggest from 'react-geosuggest';
 
+import SearchSuggest from '../../components/SearchSuggest';
 import { setLocation } from '../../redux/modules/search';
 import {HOME_CATEGORIES} from '../../constants';
 
@@ -30,6 +31,8 @@ export default class HomeHero extends React.Component {
             onChange: this.onValueChange,
             //initialValue: 'Bangalore'
         };
+
+        this.state = {suggest: null}
     }
 
     @autobind
@@ -41,7 +44,7 @@ export default class HomeHero extends React.Component {
             return;
         }
 
-        const q = this.refs.query.value;
+        const q = get(this.state.suggest, 'displayname', '');
         this.context.search(q);
     }
 
@@ -58,6 +61,11 @@ export default class HomeHero extends React.Component {
     onValueChange(val){
         if(!val)
             this.props.dispatch(setLocation(null));
+    }
+    
+    @autobind
+    onSuggestSelect(val){
+        this.setState({suggest: val})
     }
 
     render(){
@@ -84,7 +92,12 @@ export default class HomeHero extends React.Component {
                         <form onSubmit={this.onSubmit} className="search form-inline m-bl">
                             <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />
                             <div className="input-group input-group-lg">
-                                <input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />
+                                {/*<input className="query form-control" ref="query" type="text" placeholder="Search for a Course, Class or Institute" />*/}
+                                <SearchSuggest 
+                                    className="search-suggest query Select-lg"
+                                    onSelect={this.onSuggestSelect}
+                                    value={this.state.suggest}
+                                />
                                 <span className="input-group-btn">
                                     <button className="btn btn-primary" type="submit"><i className="fa fa-search" /> </button>
                                 </span>

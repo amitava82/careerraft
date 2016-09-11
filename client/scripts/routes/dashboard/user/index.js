@@ -11,23 +11,11 @@ import {Image} from 'react-bootstrap';
 
 import reduce from 'lodash/reduce';
 
-import {createToast} from '../../redux/modules/toast';
-import {removeSavedItem} from '../../redux/modules/user';
+import {createToast} from '../../../redux/modules/toast';
+import {removeSavedItem} from '../../../redux/modules/user';
 
 @connect(state => state)
-//@middleware([
-//    {
-//        key: '$categories',
-//        watch: props => props.params.id,
-//        handler: (props, id) => props.dispatch(categoryActions.loadCategories())
-//    },
-//    {
-//        key: '$institutes',
-//        watch: (props) => props.params.id,
-//        handler: (props, instId) => props.dispatch(instActions.loadInstitutes())
-//    }
-//])
-export default class HomeContainer extends React.Component {
+export default class UserDashboard extends React.Component {
 
     componentDidMount(){
 

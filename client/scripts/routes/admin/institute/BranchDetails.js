@@ -5,52 +5,47 @@ import React from 'react';
 import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import {getInstitute} from '../../../redux/modules/institute';
-import  AssignSubject from './AssignSubject';
+import {getProfile} from '../../../redux/modules/profile';
+import  AssignCourses from './AssignCourses';
+import {formatAddress} from '../../../utils/format-address'
 
 
 @connect(state => state)
-export default class InstituteDetails extends React.Component {
+export default class BranchDetails extends React.Component {
 
-    constructor(){
-        super();
-
-        this.state = {
-            institute: null
-        }
+    constructor(...args){
+        super(...args);
     }
     componentDidMount(){
-        this.props.dispatch(getInstitute(this.props.params.id)).then(
-            r => this.setState({institute: r})
-        )
+        this.props.dispatch(getProfile(this.props.params.branch));
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.params.id == this.props.params.id) return;
+        if(nextProps.params.branch == this.props.params.branch) return;
 
-        this.props.dispatch(getInstitute(this.props.params.id)).then(
-            r => this.setState({institute: r})
-        )
+        this.props.dispatch(getProfile(this.props.params.branch));
     }
 
     @autobind
-    onSave(inst){
-        this.setState({institute: inst});
+    onSave(d){
+        console.log(d)
     }
 
     render() {
 
-        if(!this.state.institute) return <h5>Loading...</h5>;
+        const {profile_store: {entities}, params: {branch}} = this.props;
 
-        const inst = this.state.institute;
+        const inst = entities[branch];
+
+        if(!inst) return <h5>Loading...</h5>;
 
         return (
             <div>
-                <h5>{inst.name}</h5>
+                <address>{formatAddress(inst.address)}</address>
                 <div className="grid row">
-                    <AssignSubject inst_id={this.props.params.id} onSave={this.onSave} />
+                    <AssignCourses branch={branch} onSave={this.onSave} />
                     <div>
-                        {inst.subjects.map(i => {
+                        {inst.courses.map(i => {
                             return (
                                 <div className="list-group">
                                     <div className="list-group-item">

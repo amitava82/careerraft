@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 import {Link} from 'react-router';
 
-import {getInstitute} from '../../../redux/modules/institute';
+import {getProfile} from '../../../redux/modules/profile';
 import {loadCategories} from '../../../redux/modules/category';
 
 import Api from '../../../helpers/api';
@@ -14,7 +14,7 @@ import Api from '../../../helpers/api';
 const api = new Api();
 
 @connect(state => state)
-export default class ManageInstitute extends React.Component{
+export default class ManageProvider extends React.Component{
 
     constructor(){
         super();
@@ -39,7 +39,7 @@ export default class ManageInstitute extends React.Component{
         const q = this.refs.query.value;
         const query = {};
         if(q) query.name = q;
-        api.get('institutes', {params: query}).then(
+        api.get('providers', {params: query}).then(
             r => {
                 this.setState({institutes: r})
             },
@@ -51,7 +51,7 @@ export default class ManageInstitute extends React.Component{
     selectOrg(id){
         this.setState({institute: null});
 
-        this.props.dispatch(getInstitute(id)).then(
+        this.props.dispatch(getProfile(id)).then(
             r => {
                 this.setState({institute: r})
             },
@@ -72,7 +72,7 @@ export default class ManageInstitute extends React.Component{
         const searchResults = this.state.institutes.map(i => {
             return (
                 <div>
-                    <p><Link to={`/admin/institute/manage/${i._id}`}>{i.name} {i.parent_id ? ' - Branch' : null}</Link></p>
+                    <p><Link to={`/admin/provider/manage/${i._id}`}>{i.name}</Link></p>
 
                 </div>
             )

@@ -35,6 +35,13 @@
             "role": "ADMIN"
         },
         {
+            "path": "/api/institutes/:id/courses",
+            "method": "put",
+            "handler": "addCourse",
+            "middleware": ["ensureLoggedIn"],
+            "role": ["ADMIN", "PROVIDER"]
+        },
+        {
             "path": "/api/institutes/:id/subjects/:subject",
             "method": "delete",
             "handler": "deleteSubject",
@@ -51,7 +58,7 @@
             "method": "post",
             "handler": "createBranch",
             "middleware": ["ensureLoggedIn"],
-            "role": "ADMIN"
+            "role": ["ADMIN", "PROVIDER"]
         },
         {
             "path": "/api/institutes/:id/upload/:type",

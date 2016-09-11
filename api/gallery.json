@@ -18,14 +18,14 @@
             "method": "post",
             "handler": "save",
             "middleware": ["ensureLoggedIn"],
-            "role": "ADMIN"
+            "role": ["ADMIN", "PROVIDER"]
         },
         {
             "path": "/api/gallery/:org/:file",
             "method": "delete",
             "handler": "delete",
             "middleware": ["ensureLoggedIn"],
-            "role": "ADMIN"
+            "role": ["ADMIN", "PROVIDER"]
         }
     ]
 }

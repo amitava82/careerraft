@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var projectRoot = process.env.PWD; // Absolute path to the project root
 var resolveRoot = path.join(projectRoot, 'node_modules'); // project root/node_modules
@@ -12,11 +14,11 @@ var envPlugin = new webpack.DefinePlugin({
     __CLIENT__: true,
     __SERVER__: false
 });
-
+var extractCSS = new ExtractTextPlugin('app.css');
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js');
 var env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')});
 
-var plugins = [commonsPlugin];
+var plugins = [commonsPlugin, extractCSS];
 
 if(process.env.NODE_ENV == 'production'){
     plugins.push(new webpack.optimize.OccurenceOrderPlugin());
@@ -31,7 +33,7 @@ module.exports = {
     entry: {
         app: path.resolve(__dirname, 'client/scripts/client.js'),
         vendors: ['react', 'react-router', 'superagent', 'redux-thunk', 'history', 'lodash', 'scroll-behavior', 'qs',
-            'redux', 'redux-actions', 'react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest',
+            'redux','react-router-redux', 'react-addons-update', 'redux-form', 'react-geosuggest',
             'react-bootstrap', 'react-router-bootstrap', 'react-select', 'react-helmet']
     },
     //devtool: 'source-map',
@@ -51,6 +53,26 @@ module.exports = {
                     presets: ['es2015', "stage-1", 'react'],
                     plugins: ["transform-decorators-legacy"]
                 }
+            },
+            {
+                test: /\.scss$|\.css$/,
+                loader: extractCSS.extract('style', ['css', 'postcss', 'sass'])
+            },
+            {
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            }, {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            }, {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
+            }, {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
+            }, {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
             }
         ]
     },

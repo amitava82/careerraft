@@ -10,7 +10,8 @@ import reduce from 'lodash/reduce';
 import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
 
-var Geosuggest = require('react-geosuggest');
+import Geosuggest from 'react-geosuggest';
+import SearchSuggest from './SearchSuggest';
 
 import {Navbar, Nav, NavItem, Button, Input, NavDropdown, MenuItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -41,7 +42,8 @@ export default class Header extends React.Component {
         super(props, ctx);
 
         this.state = {
-          query: get(props.search_store, 'query.q')
+          query: get(props.search_store, 'query.q'),
+          suggest: null
         };
 
         this.geoOptions = {
@@ -101,7 +103,7 @@ export default class Header extends React.Component {
             return;
         }
 
-        const q = this.refs.query.value;
+        const q = get(this.state.suggest, 'displayname', '');
 
         this.context.search(q);
     }
@@ -110,6 +112,11 @@ export default class Header extends React.Component {
     onValueChange(val){
         if(!val)
             this.props.dispatch(setLocation(null));
+    }
+
+    @autobind
+    onSuggestSelect(val){
+        this.setState({suggest: val})
     }
 
     render () {
@@ -206,8 +213,17 @@ export default class Header extends React.Component {
                 <Navbar.Form pullLeft>
                     <form onSubmit={this.onSubmit} className="search">
                         <Geosuggest ref={ref => this.geosuggest = ref} {...this.geoOptions} initialValue={initialValue} className="form-group" />{' '}
-                        <input value={this.state.query} onChange={e => this.setState({query: e.target.value})} className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />
-                        <Button type="submit"><i className="fa fa-search" /></Button>
+                        {/*<input value={this.state.query} onChange={e => this.setState({query: e.target.value})} className="query form-control" ref="query" type="text" placeholder="Search for a Course/Institute" />*/}
+                        <div className="input-group">
+                            <SearchSuggest
+                                className="search-suggest query Select-sm"
+                                onSelect={this.onSuggestSelect}
+                                value={this.state.suggest}
+                            />
+                            <span className="input-group-btn">
+                                <Button type="submit"><i className="fa fa-search" /></Button>
+                            </span>
+                        </div>
                     </form>
                 </Navbar.Form>
                 <Nav pullRight>

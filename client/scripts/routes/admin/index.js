@@ -34,39 +34,39 @@ const modules = {
             cb(null, require('./CreateSubject').default);
         });
     },
-    CreateInstitute: function (loc, cb) {
+    Provider: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/CreateInstitute').default);
+            cb(null, require('./institute/Provider').default);
         });
     },
-    ManageInstitute: function (loc, cb) {
+    ManageProvider: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/ManageInstitute').default);
+            cb(null, require('./institute/ManageProvider').default);
         });
     },
-    InstituteDetails: function (loc, cb) {
+    BranchDetails: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/InstituteDetails').default);
+            cb(null, require('./institute/BranchDetails').default);
         });
     },
-    EditInstitute: function (loc, cb) {
+    EditProvider: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/EditInstitute').default);
+            cb(null, require('./institute/EditProvider').default);
         });
     },
-    EditBasicDetails: function (loc, cb) {
+    ProviderProfile: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/EditBasicDetails').default);
+            cb(null, require('./institute/ProviderProfile').default);
         });
     },
     AssignSubject:  function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/AssignSubject').default);
+            cb(null, require('./institute/AssignCourses').default);
         });
     },
-    ManageBranches: function (loc, cb) {
+    BranchesList: function (loc, cb) {
         require.ensure([], require => {
-            cb(null, require('./institute/ManageBranches').default);
+            cb(null, require('./institute/BranchesList').default);
         });
     },
     ManageGallery: function (loc, cb) {
@@ -77,6 +77,11 @@ const modules = {
     CreateBranch: function (loc, cb) {
         require.ensure([], require => {
             cb(null, require('./institute/CreateBranch').default);
+        });
+    },
+    AdManager: function(loc, cb){
+        require.ensure([], require => {
+            cb(null, require('./admanager/index').default);
         });
     }
 };

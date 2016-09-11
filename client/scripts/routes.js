@@ -2,7 +2,7 @@
  * Created by amitava on 30/01/16.
  */
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import get from 'lodash/get';
 
 import {ROUTE_MESSAGES} from './constants';
@@ -12,9 +12,12 @@ import {
     HomeContainer
 } from './routes/home'
 
-import {
-    DashboardContainer
-} from './routes/dashboard';
+import Dashboard from './routes/dashboard';
+import InstDashboard from './routes/dashboard/institute/dashboard/Dashboard';
+import InstProfile from './routes/dashboard/institute/profile/Profile';
+import InstProfileCreate from './routes/dashboard/institute/profile/Create';
+import UpdateCourses from './routes/dashboard/institute/profile/UpdateCourses';
+import CreateBranch from './routes/dashboard/institute/profile/Branch';
 
 import {
     InstituteContainer,
@@ -31,6 +34,7 @@ import {
     SearchContainer
 } from './routes/search';
 
+import Provider from './routes/provider';
 
 import AdminModules from './routes/admin';
 
@@ -66,6 +70,24 @@ export default (store) => {
         cb();
     }
 
+    function providerRedirect(nextState, replace, cb){
+        const {session_store: {isLoggedIn, user, previousLocation}} = store.getState();
+
+        if(!isLoggedIn){
+            replace({pathname: '/login', state: {modal: true, returnTo: get(previousLocation, 'pathname', '')}});
+        }else if(user.role =='USER'){
+                replace('/dashboard');
+        }else if(user.role == 'PROVIDER'){
+            replace('/provider/dashboard');
+        }else if(user.role == 'ADMIN'){
+            replace('/admin');
+        }
+        cb();
+    }
+    function profileRedirect(nextState, replace, cb) {
+        cb();
+    }
+
     return (
         <Route path="/" component={App}>
             <IndexRoute component={HomeContainer} isHome={true} />
@@ -79,24 +101,47 @@ export default (store) => {
                 <Route path="contact" component={ContactModal} onEnter={ensureLoggedIn} message={ROUTE_MESSAGES['contact']} />
             </Route>
             <Route path="admin" getComponent={AdminModules.AdminContainer} onEnter={ensureAdmin}>
-                <Route path="institute/add" getComponent={AdminModules.CreateInstitute} />
-                <Route path="institute/manage" >
-                    <IndexRoute getComponent={AdminModules.ManageInstitute} />
-                    <Route path=":id" getComponent={AdminModules.EditInstitute} >
-                        <IndexRoute getComponent={AdminModules.EditBasicDetails} />
-                        <Route path="subjects" getComponent={AdminModules.AssignSubject} />
-                        <Route path="branches" getComponent={AdminModules.ManageBranches} />
+                <Route path="provider/add" getComponent={AdminModules.CreateInstitute} />
+                <Route path="provider/manage" >
+                    <IndexRoute getComponent={AdminModules.ManageProvider} />
+                    <Route path=":id" getComponent={AdminModules.EditProvider} >
+                        <IndexRoute getComponent={AdminModules.ProviderProfile} />
+                        <Route path="branches" getComponent={AdminModules.BranchesList} />
                         <Route path="create-branch" getComponent={AdminModules.CreateBranch} />
                         <Route path="gallery" getComponent={AdminModules.ManageGallery} />
+                        <Route path=":branch">
+                            <IndexRoute getComponent={AdminModules.BranchDetails} />
+                            <Route path="subjects" getComponent={AdminModules.AssignSubject} />
+                        </Route>
                     </Route>
                 </Route>
                 <Route path="category/add" getComponent={AdminModules.CreateCategory} />
                 <Route path="category/:id/edit" getComponent={AdminModules.CreateCategory} />
                 <Route path="course/add"  getComponent={AdminModules.CreateCourse} />
                 <Route path="subject/add" getComponent={AdminModules.CreateSubject} />
+                
+                <Route path="admanager" getComponent={AdminModules.AdManager} />
             </Route>
 
-            <Route path="dashboard" component={DashboardContainer} onEnter={ensureLoggedIn} />
+            <Route path="dashboard" component={Dashboard} onEnter={providerRedirect}>
+                <IndexRoute component={InstDashboard} />
+                <Route path="profile/:id" component={InstProfile} />
+                <Route path="profile/create" component={InstProfileCreate} />
+                <Route path="profile/:id/create-branch" component={CreateBranch} />
+                <Route path="profile/:id/edit-courses(/:course)" component={UpdateCourses} />
+            </Route>
+            
+            <Route path="provider" component={Provider.Container}>
+                <IndexRedirect to="/dashboard" />
+                <Route path="dashboard" component={Provider.Dashboard} />
+                <Route path="profile">
+                    <IndexRoute component={Provider.ProfileContainer} />
+                    <Route path="create" component={Provider.Branch} />
+                    <Route path=":id" component={Provider.Profile} />
+                    <Route path=":id/edit" component={Provider.Branch} />
+                    <Route path=":id/courses(/:course)" component={Provider.Courses} />
+                </Route>
+            </Route>
 
             <Route path="login(/:mode)" component={Login} />
             <Route path="/about" getComponent={StaticRoutes.About}  />

@@ -11,7 +11,7 @@ import reject from 'lodash/reject';
 
 import ImageGallery from '../../../components/ImageGallery';
 
-import {update} from '../../../redux/modules/institute';
+import {updateProvider} from '../../../redux/modules/provider';
 import {upload, loadGallery, deleteImage} from '../../../redux/modules/gallery';
 import {createToast} from '../../../redux/modules/toast';
 

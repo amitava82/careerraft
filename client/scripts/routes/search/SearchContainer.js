@@ -63,11 +63,7 @@ export default class SearchContainer extends React.Component {
         props.dispatch(search({
                 ...props.location.query
             }))
-            .then(
-                r => {
-                    return props.dispatch(filters({...props.location.query}))
-                }
-            ).error(
+            .error(
             e => {
                 this.props.dispatch(createToast(e))
             }
@@ -75,27 +71,31 @@ export default class SearchContainer extends React.Component {
     }
 
     @autobind
-    toggleFilter(val, type, rm) {
+    toggleFilter(val, type, rm, isMultiple) {
         const query = cloneDeep(this.props.location.query);
         delete query.page;
         let q = query[type];
-        if (q) {
-            rm ? pull(q, val) : q.push(val)
-        } else {
-            q = [val];
-            //q[type] =  [val];
-        }
-        q.length ? query[type] = q : delete query[type];
 
-        this.props.dispatch(push({...this.props.location, query: query}))
+        if(!isMultiple){
+            rm ? delete query[type] : query[type] = val;
+        }else{
+            if (q) {
+                q = q.split('~');
+                rm ? pull(q, val) : q.push(val)
+            } else {
+                q = [val];
+                //q[type] =  [val];
+            }
+            q.length ? query[type] = q.join(',') : delete query[type];
+        }
+
+        this.props.dispatch(push({...this.props.location, query: query}));
     }
 
     @autobind
-    resetFilters(){
-        const query = {...this.props.location.query};
-        delete query['category'];
-        delete query['course'];
-        delete query['subject'];
+    clearFilter(type){
+        const query = cloneDeep(this.props.location.query);
+        delete query[type];
         this.props.dispatch(push({...this.props.location, query: query}));
     }
 
@@ -161,11 +161,17 @@ export default class SearchContainer extends React.Component {
                     </div>
                 </div>
                 <div className="container">
+                    <div>
+
+                    </div>
                     <div className="row">
                         <div className="col-sm-4 col-md-3">
-                            <FilterPanel filters={search_store.filters} toggleFilter={this.toggleFilter} resetFilters={this.resetFilters} />
+                            <FilterPanel
+                                filters={search_store.filters}
+                                toggleFilter={this.toggleFilter}
+                                clearFilter={this.clearFilter} />
                         </div>
-                        <div className="col-sm-8 col-md-8">
+                        <div className="col-sm-6 col-md-7">
                             {content}
                             <nav>
                                 <ul className="pager">
@@ -179,6 +185,9 @@ export default class SearchContainer extends React.Component {
                                     </li>
                                 </ul>
                             </nav>
+                        </div>
+                        <div className="col-sm-2 col-md-2">
+                            This is ads column
                         </div>
                     </div>
                 </div>

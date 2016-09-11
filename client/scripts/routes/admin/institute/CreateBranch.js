@@ -4,6 +4,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {goBack} from 'react-router-redux';
+import GeoSuggest from 'react-geosuggest';
 import {connect} from 'react-redux';
 import {reduxForm, initialize} from 'redux-form';
 import autobind from 'autobind-decorator';
@@ -20,7 +21,7 @@ import STATES from '../../../utils/states';
 import {addressToGeo} from '../../../utils/google-geo';
 import {createValidator, required} from '../../../utils/validator';
 
-import {createBranch} from '../../../redux/modules/institute';
+import {createProfile} from '../../../redux/modules/profile';
 import { createToast } from '../../../redux/modules/toast';
 
 const formValidator = createValidator({
@@ -32,8 +33,20 @@ const formValidator = createValidator({
     'email': required
 });
 
+
+const GEO_OPTIONS = {
+    inputClassName: 'form-control',
+    placeholder: 'Select a locality',
+    country: 'in',
+    types: ['(regions)'],
+    skipSuggest: i => i.types && i.types.indexOf('sublocality_level_1') === -1,
+    className: 'geosuggest-locality form-group',
+    getSuggestLabel: s => s.terms[0].value
+};
+
+
 @reduxForm({
-    form: 'create_branch',
+    form: 'add_branch',
     fields: [
         'address.line1',
         'address.line2',
@@ -43,19 +56,18 @@ const formValidator = createValidator({
         'address.pincode',
         'address.loc[]',
         'email',
+        'website',
         'telephones[].name',
         'telephones[].number'
     ],
     initialValues: {
-        address: {
-            loc: [0, 0]
-        },
         telephones: [{name: 'Office', number: ''}]
-    }
+    },
+    //validate: formValidator
 }, state => {
     return {
         subject: state.subject_store,
-        institute: state.institute_store,
+        profile: state.profile_store,
         category: state.category_store,
         course: state.course_store
     }
@@ -66,7 +78,8 @@ export default class CreateBranch extends React.Component{
     submit(data){
         const dispatch = this.props.dispatch;
         console.log(data);
-        return dispatch(createBranch(this.props.params.id, data)).then(
+        data.provider = this.props.params.id;
+        return dispatch(createProfile(data)).then(
             r => {
                 dispatch(createToast('Branch created.'));
                 dispatch(goBack());
@@ -99,20 +112,26 @@ export default class CreateBranch extends React.Component{
         });
     }
 
+    @autobind
+    localitySelect(val){
+        const loc = [val.location.lng, val.location.lat];
+        this.props.fields.address.locality.onChange(val.label);
+        this.props.fields.address.loc.forEach((i,idx) => i.onChange(loc[idx]));
+    }
+
     render(){
-        const {fields: {address, email, telephones}, handleSubmit, submitting} = this.props;
+        const {fields: {address, email, website, telephones}, handleSubmit, submitting} = this.props;
 
         return (
             <div>
+                <p className="text-subtitle">Create Branch</p>
                 <form onSubmit={handleSubmit(this.submit)}>
-                    <p>Create branch. Branch will inherit missing information from parent institute.
-                        You can edit branch details from individual institute page.</p>
                     <div className="form-group">
                         <label>Address</label>
                         <Input type="text" field={address.pincode} onBlur={(e) => this.fetchAddress(e.target.value)} placeholder="Pin Code" />
                         <Input type="text" field={address.line1} placeholder="Address line 1" />
                         <Input type="text" field={address.line2} placeholder="Address line 2" />
-                        <Input type="text" field={address.locality} placeholder="Locality" />
+                        <GeoSuggest {...GEO_OPTIONS} onSuggestSelect={this.localitySelect} />
                         <Input type="text" field={address.city} placeholder="City" />
                         <Select field={address.state} options={map(STATES, (v,k) => ({label: v, value: k}))} />
                     </div>
@@ -123,6 +142,9 @@ export default class CreateBranch extends React.Component{
                     </div>
                     <div className="form-group">
                         <Input type="email" field={email} label="Email address" />
+                    </div>
+                    <div className="form-group">
+                        <Input type="text" field={website} label="Website address" />
                     </div>
                     <div className="form-group">
                         <label>Telephones</label>

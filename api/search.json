@@ -12,6 +12,18 @@
             "method": "get",
             "handler": "filters",
             "middleware": []
+        },
+        {
+            "path": "/api/v2/search",
+            "method": "get",
+            "handler": "elastic_search",
+            "middleware": []
+        },
+        {
+            "path": "/api/search/suggestions",
+            "method": "get",
+            "handler": "suggestions"
         }
+
     ]
 }

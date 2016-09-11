@@ -1,7 +1,6 @@
 /**
  * Created by amitava on 16/02/16.
  */
-import {handleActions} from 'redux-actions';
 import update from 'react-addons-update';
 import extend from 'lodash/extend';
 import reject from 'lodash/reject';

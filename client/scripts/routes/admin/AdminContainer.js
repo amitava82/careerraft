@@ -10,12 +10,12 @@ import Helmet from 'react-helmet';
 
 const sideLinks = [
     {
-        name: 'Create Institute',
-        link: 'institute/add'
+        name: 'Manage Provider',
+        link: 'provider/manage'
     },
     {
-        name: 'Manage Institute',
-        link: 'institute/manage'
+        name: 'Create Provider',
+        link: 'provider/add'
     },
     {
         name: 'Add Category',
@@ -28,6 +28,10 @@ const sideLinks = [
     {
         name: 'Add Subject',
         link: 'subject/add'
+    },
+    {
+        name: 'Ads Manager',
+        link: 'admanager'
     }
 ];
 

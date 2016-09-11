@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import autobind from 'autobind-decorator';
 
 import {removeSavedItem, saveItem} from '../../redux/modules/user';
-import formatAddress from '../../utils/format-address';
+import {formatAddress} from '../../utils/format-address';
 
 @connect(state => {
     return {
@@ -32,15 +32,13 @@ export default class InstItem extends React.Component {
 
         const selected = !!this.props.user_store.savedItems[i._id];
 
-        const categories = [], subjects = [], courses = [];
-        i.subjects.forEach(i => {
-            categories.push(
-                i.category
-            );
-            courses.push(
-                i.course
-            )
+        const categories = [], courses = [];
+
+        i.courses.forEach(i => {
+            courses.push(i.name);
+            categories.push(i.category);
         });
+
 
         const desc = i.description.length >= 300 ? i.description.substr(0,300).trim()  : i.description;
 
@@ -56,7 +54,10 @@ export default class InstItem extends React.Component {
                         <button onClick={this.addToList} className="btn btn-link btn-sm link-save"><i className="fa fa-bookmark" /> Save</button>
                     )}
                 </h5>
-                <p className="addr text-subhead"><i className="fa fa-map-marker" /> {formatAddress(i.address)}</p>
+                <p className="addr text-subhead">
+                    {i._distance && <span className="label label-default m-rm">{parseInt(i._distance)}KM</span>}
+                    {formatAddress(i.address)}
+                </p>
                 <p className="desc">{desc}{i.description.length >= 300 && <Link to={detailsLink}>...more</Link>}</p>
                 <div className="m-bm">
                     <h5 className="text-subhead">

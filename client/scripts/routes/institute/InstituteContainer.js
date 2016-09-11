@@ -8,7 +8,7 @@ import Helmet from 'react-helmet';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
 
-import { getInstitute, loadBranch } from '../../redux/modules/institute';
+import { getProfile, loadBranch } from '../../redux/modules/profile';
 import {loadGallery} from '../../redux/modules/gallery';
 import {createToast} from '../../redux/modules/toast';
 
@@ -32,14 +32,14 @@ import Error from '../../components/Error';
 export default class SearchContainer extends React.Component {
 
     //static needs = [
-    //    [getInstitute, 'params.id']
+    //    [getProfile, 'params.id']
     //];
 
     static fetchData(props, store){
         const id = props.params.id;
         const state = store.getState();
-        if(state.institute_store.loading) return false;
-        return store.dispatch(getInstitute(id));
+        if(state.search_store.loading) return false;
+        return store.dispatch(getProfile(id));
     }
 
     constructor(props, ctx){
@@ -62,13 +62,13 @@ export default class SearchContainer extends React.Component {
 
     @autobind
     loadInstituteData(props){
-        const {institute_store, params: {id}, dispatch} = props;
-        const inst = institute_store.entities[id] || find(institute_store.entities, {url_slug: id});
+        const {search_store, params: {id}, dispatch} = props;
+        const inst = find(search_store.results, {url_slug: id});
         if(inst){
             this.loadImages(inst);
             this.loadBranches(inst);
         }else{
-            dispatch(getInstitute(id)).tap(
+            dispatch(getProfile(id)).tap(
                 resp => {
                     const inst = resp.entities.institutes[resp.result];
                     this.loadImages(inst);
@@ -100,15 +100,15 @@ export default class SearchContainer extends React.Component {
     }
 
     render (){
-        const {institute_store, params} = this.props;
+        const {search_store, params} = this.props;
 
        // debugger;
 
-        const inst = institute_store.entities[params.id] || find(institute_store.entities, {url_slug: params.id});
+        const inst = find(search_store.results, {url_slug: params.id});
 
-        if(institute_store.error) return <Error error={institute_store.error} />;
+        if(search_store.error) return <Error error={search_store.error} />;
 
-        if(institute_store.loading) return (
+        if(search_store.loading) return (
             <div className="text-center text-title">
                 <Loading />
             </div>

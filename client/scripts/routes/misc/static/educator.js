@@ -93,8 +93,10 @@ export default class Educator extends React.Component {
                                 </p>
                             </div>
                         </div>
-                        <h6 className="text-title">Ready to partner with us?</h6>
-                        <p>Please <Link to="/contact-us">contact us</Link> and we'll help you get started.</p>
+                        <div className="text-center">
+                            <h6 className="text-title m-bm">Ready to partner with us?</h6>
+                            <a href="/create-profile" className="btn btn-lg btn-primary btn-rounded">Create your profile</a>
+                        </div>
                     </div>
                 </div>
             </div>

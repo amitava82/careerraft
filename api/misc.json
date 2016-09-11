@@ -26,6 +26,21 @@
             "path": "/api/misc/multi",
             "method": "post",
             "handler": "multiRequest"
+        },
+        {
+            "path": "/api/geo_search",
+            "method": "get",
+            "handler": "geoSearch"
+        },
+        {
+            "path": "/api/geo_reverse",
+            "method": "get",
+            "handler": "geoReverse"
+        },
+        {
+            "path": "/api/ip_lookup",
+            "method": "get",
+            "handler": "ipLookup"
         }
     ]
 }

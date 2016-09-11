@@ -12,7 +12,7 @@ import Select from 'react-select';
 import {loadCategories} from '../../../redux/modules/category';
 import {loadCourses} from '../../../redux/modules/course';
 import {getSubjects} from '../../../redux/modules/subject';
-import {addSubject, removeSubject} from '../../../redux/modules/institute';
+import {addSubject, removeSubject} from '../../../redux/modules/profile';
 import {createToast} from '../../../redux/modules/toast';
 
 import Api from '../../../helpers/api';
@@ -34,16 +34,16 @@ export default class AssignSubject extends React.Component {
     }
 
     componentDidMount(){
-        const inst = this.props.institute_store.entities[this.props.params.id];
-        const subs = reduce(inst.subjects, (memo, i) => {
+        const inst = this.props.profile_store.entities[this.props.branch];
+        const courses = reduce(inst.courses, (memo, i) => {
             memo.push({
-                label: i.subject.course.name + ' - ' +i.subject.name,
-                value: i.subject._id
+                label: i.course.name,
+                value: i.course._id
             });
             return memo;
         }, []);
 
-        this.setState({values: subs});
+        this.setState({values: courses});
     }
 
     @autobind
@@ -55,7 +55,7 @@ export default class AssignSubject extends React.Component {
             return memo;
         }, []);
 
-        return this.props.dispatch(addSubject(this.props.params.id, {subjects: subs})).then(
+        return this.props.dispatch(addSubject(this.props.branch, {subjects: subs})).then(
             r => this.props.dispatch(createToast('Saved!')),
             e => this.props.dispatch(createToast(e))
         )
@@ -64,7 +64,7 @@ export default class AssignSubject extends React.Component {
     @autobind
     unassign(cat){
         if(confirm("Confirm delete?")){
-            this.props.dispatch(removeSubject(this.props.params.id, cat.subject._id));
+            this.props.dispatch(removeSubject(this.props.branch, cat.subject._id));
         }
     }
 
@@ -134,8 +134,8 @@ export default class AssignSubject extends React.Component {
 
     render(){
 
-        const {institute_store, category_store, subject_store, course_store} = this.props;
-        const inst = institute_store.entities[this.props.params.id];
+        const {profile_store, category_store, subject_store, course_store} = this.props;
+        const inst = profile_store.entities[this.props.branch];
 
         return (
             <div className="row">
@@ -164,6 +164,39 @@ export default class AssignSubject extends React.Component {
                         </div>
                         <button className="btn btn-primary"  type="submit">Save</button>
                     </form>
+                </div>
+                <div>
+                    <div className="form-group">
+                        <label className="control-label">Select courses you teach:</label>
+                        <Select.Async
+                            disabled={this.state.disabled}
+                            value={this.state.course}
+                            clearable={false}
+                            loadOptions={this.loadCourses}
+                            name="courses"
+                            onChange={this.handleCourseChange}
+                        />
+                    </div>
+
+                    {this.state.course ?
+                        <div>
+                            <Textarea onChange={this.onDescChange} value={this.state.desc} label="Please describe more about this course" placeholder="optional" />
+
+                            <div className="form-group">
+                                <label className="control-label">Which subjects do you teach</label>
+                                <Select
+                                    value={this.state.selected}
+                                    multi={true}
+                                    clearable={false}
+                                    options={this.state.subjects}
+                                    name="subjects"
+                                    onChange={this.handleSubjectChange}
+                                />
+                            </div>
+                            <button type="button" onClick={this.save} className="btn btn-primary">Save</button>
+                            <button type="button" className="btn btn-default" onClick={this.cancel}>Cancel</button>
+                        </div>
+                        : null }
                 </div>
             </div>
         )

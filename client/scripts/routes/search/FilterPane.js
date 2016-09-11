@@ -9,7 +9,9 @@ import autobind from 'autobind-decorator';
 
 import {Collapse} from 'react-bootstrap';
 import Checkbox from '../../components/Checkbox';
+import Radio from '../../components/Radio';
 
+const FILTERS = ['locality', 'categories', 'courses', 'kind'];
 @connect(state => state)
 export default class FilterPane extends React.Component {
 
@@ -22,20 +24,48 @@ export default class FilterPane extends React.Component {
         const {routing, filters} = this.props;
         const query = routing.location.query;
 
-        const categories = get(filters, 'categories', []).sort().map(i => {
-            const f = query['category'] || [];
+        const categoryAgg = filters.categories;
 
-            return <Checkbox key={i} label={i} checked={f.indexOf(i) > -1} onChange={e => this.props.toggleFilter(i, 'category', !e.target.checked)} />
+        const categories = get(categoryAgg, 'buckets', []).map(i => {
+            const f = query['category'] || "";
+            return <Radio 
+                        name="category" 
+                        key={i.key} 
+                        label={`${i.key} (${i.doc_count})`} 
+                        checked={f.indexOf(i.key) > -1} 
+                        onChange={e => this.props.toggleFilter(i.key, 'category', !e.target.checked, false)} />
         });
 
-        const courses = get(filters, 'courses', []).sort().map(i => {
-            const f = query['course'] || [];
-            return <Checkbox key={i} checked={f.indexOf(i) > -1}  onChange={e => this.props.toggleFilter(i, 'course', !e.target.checked)} label={i} />
+        const courseAgg = filters.courses;
+
+        const courses = get(courseAgg, 'buckets', []).sort().map(i => {
+            const f = query['courses'] || [];
+            return <Checkbox 
+                        key={i.key} 
+                        label={`${i.key} (${i.doc_count})`} 
+                        checked={f.indexOf(i.key) > -1}  
+                        onChange={e => this.props.toggleFilter(i.key, 'courses', !e.target.checked, true)} />
         });
 
-        const subjects = get(filters, 'subjects', []).sort().map(i => {
-            const f = query['subject'] || [];
-            return <Checkbox key={i} checked={f.indexOf(i) > -1}  label={i} onChange={e => this.props.toggleFilter(i, 'subject', !e.target.checked)}/>
+        const localityAgg = filters.locality;
+        const locality = get(localityAgg, 'buckets', []).sort().map(i => {
+            const f = query['locality'] || [];
+            return <Radio
+                        name="locality"
+                        key={i.key} 
+                        label={`${i.key} (${i.doc_count})`} 
+                        checked={f.indexOf(i.key) > -1} 
+                        onChange={e => this.props.toggleFilter(i.key, 'locality', !e.target.checked, true)}/>
+        });
+
+        const kindAgg = filters.kind;
+        const kind = get(kindAgg, 'buckets', []).map(i => {
+            const f = query['kind'] || [];
+            return <Radio 
+                        name="kind" key={i.key} 
+                        label={`${i.key} (${i.doc_count})`} 
+                        checked={f.indexOf(i.key) > -1} 
+                        onChange={e => this.props.toggleFilter(i.key, 'kind', !e.target.checked, false)} />
         });
 
         return (
@@ -44,28 +74,45 @@ export default class FilterPane extends React.Component {
                     <i className="fa fa-filter" />
                     Refine
                     <span className="pull-right">
-                        <button className="sm btn-link" onClick={this.props.resetFilters}>clear</button>
                         <button onClick={ ()=> this.setState({ open: !this.state.open })} className="visible-xs-inline btn-link sm"><i className="fa fa-bars" /></button>
                     </span>
                 </div>
                 <Collapse in={this.state.open}>
                     <div className="filter-panel-body">
                         <div className="filter-group">
-                            <h5 className="text-caption strong">Categories</h5>
+                            <h5 className="text-caption">
+                                <strong>Locality</strong>
+                                <a onClick={() => this.props.clearFilter('locality')} className="pull-right m-rm">clear</a>
+                            </h5>
+                            <div className="filter-list">
+                                {locality}
+                            </div>
+                        </div>
+                        <div className="filter-group">
+                            <h5 className="text-caption">
+                                <strong>Categories</strong>
+                                <a onClick={() => this.props.clearFilter('category')} className="pull-right m-rm">clear</a>
+                            </h5>
                             <div className="filter-list">
                                 {categories}
                             </div>
                         </div>
                         <div className="filter-group">
-                            <h5 className="text-caption strong">Courses</h5>
+                            <h5 className="text-caption">
+                                <strong>Courses</strong>
+                                <a onClick={() => this.props.clearFilter('courses')} className="pull-right m-rm">clear</a>
+                            </h5>
                             <div className="filter-list">
                                 {courses}
                             </div>
                         </div>
                         <div className="filter-group">
-                            <h5 className="text-caption strong">Subjects</h5>
+                            <h5 className="text-caption">
+                                <strong>Type</strong>
+                                <a onClick={() => this.props.clearFilter('kind')} className="pull-right m-rm">clear</a>
+                            </h5>
                             <div className="filter-list">
-                                {subjects}
+                                {kind}
                             </div>
                         </div>
                     </div>

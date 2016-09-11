@@ -16,6 +16,8 @@ import simpleStore from './utils/simpleStore';
 import {setLocation} from './redux/modules/search';
 import {loadSavedList} from './redux/modules/user';
 
+import '../scss/import.scss';
+
 const createScrollHistory = useScroll(createBrowserHistory);
 const appHistory = useRouterHistory(createScrollHistory)({
     parseQueryString: parse,

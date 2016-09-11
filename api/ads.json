@@ -1,0 +1,51 @@
+{
+    "middleware": ["apiRequest"],
+    "path": "/api/ads",
+    "routes": [
+        {
+            "path": "",
+            "method": "post",
+            "handler": "create",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": "",
+            "method": "get",
+            "handler": "list",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": "show",
+            "method": "get",
+            "handler": "findAds"
+        },
+        {
+            "path": ":id",
+            "method": "get",
+            "handler": "get",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": ":id",
+            "method": "put",
+            "handler": "update",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": ":id",
+            "method": "delete",
+            "handler": "delete",
+            "middleware": ["ensureLoggedIn"],
+            "role": "ADMIN"
+        },
+        {
+            "path": ":id/forward",
+            "method": "get",
+            "handler": "adForward"
+        }
+    ]
+}

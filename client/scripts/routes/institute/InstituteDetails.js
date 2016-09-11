@@ -15,7 +15,7 @@ import {
 import each from 'lodash/each';
 import isEmpty from 'lodash/isEmpty';
 
-import formatAddress from '../../utils/format-address';
+import {formatAddress} from '../../utils/format-address';
 import Avatar from '../../components/Avatar';
 import ImageGallery from '../../components/ImageGallery';
 import QnAComponent from './QnAComponent';
@@ -58,7 +58,7 @@ export default class InstituteDetails extends React.Component {
         let courses = {}, categories = [];
 
 
-        inst.subjects.forEach(i => {
+        inst.courses.forEach(i => {
             const c = i.subject.course;
             if(courses[c._id]){
                 courses[c._id].subjects.push(i);
@@ -148,7 +148,7 @@ export default class InstituteDetails extends React.Component {
                                         INSTITUTE TYPE: <span className="case-title">{inst.type}</span>
                                     </div>
                                     <div className="col-xs-6 text-right">
-                                        {inst.branches.length ? (
+                                        {inst.branches && inst.branches.length ? (
                                             <a href="#branches">{inst.branches.length} Branch(es)</a>
                                         ): null}
                                     </div>
@@ -197,7 +197,7 @@ export default class InstituteDetails extends React.Component {
                                         </div>
                                     </div>
                                 ) : null}
-                                {inst.branches.length ?
+                                {inst.branches && inst.branches.length ?
                                 <div id="branches" className="profile-section border-bottom-think">
                                     <h3 className="text-display-1">Branches</h3>
                                     <div className="profile-sub-section">

@@ -1,0 +1,23 @@
+.Select.search-suggest{
+    text-align: left;
+}
+.Select.search-suggest.Select-sm{
+    font-size: $font-size-base;
+    .Select-control{
+        border-radius: 0;
+        height: 38px;
+        //
+        .Select-value, .Select-placeholder, .Select-input{
+            padding: 2px 10px;
+            padding-right: 25px;
+
+        }
+        //
+        //.Select-input{
+        //    height: 52px;
+        //}
+        //.Select-value{
+        //    padding-right: 45px;
+        //}
+    }
+}

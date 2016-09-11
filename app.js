@@ -1,11 +1,11 @@
+require("babel-register");
+
 var redis = require("redis");
 var async = require('async');
 var config = require('config');
 var routes = require('./api');
 var _  = require('lodash');
 var path = require('path');
-
-require("babel-register");
 
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
@@ -33,6 +33,7 @@ require('./lib')(deps);
 async.eachSeries([
     'log',
     'mongodb',
+    'elastic',
     'app',
     'nodemailer'
 ], function(item, done){
