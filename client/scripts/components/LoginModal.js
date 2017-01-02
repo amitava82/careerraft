@@ -149,7 +149,7 @@ export default class LoginModal extends React.Component {
         return (
             <Modal show={true} onHide={this.close} dialogClassName="login-modal" bsSize="sm">
                 <Modal.Header closeButton>
-                    <Modal.Title>LOG IN TO CAREERRAFT</Modal.Title>
+                    <Modal.Title>LOG IN TO EDUCATION ALLEY</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {session_store.error && <div className="alert alert-danger sm">{session_store.error.message}</div>}
@@ -157,7 +157,7 @@ export default class LoginModal extends React.Component {
                     <div className="row">
                         <div className="col-xs-12">
                             <p className="sm">
-                                By logging in, you agree to Careerraft's <a href="/terms">Terms of Service</a>, and <a href="/privacy">Privacy Policy</a>.
+                                By logging in, you agree to Education Alley's <a href="/terms">Terms of Service</a>, and <a href="/privacy">Privacy Policy</a>.
                             </p>
                         </div>
                     </div>

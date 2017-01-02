@@ -185,13 +185,16 @@ nav.navbar{
     font-size: 1.4rem;
     box-shadow: 0 1px 2px rgba(0,0,0,.3);
     .brand.navbar-brand {
-        padding-top: 15px;
+        padding: 0;
         text-transform: uppercase;
         width: 200px;
         font-size: 24px;
         font-weight: 900;
         color: #444;
         -webkit-font-smoothing: antialiased;
+        img{
+            height: 50px;
+        }
         > span:nth-child(2) {
             font-weight: 300;
             padding-left: 2px;

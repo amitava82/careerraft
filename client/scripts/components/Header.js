@@ -226,7 +226,7 @@ export default class Header extends React.Component {
                 <Navbar.Header>
                     <Navbar.Brand className="brand">
                         <Link to="/">
-                            Career<span>raft</span><span className="beta-badge">beta</span>
+                            <img src="/images/logo_small.png" />
                         </Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />

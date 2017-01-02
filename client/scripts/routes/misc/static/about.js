@@ -8,12 +8,12 @@ export default class About extends React.Component {
     render() {
         return (
             <div className="about-page">
-                <Helmet title="Careerraft :: About us"/>
+                <Helmet title="Education Alley :: About us"/>
                 <div className="hero-unit">
                     <div className="page-inner container">
                         <div className="row">
                             <div className="col-xs-10">
-                                <h3 className="text-display-2">About Careerraft</h3>
+                                <h3 className="text-display-2">About Education Alley</h3>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ export default class About extends React.Component {
                                 <p>
                                     Whether you are just starting your research, want to narrow down your options, or have a specific
 
-                                    question, Careerraft can help.
+                                    question, Education Alley can help.
                                 </p>
                                 <h6 className="text-title">Read advice online and ask the experts</h6>
                                 <p>
@@ -46,7 +46,7 @@ export default class About extends React.Component {
                                 <h6 className="text-title">Search and compare institutes</h6>
                                 <p>
                                     Search detailed, unbiased information about education institutes and resources.
-                                    Careerraft aggregates
+                                    Education Alley aggregates
 
                                     data from the most trusted sources so you can spend less time digging through websites and more time
 

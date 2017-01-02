@@ -41,10 +41,10 @@ export default class HomeContainer extends React.Component {
 
         return (
             <div className="home-page">
-                <Helmet title="Careerraft - Search better, Learn better" />
+                <Helmet title="Education Alley - Search better, Learn better" />
                 <Hero  />
                 <div className="teach-hint">
-                    Are you an individual or running a training center? <Link to="/educator">Learn how Careerraft can help you.</Link>
+                    Are you an individual or running a training center? <Link to="/educator">Learn how Education Alley can help you.</Link>
                 </div>
                 <div id="features" className="features container-fluid">
                     <div className="row">

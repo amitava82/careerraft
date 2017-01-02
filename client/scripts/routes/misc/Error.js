@@ -9,7 +9,7 @@ export default class NotFound extends React.Component{
     render(){
         return (
             <div>
-                <Helmet title="Error - Careerraft" />
+                <Helmet title="Error - Education Alley" />
                 <div className="container">
                     <div className="row">
                         <div className="text-center">

@@ -4,7 +4,7 @@
 var config = require('config');
 import {KEYWORDS} from './constants';
 export default function html(markup, initialState, helmet){
-    const title = helmet.title.toString() || 'Careerraft';
+    const title = helmet.title.toString() || 'Education Alley';
     return (
         `
     <!DOCTYPE html>
@@ -15,8 +15,8 @@ export default function html(markup, initialState, helmet){
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="keywords" content="${KEYWORDS}">
             ${helmet.meta.toString()}
-            <meta name="author" content="Careerraft">
-            <meta name="copyright" content="(c) 2016 Careerraft Inc.">
+            <meta name="author" content="Education Alley">
+            <meta name="copyright" content="(c) 2016 Education Alley Inc.">
             <meta name="google-site-verification" content="crKFLzwTjXhbwYDN0a6swogBz2mgXyZSPAu60iwd4rc">
             <link href='/static/css/client${process.env.NODE_ENV == 'production' ? '.min' : ''}.css' rel='stylesheet' type='text/css'>
             <script type="application/javascript">

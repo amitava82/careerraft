@@ -8,7 +8,7 @@ export default class CoreValues extends React.Component {
     render(){
         return (
             <div className="values-page">
-                <Helmet title="Careerraft :: Our core values" />
+                <Helmet title="Education Alley :: Our core values" />
                 <div className="hero-unit">
                     <div className="page-inner container">
                         <div className="row">

@@ -42,7 +42,7 @@ export default class HomeContainer extends React.Component {
 
         return (
             <div className="admin-page">
-                <Helmet title="Careerraft admin page" />
+                <Helmet title="Education Alley admin page" />
                 <div className="container">
                     <div className="row">
                         <aside className="col-md-3">

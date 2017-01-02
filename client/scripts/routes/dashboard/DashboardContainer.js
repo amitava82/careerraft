@@ -53,7 +53,7 @@ export default class HomeContainer extends React.Component {
 
         return (
             <div className="dashboard-page">
-                <Helmet title="Dashboard - Careerraft" />
+                <Helmet title="Dashboard - Education Alley" />
                 <div className="container content-body">
                     <div className="row">
                         <div className="col-md-3">

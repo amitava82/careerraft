@@ -125,7 +125,7 @@ export default class SearchContainer extends React.Component {
 
     render() {
         const query = this.props.location.query.q;
-        const pageTitle = query ? `Search for ${query} - Careerraft` : "Careerraft - Search for institutes, classes, courses, subjects";
+        const pageTitle = query ? `Search for ${query} - Education Alley` : "Education Alley - Search for institutes, classes, courses, subjects";
 
         const {search_store} = this.props;
 

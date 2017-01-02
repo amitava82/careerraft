@@ -89,7 +89,7 @@ export default class InstituteDetails extends React.Component {
         });
 
         const pathname = this.props.routing.location.pathname;
-        const _url = 'https://www.careerraft.com'+ pathname
+        const _url = 'https://www.educationalley.in'+ pathname
 
         return (
             <div className="inst-profile">

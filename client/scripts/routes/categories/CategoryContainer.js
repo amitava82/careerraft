@@ -34,7 +34,7 @@ export default class CategoryContainer extends React.Component {
 
         return (
             <div className="course-page">
-                <Helmet title="Careerraft - Courses" />
+                <Helmet title="Education Alley - Courses" />
                 <div className="hero-unit">
                     <div className="container">
                         <div className="row">

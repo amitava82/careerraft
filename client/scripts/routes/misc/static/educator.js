@@ -9,7 +9,7 @@ export default class Educator extends React.Component {
     render(){
         return (
             <div className="educator-page">
-                <Helmet title="Careerraft :: Learn how Careerraft can help you." />
+                <Helmet title="Education Alley :: Learn how Education Alley can help you." />
                 <div className="hero-unit">
                     <div className="container">
                         <div className="row">
@@ -21,11 +21,11 @@ export default class Educator extends React.Component {
                 </div>
                 <div className="content-body container">
                     <div className="page-inner m-tl col-xs-12">
-                        <h5 className="text-headline">Create your Careerraft profile and reach more students</h5>
+                        <h5 className="text-headline">Create your Education Alley profile and reach more students</h5>
                         <article>
                             A modern Institute needs a modern online presence to reach maximum students. Move beyond your
 
-                            Facebook page or basic website to create your own customized institute profile on Careerraft,
+                            Facebook page or basic website to create your own customized institute profile on Education Alley,
 
                             exclusively designed for educational institutes like yours. Showcase your courses, your outstanding
 
@@ -41,7 +41,7 @@ export default class Educator extends React.Component {
                             <div className="col-md-4">
                                 <i className="fa fa-file-text" />
                                 <p className="lead">Create Institute Profile</p>
-                                <p>Get ready to be discovered and enhance your enrollment through your institute profile on Careerraft.</p>
+                                <p>Get ready to be discovered and enhance your enrollment through your institute profile on Education Alley.</p>
                             </div>
                             <div className="col-md-4">
                                 <i className="fa fa-users" />
@@ -51,7 +51,7 @@ export default class Educator extends React.Component {
                             <div className="col-md-4">
                                 <i className="fa fa-certificate" />
                                 <p className="lead">Get Featured</p>
-                                <p>Get featured on Careerraft and be visible to all those potential students looking for your expertise.</p>
+                                <p>Get featured on Education Alley and be visible to all those potential students looking for your expertise.</p>
                             </div>
                         </div>
                         <div className="ft-list">
@@ -60,7 +60,7 @@ export default class Educator extends React.Component {
                                 <p>
                                     We help you fill seats in your class with new students and help you generate additional revenue.
 
-                                    Through Careerraft you can reach to a wider market, which traditional marketing methods fall short of
+                                    Through Education Alley you can reach to a wider market, which traditional marketing methods fall short of
 
                                     reaching.
                                 </p>
@@ -69,15 +69,15 @@ export default class Educator extends React.Component {
                                 <h6 className="text-title">Book Demo Class</h6>
                                 <p>
                                     Our research has shown that those students who book the demo class are more likely to join the classes.
-                                    Hence we provide the facility of booking demo class through Careerraft.
+                                    Hence we provide the facility of booking demo class through Education Alley.
                                 </p>
                             </div>
                             <div>
                                 <h6 className="text-title">Get Featured</h6>
                                 <p>
-                                    Thousands of students visit Careerraft every day in search of the quality classes going on in their
+                                    Thousands of students visit Education Alley every day in search of the quality classes going on in their
 
-                                    surroundings. It’s your chance to get featured on the home page of Careerraft and be visible to all those
+                                    surroundings. It’s your chance to get featured on the home page of Education Alley and be visible to all those
 
                                     potential students looking for your expertise.
                                 </p>
@@ -85,11 +85,11 @@ export default class Educator extends React.Component {
                             <div>
                                 <h6 className="text-title">Online Payment and Booking</h6>
                                 <p>
-                                    Careerraft promotes online admission and online fees payment facility for booking of your classes
+                                    Education Alley promotes online admission and online fees payment facility for booking of your classes
 
                                     through all major payment methods (Net Banking, Credit/Debit Cards, PayU Money). We transfer the
 
-                                    fees within 48 hours into your account with a minimum internet handling charges at Careerraft’s side.
+                                    fees within 48 hours into your account with a minimum internet handling charges at Education Alley’s side.
                                 </p>
                             </div>
                         </div>

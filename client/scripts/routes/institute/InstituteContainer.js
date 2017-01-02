@@ -114,7 +114,7 @@ export default class SearchContainer extends React.Component {
             </div>
         );
 
-        const title = inst ? `${inst.name} - Careerraft` : 'Careerraft';
+        const title = inst ? `${inst.name} - Education Alley` : 'Education Alley';
 
         return (
             <div className="inst-page">

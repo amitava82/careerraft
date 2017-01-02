@@ -8,7 +8,7 @@ export default class Team extends React.Component {
     render(){
         return (
             <div className="team-page">
-                <Helmet title="Careerraft :: Team" />
+                <Helmet title="Education Alley :: Team" />
                 <div className="hero-unit">
                     <div className="container">
                         <div className="row">
@@ -27,7 +27,7 @@ export default class Team extends React.Component {
                             <div className="col-md-9">
                                 <h4 className="text-headline">Atul Tiwari</h4>
                                 <article>
-                                    Atul is the founder of Careerraft. His dream is to re-imagine education in a truly ‘student-first’ way and
+                                    Atul is the founder of Education Alley. His dream is to re-imagine education in a truly ‘student-first’ way and
 
                                     unlock the true potential of student.
                                     <br />
@@ -55,15 +55,15 @@ export default class Team extends React.Component {
                             <div className="col-md-9">
                                 <h4 className="text-headline">Amitava Saha</h4>
                                 <article>
-                                    Amitava is the Co-Founder and CTO at Careerraft. He oversees all things tech,
+                                    Amitava is the Co-Founder and CTO at Education Alley. He oversees all things tech,
 
-                                    including infrastructure, application management, and IT. Before Careerraft, Amitava has worked with several startups
+                                    including infrastructure, application management, and IT. Before Education Alley, Amitava has worked with several startups
                                     in medical, IT, SaaS domain and has expertise in both frontend and backend technologies.
                                     <br />
 
                                     Fascinated by small ideas that turned into global powerhouses, and innovation, simplicity, and the
 
-                                    potential of technology have always been his passions. Careerraft is a both a passion and a dream come
+                                    potential of technology have always been his passions. Education Alley is a both a passion and a dream come
 
                                     true for him.
 
@@ -86,15 +86,15 @@ export default class Team extends React.Component {
                             <div className="col-md-9">
                                 <h4 className="text-headline">Abhishek Kundan</h4>
                                 <article>
-                                    Abhishek is the Co-Founder and Chief Financial Officer at Careerraft. In addition to taking care of the
+                                    Abhishek is the Co-Founder and Chief Financial Officer at Education Alley. In addition to taking care of the
 
                                     company’s financial and legal side, he is also involved in General Management and Leadership
 
-                                    Development. Abhishek also spearheads all Careerraft Joint Venture and M&A processes.
+                                    Development. Abhishek also spearheads all Education Alley Joint Venture and M&A processes.
 
                                     <br />
 
-                                    Before Careerraft, Abhishek worked with IBM and Fintellix (earlier iCreate Softwares), handling many
+                                    Before Education Alley, Abhishek worked with IBM and Fintellix (earlier iCreate Softwares), handling many
 
                                     portfolios clients in Banking sector.
 

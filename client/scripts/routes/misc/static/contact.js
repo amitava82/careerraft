@@ -60,7 +60,7 @@ export default class Contact extends React.Component {
         const {fields: {name, email, telephone, message}, error, handleSubmit, submitting} = this.props;
         return (
             <div className="contact-page">
-                <Helmet title="Careerraft :: Contact us" />
+                <Helmet title="Education Alley :: Contact us" />
                 <div className="hero-unit">
                     <div className="container">
                         <div className="row">
@@ -87,7 +87,7 @@ export default class Contact extends React.Component {
                                     <strong><i className="fa fa-phone"></i> Telephone:</strong> +91-8147267399
                                 </p>
                                 <p>
-                                    <strong><i className="fa fa-envelope-o"></i> Email:</strong> <a href="mailto:aloha@careerraft.com">aloha@careerraft.com</a>
+                                    <strong><i className="fa fa-envelope-o"></i> Email:</strong> <a href="mailto:go@educationalley.in">go@educationalley.in</a>
                                 </p>
                             </div>
                             <div className="col-md-6">
