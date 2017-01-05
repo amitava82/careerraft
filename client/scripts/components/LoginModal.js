@@ -118,7 +118,7 @@ export default class LoginModal extends React.Component {
             const returnPath = get(this.props.session_store, 'previousLocation.pathname', '');
             content = (
                 <div className="row m-bl">
-                    <Helmet title="Careerraft - Login" />
+                    <Helmet title="Education Alley - Login" />
                     <div className="col-xs-12">
                         {msg ? (
                             <div className="alert alert-info sm">
@@ -226,7 +226,7 @@ class LoginForm extends React.Component{
 
         return (
             <div className="col-xs-12">
-                <Helmet title="Careerraft - Login" />
+                <Helmet title="Education Alley - Login" />
                 {content}
             </div>
         )
@@ -245,7 +245,7 @@ class SignupForm extends React.Component{
 
         return (
             <div className="col-xs-12">
-                <Helmet title="Careerraft - Signup" />
+                <Helmet title="Education Alley - Signup" />
                 <form onSubmit={handleSubmit}>
                     <p className="text-subhead">Signup for an account. It takes less than a minute!</p>
                     <Input type="text" field={name} placeholder="Your full name"/>

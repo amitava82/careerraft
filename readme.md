@@ -1,5 +1,5 @@
-Careerraft Application
-======================
+Education alley
+===============
 
 All begins here.
 

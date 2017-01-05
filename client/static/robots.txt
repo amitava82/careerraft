@@ -3,4 +3,4 @@ Disallow: /admin
 Disallow: /error
 Disallow: /dashboard
 
-Sitemap: http://www.careerraft.com/sitemap.xml
+Sitemap: http://www.educationalley.in/sitemap.xml
