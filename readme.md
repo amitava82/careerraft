@@ -1,11 +1,12 @@
 Education alley
 ===============
 
-All begins here.
+A dead platform to aggregate education institudes across country.
 
 Stack:
     NodeJS
     Express
     MongoDB
-    React
+    Elastic Search
+    React with SSR
         
